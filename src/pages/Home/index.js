@@ -1,10 +1,10 @@
-import HomeSection from "~/components/home_section/HomeSection";
+import HomeSection from "~/components/HomeSection";
 
 function Home(){
 
     return(
         <>
-            <div style={{minHeight: "100vh", paddingTop: 79}}>
+            <div style={{minHeight: "100vh"}}>
                 <HomeSection/>
             </div>
         </>

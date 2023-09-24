@@ -1,9 +1,10 @@
 import logo from "~/assets/images/logo.png"
 import {useEffect, useState} from "react";
+import cx from "clsx"
 
 function Header() {
     const [headOfPage, setHeadOfPage] = useState(true)
-
+    const [mobileActive, setMobileActive] = useState(false)
 
     const scrollCallback = (event) => {
         const scrollTop = event.target.scrollingElement.scrollTop
@@ -19,10 +20,12 @@ function Header() {
         }
     }, [])
 
+    const toggleMenu = () => {
+        setMobileActive(prevState => !prevState)
+    }
     return (
         <>
             <div className="header_absolute ">
-
                 <section className="page_topline ds s-py-30 ">
                     <div className="container">
                         <div className="row align-items-center">
@@ -35,7 +38,7 @@ function Header() {
                             <div
                                 className="col-xl-6 col-lg-8 col-md-8 some-links text-center text-lg-right d-flex justify-content-center justify-content-md-end align-items-center mt-2 mt-md-0">
                                 <a className="fs-24 links-maincolor-hover font-2" href="tel:+88003532455">
-                                    <mark>8 800 </mark>
+                                    <mark>8 800</mark>
                                     353-24-55</a>
                                 <a href="" className="btn btn-outline-maincolor btn-medium  d-none d-md-block">
                                     Book Reading Now
@@ -45,11 +48,14 @@ function Header() {
                     </div>
                 </section>
 
-                {/*Follow header*/}
-                <div className={"page_header_wrapper ds ms " + (headOfPage ? "affix-top-wrapper" : "affix-wrapper")}
-                     style={{height: 80}}>
-                    <header
-                        className={"page_header ds ms s-overlay justify-nav-start " + (headOfPage ? "affix-top" : "affix")}>
+                {/*Follow Header*/}
+                <div className={cx("page_header_wrapper ds ms")}>
+                    <header className={cx(
+                        "page_header ds ms s-overlay justify-nav-start"
+                        , {"affix-top": headOfPage}
+                        , {"affix": !headOfPage}
+                        , {"mobile-active": mobileActive})
+                    }>
                         <div className="container">
                             <div className="row align-items-center">
                                 <div className="col-xl-9 col-1 order-2 order-xl-1">
@@ -257,7 +263,6 @@ function Header() {
                                                         </ul>
                                                     </div>
                                                 </li>
-
 
                                                 <li>
                                                     <a href="about.html">Pages</a>
@@ -584,7 +589,6 @@ function Header() {
                                                 </li>
                                             </ul>
 
-
                                         </nav>
 
                                     </div>
@@ -606,7 +610,7 @@ function Header() {
                                 </div>
                             </div>
                         </div>
-                        <span className="toggle_menu"><span></span></span>
+                        <span onClick={toggleMenu} className={cx("toggle_menu", {"mobile-active": mobileActive})}><span></span></span>
                     </header>
                 </div>
             </div>

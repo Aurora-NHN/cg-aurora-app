@@ -1,10 +1,12 @@
 import horoscope from "~/assets/images/horoscope.png"
 import {Link} from "react-router-dom";
+import clsx from "clsx";
+
 function HomeSection(){
 
     return(
         <>
-            <section className="ds section-home s-py-90 s-pb-lg-80 s-pt-xl-150 s-pb-xl-140">
+            <section className={clsx("ds section-home s-py-90 s-pb-lg-80 s-pt-xl-150 s-pb-xl-140")}>
                 <div className="container">
                     <div className="divider-50 divider-xl-65"></div>
                     <div className="row align-center">

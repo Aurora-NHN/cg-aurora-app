@@ -1,7 +1,7 @@
 /*
 ** Side Header
 */
-/* side header layout */
+/* side Header layout */
 
 body {
   &:after {
@@ -30,7 +30,7 @@ body:after,
   transition-property: left, margin-left;
 }
 
-//push side header
+//push side Header
 body.active-side-header {
 
   //disable scrolling when push_header is active
@@ -64,12 +64,12 @@ html.html-active-push-header {
   top: 0;
   bottom: 0;
 
-  //shadow for slide header
+  //shadow for slide Header
   &.active-slide-side-header {
     box-shadow: 0 0 4px 3px rgba(50, 50, 50, 0.05);
   }
 
-  //hidding regular menu toggler in side header exists
+  //hidding regular menu toggler in side Header exists
   & ~ .page_toplogo {
     .toggle_menu {
       display: none;
@@ -126,7 +126,7 @@ html.html-active-push-header {
   padding: 26px 0 60px;
 }
 
-//side header toggler
+//side Header toggler
 .toggle_menu_side {
   transition: right 0.3s ease-in-out;
   position: absolute;
@@ -160,7 +160,7 @@ html.html-active-push-header {
   }
 }
 
-//toggler for sticked left header
+//toggler for sticked left Header
 .page_header_side.header_side_sticked .toggle_menu_side {
   transition: $headerTransition;
   right: -60px;
@@ -171,7 +171,7 @@ html.html-active-push-header {
   left: 0;
 }
 
-//fix for animation on affix header with push side header
+//fix for animation on affix Header with push side Header
 .active-side-header .boxed .header_push ~ div .page_header,
 .active-side-header .header_push ~ div .page_header.affix {
   margin-left: $sideHeaderWidth;

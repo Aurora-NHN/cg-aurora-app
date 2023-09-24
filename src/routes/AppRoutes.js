@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import {ROUT_DATA} from "./routeData";
-import Home from "~/pages/home/Home";
+import Home from "~/pages/Home";
 
 function AppRoutes(){
 
