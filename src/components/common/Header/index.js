@@ -8,9 +8,9 @@ function Header() {
 
     const getLoaderScrollImage = (event) => {
         const HEAD_PAGE_TO_SPINNER_HEIGHT = 120;
-        const scrollTop = event.target.scrollingElement.scrollTop;
-        if (scrollTop > HEAD_PAGE_TO_SPINNER_HEIGHT) setHeadOfPage(false);
-        if (scrollTop < HEAD_PAGE_TO_SPINNER_HEIGHT) setHeadOfPage(true);
+        const scrollToTop = event.target.scrollingElement.scrollTop;
+        if (scrollToTop > HEAD_PAGE_TO_SPINNER_HEIGHT) setHeadOfPage(false);
+        if (scrollToTop < HEAD_PAGE_TO_SPINNER_HEIGHT) setHeadOfPage(true);
     }
 
     useEffect(() => {
