@@ -7,9 +7,10 @@ function Header() {
     const [mobileActive, setMobileActive] = useState(false)
 
     const getLoaderScrollImage = (event) => {
-        const scrollToTop = event.target.scrollingElement.scrollTop
-        if (scrollToTop > 150) setHeadOfPage(false)
-        if (scrollToTop < 150) setHeadOfPage(true)
+        const HEAD_PAGE_TO_SPINNER_HEIGHT = 120;
+        const scrollToTop = event.target.scrollingElement.scrollTop;
+        if (scrollToTop > HEAD_PAGE_TO_SPINNER_HEIGHT) setHeadOfPage(false);
+        if (scrollToTop < HEAD_PAGE_TO_SPINNER_HEIGHT) setHeadOfPage(true);
     }
 
     useEffect(() => {
