@@ -6,31 +6,31 @@ function Header() {
     const [headOfPage, setHeadOfPage] = useState(true)
     const [mobileActive, setMobileActive] = useState(false)
 
-    const scrollCallback = (event) => {
+    const getLoaderScrollImage = (event) => {
         const scrollTop = event.target.scrollingElement.scrollTop
         if (scrollTop > 120) setHeadOfPage(false)
         if (scrollTop < 120) setHeadOfPage(true)
     }
 
     useEffect(() => {
-        window.addEventListener("scroll", scrollCallback)
+        window.addEventListener("scroll", getLoaderScrollImage)
 
         return () => {
-            window.removeEventListener("scroll", scrollCallback)
+            window.removeEventListener("scroll", getLoaderScrollImage)
         }
     }, [])
 
     const toggleMenu = () => {
         setMobileActive(prevState => !prevState)
     }
-    return (
+    return(
         <>
             <div className="header_absolute ">
                 <section className="page_topline ds s-py-30 ">
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-xl-6 col-lg-4 col-md-4 text-lg-left text-center">
-                                <a href="./" className="logo">
+                                <a href="" className="logo">
                                     <img src={logo} alt="img"/>
                                     <span className="logo-text color-darkgrey">vedi</span>
                                 </a>
