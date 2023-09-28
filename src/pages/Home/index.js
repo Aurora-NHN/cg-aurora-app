@@ -1,4 +1,4 @@
-import HomeSection from "src/components/common/HomeSection";
+import HomeSection from "src/components/HomeSection";
 
 function Home(){
 

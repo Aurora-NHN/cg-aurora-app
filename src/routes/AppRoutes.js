@@ -1,6 +1,5 @@
 import {Route, Routes} from "react-router-dom";
 import {ROUT_DATA} from "./routeData";
-import Home from "~/pages/Home";
 
 function AppRoutes(){
 
@@ -9,7 +8,8 @@ function AppRoutes(){
             {
                 ROUT_DATA.map((route, index) => {
                     const Layout = route.layout
-                    return <Route key={index} path={"/"} element={<Layout><Home/></Layout>}/>
+                    const Page = route.element
+                    return <Route key={index} path={route.path} element={<Layout><Page/></Layout>}/>
                 })
             }
 
