@@ -30,6 +30,13 @@
   }
 }
 
+.scroll-bar-sm{
+  overflow-y: auto;
+  &::-webkit-scrollbar{width: 2px;background-color: transparent;}
+  &::-webkit-scrollbar-track{background-color: transparent;}
+  &::-webkit-scrollbar-thumb{background-color: #bbbbbb;}
+}
+
 .scroll-element {
   box-sizing: content-box;
   display: none;

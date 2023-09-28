@@ -110,6 +110,18 @@
 
 }
 
+.page_header_wrapper{
+  &:before{
+    content: "";
+    height: 1px;
+    background: linear-gradient(90deg, #790643, #fff,#790643);
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    left: 0;
+    right: 0;
+  }
+}
 //other Header sections
 .page_topline {
   line-height: 1.4;

@@ -1188,10 +1188,10 @@
         margin-bottom: 0;
       }
       a {
-        & > img {
+        & img {
           position: absolute;
           left: 0;
-          max-width: 100px;
+          max-width: 100px !important;
         }
       }
     }
