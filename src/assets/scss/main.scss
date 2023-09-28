@@ -5,7 +5,7 @@
 @import 'variables_template';
 //table of contents and colors comments
 @import 'table_of_contents';
-//common styles for elements
+//commons styles for elements
 @import 'common';
 //styled lists
 @import 'lists';
@@ -16,27 +16,27 @@
 //bootstrap addons
 @import 'addons';
 @import 'sections_corners';
-//addons common .ls and .ls.ms
+//addons commons .ls and .ls.ms
 @import 'color_sections/ls';
 //theme .ls and .ls.ms
 @import 'section_light';
 @import 'section_grey';
-//addons common .ds
+//addons commons .ds
 @import 'color_sections/ds';
 //theme .ds
 @import 'section_dark';
-//addons common .cs
+//addons commons .cs
 @import 'color_sections/cs';
 //theme .cs
 @import 'section_color';
-//common components helpers - bootstrap addons
+//commons components helpers - bootstrap addons
 @import 'helpers';
 @import 'shortcodes';
 @import 'widgets';
 @import 'social_icons';
 @import 'wordpress/required';
 @import 'wordpress/pagination';
-//@import 'shop';
+@import 'shop';
 @import 'menu';
 @import 'header';
 @import 'header_side';
