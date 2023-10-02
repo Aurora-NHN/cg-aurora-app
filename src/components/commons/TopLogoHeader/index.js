@@ -14,7 +14,7 @@ const TopLogoHeader = () => {
                                 <div className="d-flex justify-content-center justify-content-lg-start">
                                     <a href="../../pages" className="logo">
                                         <img src={logo} alt="img"/>
-                                        <span className="logo-text color-darkgrey">vedi</span>
+                                        <span className="logo-text color-darkgrey">AURORA</span>
                                     </a>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@ const TopLogoHeader = () => {
                                             <strong>Open Hours</strong>
                                         </h4>
                                         <p>
-                                            Mon-Fri: 9-17; Sat: 9-20; Sun: Off
+                                            Mon-Fri: 9am-17pm; Sat: 9am-20pm; Sun: Off
                                         </p>
                                     </div>
                                 </div>
@@ -41,10 +41,10 @@ const TopLogoHeader = () => {
                                     </div>
                                     <div className="media-body">
                                         <h4 className="fs-20 mt-0">
-                                            <strong>1-800-123-4567</strong>
+                                            <strong>AURORA SHOP</strong>
                                         </h4>
                                         <p>
-                                            Some Street, 123, Your City
+                                            21K Nguyễn Văn Trỗi, Nhú Nhuận, HCM
                                         </p>
                                     </div>
                                 </div>
