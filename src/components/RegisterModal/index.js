@@ -126,7 +126,7 @@ const RegisterModal = () => {
                             value={registerData.gender || ""}
                             onChange={handleChange}
                           >
-                            <option value="Male" disabled selected hidden>
+                            <option value="Gender" disabled selected hidden>
                               Gender
                             </option>
                             <option value="Male">Male</option>
