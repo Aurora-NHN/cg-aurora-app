@@ -17,7 +17,7 @@ const TopLineHeader = () => {
                 <li>
                   <span>
                     <a
-                      href="src/components/Header#"
+                      href="#"
                       data-bs-target="#popupLogin"
                       data-bs-toggle="modal"
                     >
@@ -29,7 +29,7 @@ const TopLineHeader = () => {
                 <li>
                   <span>
                     <a
-                      href="src/components/Header#"
+                      href="#"
                       data-bs-target="#popupRegistr"
                       data-bs-toggle="modal"
                     >

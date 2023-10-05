@@ -1,7 +1,7 @@
-import Header from "~/components/Header";
-import Footer from "~/components/Footer";
-import LoginModal from "~/components/LoginModal";
-import RegisterModal from "~/components/RegisterModal";
+import Header from "~/components/commons/Header";
+import Footer from "~/components/commons/Footer";
+import LoginModal from "~/components/commons/LoginModal";
+import RegisterModal from "~/components/commons/RegisterModal";
 
 function GuestLayout({children}){
 
