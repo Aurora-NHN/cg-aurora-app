@@ -1,6 +1,6 @@
 import {BrowserRouter} from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes";
-import GlobalStyle from "./components/GlobalStyle";
+import GlobalStyle from "./components/commons/GlobalStyle";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 

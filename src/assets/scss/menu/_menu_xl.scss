@@ -3,12 +3,12 @@
 */
 .nav-wrap {
   display: flex;
-  //vertical align all nav content (logo, nav, Header buttons etc)
+  //vertical align all nav content (logo, nav, header buttons etc)
   align-items: center;
   justify-content: space-between;
   @media(min-width: 768px) and (max-width: 991px) {
   }
-  //Header includes that goes right after menu and before top-includes
+  //header includes that goes right after menu and before top-includes
   & > .top-nav + *:not(.top-includes) {
     padding-right: 30px;
   }

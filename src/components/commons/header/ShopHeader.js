@@ -4,7 +4,7 @@ import usFlag from "~/assets/images/flags/us.gif"
 import shop26 from "~/assets/images/shop/26.jpg"
 import shop37 from "~/assets/images/shop/37.jpg"
 import {Link} from "react-router-dom";
-import DynamicHeader from "~/components/commons/DynamicHeader";
+import DynamicHeader from "~/components/commons/header/DynamicHeader";
 
 const ShopHeader = ({loggedIn = false}) => {
     return (
@@ -17,14 +17,14 @@ const ShopHeader = ({loggedIn = false}) => {
 
                                 <li className="dropdown-currency">
                                     <div className="dropdown show">
-                                        <a className="dropdown-toggle" href="src/components/ShopHeader#" role="button" id="dropdown-currency"
+                                        <a className="dropdown-toggle" href="#" role="button" id="dropdown-currency"
                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             USD
                                         </a>
                                         <div className="dropdown-menu ls" aria-labelledby="dropdown-currency">
-                                            <a href="src/components/ShopHeader#">USD</a>
-                                            <a href="src/components/ShopHeader#">EUR</a>
-                                            <a href="src/components/ShopHeader#">GBP</a>
+                                            <a href="#">USD</a>
+                                            <a href="#">EUR</a>
+                                            <a href="#">GBP</a>
                                         </div>
                                     </div>
 
@@ -32,32 +32,32 @@ const ShopHeader = ({loggedIn = false}) => {
 
                                 <li className="dropdown-language">
                                     <div className="dropdown show">
-                                        <a className="dropdown-toggle" href="src/components/ShopHeader#" role="button" id="dropdown-language"
+                                        <a className="dropdown-toggle" href="#" role="button" id="dropdown-language"
                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <img src={usFlag} alt="img"/>
                                                 English
                                         </a>
                                         <div className="dropdown-menu ls" aria-labelledby="dropdown-language">
-                                            <a href="src/components/ShopHeader#"><img src="de.gif" alt="img"/> German</a>
-                                            <a href="src/components/ShopHeader#"><img src="us.gif" alt="img"/> English</a>
-                                            <a href="src/components/ShopHeader#"><img src="fr.gif" alt="img"/> French</a>
-                                            <a href="src/components/ShopHeader#"><img src="it.gif" alt="img"/> Italian</a>
+                                            <a href="#"><img src="de.gif" alt="img"/> German</a>
+                                            <a href="#"><img src="us.gif" alt="img"/> English</a>
+                                            <a href="#"><img src="fr.gif" alt="img"/> French</a>
+                                            <a href="#"><img src="it.gif" alt="img"/> Italian</a>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li className="dropdown-account">
                                     <div className="dropdown show">
-                                        <a className="dropdown-toggle" href="src/components/ShopHeader#" role="button" id="dropdown-account"
+                                        <a className="dropdown-toggle" href="#" role="button" id="dropdown-account"
                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fa fa-user"></i> My Account
                                         </a>
                                         <div className="dropdown-menu ls" aria-labelledby="dropdown-account">
-                                            <a href="src/components/ShopHeader#"><i className="fa fa-user"></i> My Account</a>
-                                            <a href="src/components/ShopHeader#"><i className="fa fa-heart-o"></i> Wishlist</a>
-                                            <a href="src/components/ShopHeader#"><i className="fa fa-shopping-basket"></i> Cart</a>
-                                            <a href="src/components/ShopHeader#"><i className="fa fa-edit"></i> Checkout</a>
-                                            <a href="src/components/ShopHeader#"><i className="fa fa-lock"></i> Logout</a>
+                                            <a href="#"><i className="fa fa-user"></i> My Account</a>
+                                            <a href="#"><i className="fa fa-heart-o"></i> Wishlist</a>
+                                            <a href="#"><i className="fa fa-shopping-basket"></i> Cart</a>
+                                            <a href="#"><i className="fa fa-edit"></i> Checkout</a>
+                                            <a href="#"><i className="fa fa-lock"></i> Logout</a>
                                         </div>
                                     </div>
                                 </li>
@@ -68,7 +68,7 @@ const ShopHeader = ({loggedIn = false}) => {
                         <div className="col-md-6 text-center text-lg-end">
                             <ul className="top-includes border-divided">
                                 <li>
-                                    <a href="src/components/ShopHeader#"><i className="fa fa-comment"></i> Start live chat</a>
+                                    <a href="#"><i className="fa fa-comment"></i> Start live chat</a>
                                 </li>
                                 <li>
                                     <i className="fa fa-phone color-darkgrey px-1"></i> <span
@@ -135,7 +135,7 @@ const ShopHeader = ({loggedIn = false}) => {
                                     <li>
 
                                         <div className="dropdown">
-                                            <a className="dropdown-toggle dropdown-shopping-cart" href="src/components/ShopHeader#" role="button"
+                                            <a className="dropdown-toggle dropdown-shopping-cart" href="#" role="button"
                                                id="dropdown-shopping-cart" data-bs-toggle="dropdown" aria-haspopup="true"
                                                aria-expanded="false">
                                                 <i className="fa fa-shopping-basket"></i>
@@ -151,7 +151,7 @@ const ShopHeader = ({loggedIn = false}) => {
 
                                                         <ul className="woocommerce-mini-cart cart_list product_list_widget ">
                                                             <li className="woocommerce-mini-cart-item mini_cart_item">
-                                                                <a href="src/components/ShopHeader#" className="remove"
+                                                                <a href="#" className="remove"
                                                                    aria-label="Remove this item" data-product_id="73"
                                                                    data-product_sku="">×</a>
                                                                 <a href="shop-product-right.html">
@@ -168,7 +168,7 @@ const ShopHeader = ({loggedIn = false}) => {
 																</span>
                                                             </li>
                                                             <li className="woocommerce-mini-cart-item mini_cart_item">
-                                                                <a href="src/components/ShopHeader#" className="remove"
+                                                                <a href="#" className="remove"
                                                                    aria-label="Remove this item" data-product_id="76"
                                                                    data-product_sku="">×</a>
                                                                 <a href="shop-product-right.html">

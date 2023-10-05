@@ -1,7 +1,7 @@
 import Home from "../pages/Home";
-import GuestLayout from "~/components/layout/GuestLayout";
+import GuestLayout from "~/layout/GuestLayout";
 import Shop from "~/pages/Shop";
-import ShopLayout from "~/components/layout/ShopLayout";
+import ShopLayout from "~/layout/ShopLayout";
 import Blog from "~/pages/Blog";
 
 export const ROUT_DATA = [

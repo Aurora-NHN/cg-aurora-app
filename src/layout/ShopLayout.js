@@ -1,6 +1,6 @@
-import ShopHeader from "~/components/ShopHeader";
+import ShopHeader from "~/components/commons/header/ShopHeader";
 import {useState} from "react";
-import Footer from "~/components/Footer";
+import Footer from "~/components/commons/Footer";
 
 const ShopLayout = ({children}) => {
     const [loggedIn, setLoggedIn] = useState(false);
