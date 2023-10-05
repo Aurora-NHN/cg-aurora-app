@@ -1,5 +1,5 @@
 /*
-** Header
+** header
 */
 
 .page_header {
@@ -33,12 +33,12 @@
     z-index: 1001;
     box-shadow: 0 2px 15px 0 rgba(100, 100, 100, 0.05);
     opacity: 0.98;
-    //remove bottom border for affixed Header with s-borderbottom class
+    //remove bottom border for affixed header with s-borderbottom class
     &:after {
       background-color: transparent;
     }
   }
-  //hidding top border on affixed Header
+  //hidding top border on affixed header
   &.affix.s-bordertop::before {
     display: none;
   }
@@ -50,22 +50,22 @@
     }
   }
 
-  //fix bug when refresh page at the bottom and Header goes down
+  //fix bug when refresh page at the bottom and header goes down
   &.affix-bottom {
     //!important is necessary
     top: 0 !important;
     position: fixed;
   }
 
-  //min height for mobile toggler be always on Header
-  //for prevent Header mobile menu toggler overlap bordered Header
+  //min height for mobile toggler be always on header
+  //for prevent header mobile menu toggler overlap bordered header
   // 62 - broken design on 60px color toggler - back to 60
   .row {
     min-height: 60px;
   }
 
 
-  //fix Header buttons dropdown
+  //fix header buttons dropdown
   .dropdown {
     //white-space: nowrap;
   }
@@ -80,9 +80,9 @@
   }
 }
 
-//when refreshing page - Header height is smaller because it is affixed
+//when refreshing page - header height is smaller because it is affixed
 //fixing
-//absolute Header when using Header on slider or on title (for parallax or image background)
+//absolute header when using header on slider or on title (for parallax or image background)
 .header_absolute {
   position: relative;
   .page_header,
@@ -122,7 +122,7 @@
     right: 0;
   }
 }
-//other Header sections
+//other header sections
 .page_topline {
   line-height: 1.4;
   .some-links{

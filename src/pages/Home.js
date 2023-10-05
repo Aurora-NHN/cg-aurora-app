@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import HomeSection from "src/components/HomeSection";
-import { selectUserLogin } from "~/features/user/userSlice";
+import HomeSection from "~/components/main/homepage/HomeSection";
+import { selectUserLogin } from "~/features/userSlice";
 
 function Home() {
   const userLogin = useSelector(selectUserLogin);
