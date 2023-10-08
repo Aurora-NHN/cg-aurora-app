@@ -1,22 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { login, register } from "~/apis/userAPI";
+import { forgotPassword } from "~/api/userAPI";
+import { logout } from "~/api/loginAPI";
 
 const initialState = {
   value: null,
   loading: false,
   error: null,
-  success: false,
+  forgotPasswordSuccess: false,
+  logoutSuccess: false,
+  token: localStorage.getItem("token"),
 };
 
-export const loginUser = createAsyncThunk("login", async (loginData) => {
-  const response = await login(loginData);
+export const forgotPasswordUser = createAsyncThunk("/forgot-password", async (email) => {
+  const response = await forgotPassword(email);
+//   if (response.status !== 200) {
+//     return rejectWithValue(response.data.message);
+//   }
   return response.data;
 });
 
-export const registerUser = createAsyncThunk(
-  "register",
-  async (registerData) => {
-    const response = await register(registerData);
+export const logoutUser = createAsyncThunk(
+  "/logout",
+  async () => {
+    console.log("logout here");
+    const response = await logout();
+    console.log(response);
+    console.log("logout here")
+    //   if (response.status !== 200) {
+    //     return rejectWithValue(response.data.message);
+    //   }
+
     return response.data;
   }
 );
@@ -32,56 +45,54 @@ export const userSlice = createSlice({
       state.error = action.payload;
     },
     setSuccess: (state, action) => {
-      state.success = action.payload;
-    },
-    setValue: (state, action) => {
-      state.value = action.payload;
+      state.forgotPasswordSuccess = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
-        state.success = false;
+      .addCase(forgotPasswordUser.pending, (state) => {
+        state.forgotPasswordSuccess = false;
         state.loading = true;
         state.error = false;
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.success = false;
+      .addCase(forgotPasswordUser.rejected, (state, action) => {
+        state.forgotPasswordSuccess = false;
         state.loading = false;
         state.error = action.error;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.success = true;
+      .addCase(forgotPasswordUser.fulfilled, (state, action) => {
+        state.forgotPasswordSuccess = true;
         state.loading = false;
         state.value = action.payload;
         state.error = false;
-        localStorage.setItem("token", action.payload.jwtToken);
       })
-      .addCase(registerUser.pending, (state) => {
-        state.success = false;
+      .addCase(logoutUser.pending, (state) => {
+        state.logoutSuccess = false;
         state.loading = true;
         state.error = false;
       })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.success = false;
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.logoutSuccess = false;
         state.loading = false;
         state.error = action.error;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.success = true;
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.logoutSuccess = true;
         state.loading = false;
+        state.value = action.payload;
         state.error = false;
+        localStorage.removeItem("token");
       });
   },
 });
 
-export const { setLoading, setError, setSuccess, setValue } = userSlice.actions;
+export const { setLoading, setError, setSuccess } = userSlice.actions;
 
 export const selectLoading = (state) => state.user.loading;
 export const selectError = (state) => state.user.error;
-export const selectSuccess = (state) => state.user.success;
-export const selectUserLogin = (state) => state.user.value;
-export const selectUserRegister = (state) => state.user.value;
+export const selectForgotPasswordSuccess = (state) => state.user.forgotPasswordSuccess;
+export const selectForgotPassword = (state) => state.user.value;
+export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
 
 export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
   const currentValue = selectLoading(getState());

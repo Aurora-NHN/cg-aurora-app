@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { findProducts } from "~/apis/productAPI";
+import { findProducts } from "~/api/productAPI";
 
 const initialState = {
   values: [],
@@ -55,6 +55,7 @@ export const selectLoading = (state) => state.product.loading;
 export const selectError = (state) => state.product.error;
 export const selectSuccess = (state) => state.product.success;
 export const selectProductList = (state) => state.product.values;
+
 export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
   const currentValue = selectLoading(getState());
   if (currentValue === isCalled) {

@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import HomeSection from "~/components/main/homepage/HomeSection";
-import { selectUserLogin } from "~/features/userSlice";
+import { selectUserLogin } from "~/features/loginSlice";
+import React from "react";
 
 function Home() {
   const userLogin = useSelector(selectUserLogin);
 
   useEffect(() => {
-    console.log("user");
-    console.log(userLogin);
+    // console.log("user");
+    // console.log(userLogin);
   }, [userLogin]);
   return (
     <>

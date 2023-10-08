@@ -12,7 +12,7 @@ const TopLogoHeader = () => {
                             <div className="me-auto">
 
                                 <div className="d-flex justify-content-center justify-content-lg-start">
-                                    <a href="../../pages" className="logo">
+                                    <a href="/" className="logo">
                                         <img src={logo} alt="img"/>
                                         <span className="logo-text color-darkgrey">AURORA</span>
                                     </a>
