@@ -4,6 +4,7 @@ import {
   selectAuthIsError,
   selectAuthIsLoading,
   selectRegisterSuccess,
+  setRegisterSuccess,
 } from "../../features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,10 +22,14 @@ const RegisterModal = () => {
   const closeModal = useRef();
 
   const handleRegisterSuccess = () => {
+    dispatch(setRegisterSuccess(false));
     toast.success("Register Success !", {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.SUCCESS,
     });
+    setTimeout(() => {
+      closeModal.current.click();
+    }, 200);
   };
 
   const handleRegisterFail = () => {
@@ -83,15 +88,13 @@ const RegisterModal = () => {
   };
 
   useEffect(() => {
-    if (!loadingRegister) {
-      if (successRegister) {
-        formik.resetForm();
-        handleRegisterSuccess();
-      } else if (errorRegister) {
-        handleRegisterFail();
-      }
+    if (successRegister) {
+      formik.resetForm();
+      handleRegisterSuccess();
+    } else if (errorRegister) {
+      handleRegisterFail();
     }
-  }, [loadingRegister]);
+  }, [successRegister, errorRegister]);
 
   const formik = useFormik({
     initialValues,
@@ -113,6 +116,7 @@ const RegisterModal = () => {
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content ds bs box-shadow bordered overflow-visible s-overlay s-mobile-overlay">
           <button
+            ref={closeModal}
             type="button"
             className="close"
             data-bs-dismiss="modal"

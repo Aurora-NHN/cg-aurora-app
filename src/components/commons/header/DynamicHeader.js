@@ -1,4 +1,6 @@
+
 import React, { memo, useEffect, useState } from "react";
+
 import cx from "clsx";
 import { Link } from "react-router-dom";
 
@@ -71,35 +73,7 @@ const DynamicHeader = ({ topHeaderHeight = 120 }) => {
                 </nav>
               </div>
             </div>
-            <div className="col-xl-3 col-9 order-1 order-xl-2 text-xl-right text-left">
-              <span className="social-icons">
-                <a
-                  href="https://www.facebook.com/"
-                  className="fa fa-facebook "
-                  title="facebook"
-                ></a>
-                <a
-                  href="https://twitter.com/"
-                  className="fa fa-twitter "
-                  title="twitter"
-                ></a>
-                <a
-                  href="https://www.linkedin.com/"
-                  className="fa fa-linkedin "
-                  title="linkedin"
-                ></a>
-                <a
-                  href="https://www.instagram.com/"
-                  className="fa fa-instagram "
-                  title="instagram"
-                ></a>
-                <a
-                  href="https://www.youtube.com/"
-                  className="fa fa-youtube-play "
-                  title="youtube"
-                ></a>
-              </span>
-            </div>
+            
           </div>
         </div>
         <span
@@ -109,6 +83,7 @@ const DynamicHeader = ({ topHeaderHeight = 120 }) => {
           <span></span>
         </span>
       </header>
+
       <div
         id="toTop"
         className={cx({ "d-inline": !headOfPage })}

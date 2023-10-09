@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { findProducts } from "~/api/productAPI";
+import {
+  findProducts,
+  findProductsByKeyWord,
+  findProductsSortByPriceDescending,
+  findProductsSortByPriceAscending,
+  findProductsBySubCategoryId,
+} from "~/api/productAPI";
 
 const initialState = {
   values: [],
@@ -9,10 +15,51 @@ const initialState = {
   success: false,
 };
 
-export const getProducts = createAsyncThunk("products", async (keyword) => {
-  const response = await findProducts(keyword);
+export const getProducts = createAsyncThunk("/products", async (pageNumber) => {
+  const response = await findProducts(pageNumber);
   return response.data.content;
 });
+
+export const getProductsBySubCategoryId = createAsyncThunk(
+  "/products/sub-category",
+  async ({ subCategoryId, pageNumber, sortOrder }) => {
+    const response = await findProductsBySubCategoryId(
+      subCategoryId,
+      pageNumber,
+      sortOrder
+    );
+    console.log(response);
+    return response.data.content;
+  }
+);
+
+export const getProductsByKeyword = createAsyncThunk(
+  "/products/search",
+  async ({ keyword, pageNumber, sortOrder }) => {
+    const response = await findProductsByKeyWord(
+      keyword,
+      pageNumber,
+      sortOrder
+    );
+    console.log(response);
+    return response.data.content;
+  }
+);
+
+export const getProductsSortByPriceDescending = createAsyncThunk(
+  "/products/sort/priceDescending",
+  async (pageNumber) => {
+    const response = await findProductsSortByPriceDescending(pageNumber);
+    return response.data.content;
+  }
+);
+export const getProductsSortByPriceAscending = createAsyncThunk(
+  "/products/sort/priceAscending",
+  async (pageNumber) => {
+    const response = await findProductsSortByPriceAscending(pageNumber);
+    return response.data.content;
+  }
+);
 
 export const productSlice = createSlice({
   name: "product",
@@ -45,6 +92,70 @@ export const productSlice = createSlice({
         state.loading = false;
         state.values = action.payload;
         state.error = false;
+      })
+      .addCase(getProductsBySubCategoryId.pending, (state) => {
+        state.success = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getProductsBySubCategoryId.rejected, (state, action) => {
+        state.success = false;
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getProductsBySubCategoryId.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.values = action.payload;
+        state.error = false;
+      })
+      .addCase(getProductsSortByPriceAscending.pending, (state) => {
+        state.success = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getProductsSortByPriceAscending.rejected, (state, action) => {
+        state.success = false;
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getProductsSortByPriceAscending.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.values = action.payload;
+        state.error = false;
+      })
+      .addCase(getProductsByKeyword.pending, (state) => {
+        state.success = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getProductsByKeyword.rejected, (state, action) => {
+        state.success = false;
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getProductsByKeyword.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.values = action.payload;
+        state.error = false;
+      })
+      .addCase(getProductsSortByPriceDescending.pending, (state) => {
+        state.success = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getProductsSortByPriceDescending.rejected, (state, action) => {
+        state.success = false;
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getProductsSortByPriceDescending.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.values = action.payload;
+        state.error = false;
       });
   },
 });
@@ -55,7 +166,6 @@ export const selectLoading = (state) => state.product.loading;
 export const selectError = (state) => state.product.error;
 export const selectSuccess = (state) => state.product.success;
 export const selectProductList = (state) => state.product.values;
-
 export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
   const currentValue = selectLoading(getState());
   if (currentValue === isCalled) {

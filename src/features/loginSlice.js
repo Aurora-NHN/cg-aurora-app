@@ -45,8 +45,10 @@ export const loginSlice = createSlice({
       state.errors = action.payload;
     },
     setLoginSuccess: (state, action) => {
-      console.log("set login success:  " + action.payload);
       state.loginSuccess = action.payload;
+    },
+    setRegisterSuccess: (state, action) => {
+      state.registerSuccess = action.payload;
     },
     setValue: (state, action) => {
       state.value = action.payload;
@@ -89,7 +91,7 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setLoginSuccess, setValue } =
+export const { setLoading, setError, setLoginSuccess, setRegisterSuccess, setValue } =
   loginSlice.actions;
 
 export const selectAuthIsLoading = (state) => state.login.loading;

@@ -2,7 +2,6 @@ import Header from "~/components/commons/Header";
 import Footer from "~/components/commons/Footer";
 import LoginModal from "~/components/commons/LoginModal";
 import RegisterModal from "~/components/commons/RegisterModal";
-import ForgotPassword from "~/components/commons/ForgotPassword";
 
 function GuestLayout({ children }) {
   return (

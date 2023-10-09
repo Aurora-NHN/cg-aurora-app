@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "~/assets/images/logo.png";
-import usFlag from "~/assets/images/flags/us.gif";
 import shop26 from "~/assets/images/shop/26.jpg";
 import shop37 from "~/assets/images/shop/37.jpg";
 import { Link } from "react-router-dom";
@@ -9,122 +8,6 @@ import DynamicHeader from "~/components/commons/header/DynamicHeader";
 const ShopHeader = ({ loggedIn = false }) => {
   return (
     <>
-      <section className="page_topline ds c-my-10 s-py-15 small-text">
-        <div className="container-fluid">
-          <div className="row align-items-center">
-            <div className="col-md-6 text-center text-lg-start">
-              <ul className="top-includes border-divided">
-                <li className="dropdown-currency">
-                  <div className="dropdown show">
-                    <a
-                      className="dropdown-toggle"
-                      href="#"
-                      role="button"
-                      id="dropdown-currency"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      USD
-                    </a>
-                    <div
-                      className="dropdown-menu ls"
-                      aria-labelledby="dropdown-currency"
-                    >
-                      <a href="#">USD</a>
-                      <a href="#">EUR</a>
-                      <a href="#">GBP</a>
-                    </div>
-                  </div>
-                </li>
-
-                <li className="dropdown-language">
-                  <div className="dropdown show">
-                    <a
-                      className="dropdown-toggle"
-                      href="#"
-                      role="button"
-                      id="dropdown-language"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <img src={usFlag} alt="img" />
-                      English
-                    </a>
-                    <div
-                      className="dropdown-menu ls"
-                      aria-labelledby="dropdown-language"
-                    >
-                      <a href="#">
-                        <img src="de.gif" alt="img" /> German
-                      </a>
-                      <a href="#">
-                        <img src="us.gif" alt="img" /> English
-                      </a>
-                      <a href="#">
-                        <img src="fr.gif" alt="img" /> French
-                      </a>
-                      <a href="#">
-                        <img src="it.gif" alt="img" /> Italian
-                      </a>
-                    </div>
-                  </div>
-                </li>
-
-                <li className="dropdown-account">
-                  <div className="dropdown show">
-                    <a
-                      className="dropdown-toggle"
-                      href="#"
-                      role="button"
-                      id="dropdown-account"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="fa fa-user"></i> My Account
-                    </a>
-                    <div
-                      className="dropdown-menu ls"
-                      aria-labelledby="dropdown-account"
-                    >
-                      <a href="#">
-                        <i className="fa fa-user"></i> My Account
-                      </a>
-                      <a href="#">
-                        <i className="fa fa-heart-o"></i> Wishlist
-                      </a>
-                      <a href="#">
-                        <i className="fa fa-shopping-basket"></i> Cart
-                      </a>
-                      <a href="#">
-                        <i className="fa fa-edit"></i> Checkout
-                      </a>
-                      <a href="#">
-                        <i className="fa fa-lock"></i> Logout
-                      </a>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-6 text-center text-lg-end">
-              <ul className="top-includes border-divided">
-                <li>
-                  <a href="#">
-                    <i className="fa fa-comment"></i> Start live chat
-                  </a>
-                </li>
-                <li>
-                  <i className="fa fa-phone color-darkgrey px-1"></i>{" "}
-                  <span className="color-main">1-800-123-4567</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="page_toplogo ds bs c-my-10 s-py-10">
         <div className="container-fluid">
@@ -132,7 +15,7 @@ const ShopHeader = ({ loggedIn = false }) => {
             <div className="col-lg-4 text-center text-lg-start">
               <Link to="/" className="logo">
                 <img src={logo} alt="img" />
-                <span className="logo-text color-darkgrey">vedi</span>
+                <span className="logo-text color-darkgrey">Aurora</span>
               </Link>
             </div>
 
@@ -279,9 +162,9 @@ const ShopHeader = ({ loggedIn = false }) => {
                             </p>
 
                             <div className="woocommerce-mini-cart__buttons buttons d-flex justify-content-around">
-                              <button className="button wc-forward">
+                              <Link to="/cart" className="button wc-forward">
                                 View cart
-                              </button>
+                              </Link>
                               <button className="button checkout wc-forward">
                                 Checkout
                               </button>

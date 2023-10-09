@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; 
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -27,38 +27,28 @@ const ForgotPassword = () => {
       email: Yup.string().required("Email is required"),
     }),
     onSubmit: (values) => {
-      dispatch(forgotPasswordUser(values));
-    //   navigate("/");
+       dispatch(forgotPasswordUser(values));
+      toast.success("Sending Email... !", {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.DEFAULT,
+      });
     },
   });
 
   useEffect(() => {
-    const resolveAfter3Sec = new Promise((resolve) =>
-      setTimeout(resolve, 3000)
-    );
-    toast.promise(resolveAfter3Sec, {
-      pending: "Send Email is pending!",
-      success: "Send Email success! ",
-      error: "Send Email Fail!",
-    });
-    // if (success) {
-    //   formik.resetForm();
-    //   toast.success("Send Email Success !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //     type: toast.TYPE.SUCCESS,
-    //   });
-    //   // navigate("/");
-    // } else if (error) {
-    //   toast.error("Send Email Fail !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //     type: toast.TYPE.ERROR,
-    //   });
-    // } else {
-    //   toast.promise("Loading Notification !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //     type: toast.TYPE.INFO,
-    //   });
-    // }
+    if (success) {
+      formik.resetForm();
+      toast.success("Send Email Success !", {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.SUCCESS,
+      });
+      navigate("/");
+    } else if (error) {
+      toast.error("Send Email Fail !", {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.ERROR,
+      });
+    } 
   }, [pending]);
 
   const handleReset = () => {
