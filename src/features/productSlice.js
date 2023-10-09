@@ -5,7 +5,7 @@ import {
   findProductsSortByPriceDescending,
   findProductsSortByPriceAscending,
   findProductsBySubCategoryId,
-} from "~/apis/productAPI";
+} from "~/api/productAPI";
 
 const initialState = {
   values: [],
