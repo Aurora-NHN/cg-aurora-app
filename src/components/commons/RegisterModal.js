@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const RegisterModal = () => {
@@ -291,7 +291,7 @@ const RegisterModal = () => {
                           type="reset"
                           onClick={handleReset}
                         >
-                          Login
+                          Already have an account? Login
                         </a>
                       </div>
                     </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -10,35 +10,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css"; 
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const success = useSelector(selectForgotPasswordSuccess);
-  const loading = useSelector(selectLoading);
+  const pending = useSelector(selectLoading);
   const error = useSelector(selectError);
-
-  function handleSuccess() {
-    toast.success("Send Email Success !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.SUCCESS,
-    });
-  }
-
-  const handleFail = () => {
-    toast.error("Send Email Fail !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.ERROR,
-    });
-  };
-
-  const loginLoading = () => {
-    toast.error("Loading Notification !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.INFO,
-    });
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -54,16 +33,33 @@ const ForgotPassword = () => {
   });
 
   useEffect(() => {
-    if (!loading) {
-      if (success) {
-        formik.resetForm();
-        handleSuccess();
-        navigate("/");
-      } else if (error) {
-        handleFail();
-      }
-    }
-  }, [loading]);
+    const resolveAfter3Sec = new Promise((resolve) =>
+      setTimeout(resolve, 3000)
+    );
+    toast.promise(resolveAfter3Sec, {
+      pending: "Send Email is pending!",
+      success: "Send Email success! ",
+      error: "Send Email Fail!",
+    });
+    // if (success) {
+    //   formik.resetForm();
+    //   toast.success("Send Email Success !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //     type: toast.TYPE.SUCCESS,
+    //   });
+    //   // navigate("/");
+    // } else if (error) {
+    //   toast.error("Send Email Fail !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //     type: toast.TYPE.ERROR,
+    //   });
+    // } else {
+    //   toast.promise("Loading Notification !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //     type: toast.TYPE.INFO,
+    //   });
+    // }
+  }, [pending]);
 
   const handleReset = () => {
     formik.resetForm();

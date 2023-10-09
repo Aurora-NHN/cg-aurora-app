@@ -27,20 +27,20 @@ export const register = async (registerData) => {
   return result;
 };
 
-export const logout = async () => {
+export const logout = async (token) => {
   let result = null;
-  let token = JSON.parse(localStorage.getItem("token"));
   try {
     result = await axios.post(
-      `${USER_MANAGEMENT_API}/logout`,{
-            headers:{
-                Authorization: 'Bearer ' + token
-            }}
+      `${USER_MANAGEMENT_API}/logout`,
+      {},
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
     );
-    console.log(result);
   } catch (e) {
     console.log(e);
-    result = e.response;
   }
   return result;
 };

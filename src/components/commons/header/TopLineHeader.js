@@ -1,26 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectToken } from "~/features/loginSlice";
-import { logoutUser, selectLoading, selectError, selectLogoutSuccess } from "~/features/userSlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setLoginSuccess } from "~/features/loginSlice";
+import {
+  logoutUser,
+  selectLoading,
+  selectError,
+  selectLogoutSuccess,
+  selectToken,
+  setToken,
+  setLogoutSuccess,
+} from "~/features/userSlice";
 
 const TopLineHeader = () => {
-  const checkLogin = useSelector(selectToken);
+  const token = useSelector(selectToken);
   const logoutSuccess = useSelector(selectLogoutSuccess);
   const loading = useSelector(selectLoading);
   const logoutError = useSelector(selectError);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const logout = () => {
-    dispatch(logoutUser());
-    navigate("/");
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    console.log("storedToken " + storedToken);
+    if (storedToken) dispatch(setToken(storedToken));
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [token]);
+
+  function handleLogoutSuccess() {
+    dispatch(setLoginSuccess(false));
+    dispatch(setLogoutSuccess(false));
+  }
+
+  const handleLogoutFail = () => {
+    toast.error(logoutError, {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.ERROR,
+    });
   };
 
-  // function logout() {
-  //   dispatch(logoutUser());
-  //   navigate("/");
-  // }
+  const handleLogoutLoading = () => {
+    toast.error("Loading !", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.POSITION,
+    });
+  };
+
+  useEffect(() => {
+    console.log("logoutSuccess " + logoutSuccess);
+    if (logoutSuccess) {
+      toast.success("Logout Success !", {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.SUCCESS,
+      });
+      handleLogoutSuccess();
+    } else if (logoutError) {
+      // console.log("fail here");
+      // console.log(errorLogin);
+      handleLogoutFail();
+    }
+  }, [logoutSuccess]);
+
+  const logout = () => {
+    if (loggedIn) {
+      let token = localStorage.getItem("token");
+
+      dispatch(logoutUser(token));
+    }
+  };
 
   return (
     <section className="page_topline ds s-py-10 c-my-10">
@@ -31,7 +88,7 @@ const TopLineHeader = () => {
               <strong className="color-darkgrey">WELCOME TO AURORA</strong>
             </p>
           </div>
-          {checkLogin == null ? (
+          {!loggedIn ? (
             <div className="col-lg-6 text-lg-right text-center">
               <ul className="top-includes border-divided small-text">
                 <li>
@@ -121,9 +178,8 @@ const TopLineHeader = () => {
                       <a href="#">
                         <i className="fa fa-edit"></i> Checkout
                       </a>
-                      <a href="/logout">
-                        <i className="fa fa-lock" onClick={()=>{dispatch(logoutUser())}}></i> 
-                        Logout
+                      <a href="#" onClick={logout}>
+                        <i className="fa fa-lock"></i> Logout
                       </a>
                     </div>
                   </div>
@@ -167,4 +223,4 @@ const TopLineHeader = () => {
   );
 };
 
-export default TopLineHeader;
+export default memo(TopLineHeader);

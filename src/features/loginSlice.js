@@ -9,7 +9,6 @@ const initialState = {
   loginSuccess: false,
   registerSuccess: false,
   // forgotPasswordSuccess: false,
-  token: localStorage.getItem("token"),
 };
 
 export const loginUser = createAsyncThunk(
@@ -45,14 +44,12 @@ export const loginSlice = createSlice({
     setErrors: (state, action) => {
       state.errors = action.payload;
     },
-    setSuccess: (state, action) => {
-      state.success = action.payload;
+    setLoginSuccess: (state, action) => {
+      console.log("set login success:  " + action.payload);
+      state.loginSuccess = action.payload;
     },
     setValue: (state, action) => {
       state.value = action.payload;
-    },
-    setToken: (state, action) => {
-      state.token = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -72,8 +69,6 @@ export const loginSlice = createSlice({
         state.loading = false;
         state.value = action.payload;
         state.errors = false;
-        state.token = action.payload.data;
-        // console.log(action.payload.data);
         localStorage.setItem("token", action.payload.data);
       })
       .addCase(registerUser.pending, (state) => {
@@ -94,7 +89,8 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setSuccess, setValue } = loginSlice.actions;
+export const { setLoading, setError, setLoginSuccess, setValue } =
+  loginSlice.actions;
 
 export const selectAuthIsLoading = (state) => state.login.loading;
 export const selectAuthIsError = (state) => state.login.errors;
@@ -102,7 +98,6 @@ export const selectLoginSuccess = (state) => state.login.loginSuccess;
 export const selectRegisterSuccess = (state) => state.login.registerSuccess;
 export const selectUserLogin = (state) => state.login.value;
 export const selectUserRegister = (state) => state.login.value;
-export const selectToken = (state) => state.login.token;
 
 // export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
 //   const currentValue = selectAuthIsLoading(getState());

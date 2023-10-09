@@ -8,31 +8,24 @@ const initialState = {
   error: null,
   forgotPasswordSuccess: false,
   logoutSuccess: false,
-  token: localStorage.getItem("token"),
+  token: null,
 };
 
-export const forgotPasswordUser = createAsyncThunk("/forgot-password", async (email) => {
-  const response = await forgotPassword(email);
-//   if (response.status !== 200) {
-//     return rejectWithValue(response.data.message);
-//   }
-  return response.data;
-});
-
-export const logoutUser = createAsyncThunk(
-  "/logout",
-  async () => {
-    console.log("logout here");
-    const response = await logout();
-    console.log(response);
-    console.log("logout here")
-    //   if (response.status !== 200) {
-    //     return rejectWithValue(response.data.message);
-    //   }
-
+export const forgotPasswordUser = createAsyncThunk(
+  "/forgot-password",
+  async (email, { rejectWithValue }) => {
+    const response = await forgotPassword(email);
+    if (response.status !== 200) {
+      return rejectWithValue(response.data.message);
+    }
     return response.data;
   }
 );
+
+export const logoutUser = createAsyncThunk("/logout", async (token) => {
+  const response = await logout(token);
+  return response.data;
+});
 
 export const userSlice = createSlice({
   name: "user",
@@ -46,6 +39,13 @@ export const userSlice = createSlice({
     },
     setSuccess: (state, action) => {
       state.forgotPasswordSuccess = action.payload;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    setLogoutSuccess: (state, action) => {
+      // console.log("set logout success: " + action.payload);
+      state.logoutSuccess = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -81,18 +81,21 @@ export const userSlice = createSlice({
         state.loading = false;
         state.value = action.payload;
         state.error = false;
+        state.token = null;
         localStorage.removeItem("token");
       });
   },
 });
 
-export const { setLoading, setError, setSuccess } = userSlice.actions;
+export const { setLoading, setError, setSuccess, setToken, setLogoutSuccess } = userSlice.actions;
 
 export const selectLoading = (state) => state.user.loading;
 export const selectError = (state) => state.user.error;
-export const selectForgotPasswordSuccess = (state) => state.user.forgotPasswordSuccess;
+export const selectForgotPasswordSuccess = (state) =>
+  state.user.forgotPasswordSuccess;
 export const selectForgotPassword = (state) => state.user.value;
 export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
+export const selectToken = (state) => state.user.token;
 
 export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
   const currentValue = selectLoading(getState());

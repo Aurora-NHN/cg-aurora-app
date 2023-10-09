@@ -1,5 +1,5 @@
 import { applyMiddleware, compose, configureStore } from "@reduxjs/toolkit";
-import userReducer from "../features/loginSlice";
+import userReducer from "../features/userSlice";
 import productReducer from "../features/productSlice";
 import loginReducer from "~/features/loginSlice";
 

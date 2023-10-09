@@ -6,26 +6,29 @@ import {
   selectAuthIsError,
   selectAuthIsLoading,
   selectLoginSuccess,
+  setLoginSuccess,
 } from "~/features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { selectToken, setLogoutSuccess, setToken } from "~/features/userSlice";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const closeModal = useRef();
+  const token = useSelector(selectToken);
   const successLogin = useSelector(selectLoginSuccess);
   const loadingLogin = useSelector(selectAuthIsLoading);
   const errorLogin = useSelector(selectAuthIsError);
 
-  function loginSuccess() {    
-    toast.success("Login Success !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.SUCCESS,
-    });
+  function loginSuccess() {
+    dispatch(setLogoutSuccess(false));
+    dispatch(setLoginSuccess(false));
     setTimeout(() => {
+      const token = localStorage.getItem("token");
+      dispatch(setToken(token));
       closeModal.current.click();
     }, 200);
   }
@@ -60,17 +63,17 @@ const LoginModal = () => {
   });
 
   useEffect(() => {
-    if (!loadingLogin) {
-      if (successLogin) {
-        formik.resetForm();
-        loginSuccess();
-      } else if (errorLogin) {
-        console.log("fail here")
-        console.log(errorLogin)
-        loginFail();
-      }
+    if (successLogin) {
+      toast.success("Login Success !", {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.SUCCESS,
+      });
+      formik.resetForm();
+      loginSuccess();
+    } else if (errorLogin) {
+      loginFail();
     }
-  }, [loadingLogin]);
+  }, [successLogin, errorLogin]);
 
   const handleReset = () => {
     formik.resetForm();
@@ -84,7 +87,6 @@ const LoginModal = () => {
       role="dialog"
       aria-hidden="true"
     >
-      <ToastContainer closeButton={false} />
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content ds bs box-shadow bordered overflow-visible s-overlay s-mobile-overlay">
           <button
@@ -119,7 +121,7 @@ const LoginModal = () => {
                                 : ""
                             }`}
                             required
-                            placeholder="login"
+                            placeholder="Username"
                             aria-required="true"
                             value={formik.values.username}
                             onChange={formik.handleChange}
@@ -143,7 +145,7 @@ const LoginModal = () => {
                                 ? "is-invalid"
                                 : ""
                             }`}
-                            placeholder="password"
+                            placeholder="Password"
                             aria-required="true"
                             required
                             value={formik.values.password}
@@ -161,16 +163,23 @@ const LoginModal = () => {
                     </div>
 
                     <a
-                      // class="registerRedirect "
-                      // data-bs-dismiss="modal"
-                      // data-bs-target="#popupRegistr"
-                      // data-bs-toggle="modal"
-                      href="http://localhost:3000/forgot-password"
+                      href="/forgot-password"
                       onClick={handleReset}
                     >
                       Forgot Password?
                     </a>
 
+                    <a
+                      href="#"
+                      style={{ right: "45px", position: "absolute" }}
+                      class="registerRedirect "
+                      data-bs-dismiss="modal"
+                      data-bs-target="#popupRegistr"
+                      data-bs-toggle="modal"
+                      onClick={handleReset}
+                    >
+                      Not a member? Register
+                    </a>
                     <button
                       type="submit"
                       className="btn btn-maincolor mt-30 d-block"
