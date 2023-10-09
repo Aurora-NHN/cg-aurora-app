@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { login, register } from "~/api/loginAPI";
-import { forgotPassword } from "~/api/userAPI";
 
 const initialState = {
   value: null,
@@ -8,7 +7,6 @@ const initialState = {
   errors: null,
   loginSuccess: false,
   registerSuccess: false,
-  // forgotPasswordSuccess: false,
 };
 
 export const loginUser = createAsyncThunk(
@@ -26,7 +24,6 @@ export const registerUser = createAsyncThunk(
   "register",
   async (registerData, { rejectWithValue }) => {
     const response = await register(registerData);
-
     if (response.status !== 201) {
       return rejectWithValue(response.data.message);
     }
@@ -100,12 +97,5 @@ export const selectLoginSuccess = (state) => state.login.loginSuccess;
 export const selectRegisterSuccess = (state) => state.login.registerSuccess;
 export const selectUserLogin = (state) => state.login.value;
 export const selectUserRegister = (state) => state.login.value;
-
-// export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
-//   const currentValue = selectAuthIsLoading(getState());
-//   if (currentValue === isCalled) {
-//     dispatch(setLoading(true));
-//   }
-// };
 
 export default loginSlice.reducer;

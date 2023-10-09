@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { forgotPassword } from "~/api/userAPI";
+import { changePassword, forgotPassword } from "~/api/userAPI";
 import { logout } from "~/api/loginAPI";
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   error: null,
   forgotPasswordSuccess: false,
+  changePasswordSucess: false,
   logoutSuccess: false,
   token: null,
 };
@@ -15,6 +16,17 @@ export const forgotPasswordUser = createAsyncThunk(
   "/forgot-password",
   async (email, { rejectWithValue }) => {
     const response = await forgotPassword(email);
+    if (response.status !== 200) {
+      return rejectWithValue(response.data.message);
+    }
+    return response.data;
+  }
+);
+
+export const changePasswordUser = createAsyncThunk(
+  "/change-password",
+  async (data, { rejectWithValue }) => {
+    const response = await changePassword(data);
     if (response.status !== 200) {
       return rejectWithValue(response.data.message);
     }
@@ -37,14 +49,16 @@ export const userSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
-    setSuccess: (state, action) => {
+    setForgotPasswordSuccess: (state, action) => {
       state.forgotPasswordSuccess = action.payload;
+    },
+    setChangePasswordSuccess: (state, action) => {
+      state.changePasswordSucess = action.payload;
     },
     setToken: (state, action) => {
       state.token = action.payload;
     },
     setLogoutSuccess: (state, action) => {
-      // console.log("set logout success: " + action.payload);
       state.logoutSuccess = action.payload;
     },
   },
@@ -62,6 +76,22 @@ export const userSlice = createSlice({
       })
       .addCase(forgotPasswordUser.fulfilled, (state, action) => {
         state.forgotPasswordSuccess = true;
+        state.loading = false;
+        state.value = action.payload;
+        state.error = false;
+      })
+      .addCase(changePasswordUser.pending, (state) => {
+        state.changePasswordSucess = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(changePasswordUser.rejected, (state, action) => {
+        state.changePasswordSucess = false;
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(changePasswordUser.fulfilled, (state, action) => {
+        state.changePasswordSucess = true;
         state.loading = false;
         state.value = action.payload;
         state.error = false;
@@ -87,12 +117,14 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setSuccess, setToken, setLogoutSuccess } = userSlice.actions;
+export const { setLoading, setError, setForgotPasswordSuccess, setChangePasswordSuccess, setToken, setLogoutSuccess } = userSlice.actions;
 
 export const selectLoading = (state) => state.user.loading;
 export const selectError = (state) => state.user.error;
 export const selectForgotPasswordSuccess = (state) =>
   state.user.forgotPasswordSuccess;
+  export const selectChangePasswordSuccess = (state) =>
+    state.user.changePasswordSucess;
 export const selectForgotPassword = (state) => state.user.value;
 export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
 export const selectToken = (state) => state.user.token;

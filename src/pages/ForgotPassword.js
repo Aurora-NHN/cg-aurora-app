@@ -6,6 +6,7 @@ import {
   selectLoading,
   selectError,
   selectForgotPasswordSuccess,
+  setForgotPasswordSuccess,
 } from "~/features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +43,7 @@ const ForgotPassword = () => {
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.SUCCESS,
       });
+      dispatch(setForgotPasswordSuccess(false));
       navigate("/");
     } else if (error) {
       toast.error("Send Email Fail !", {
@@ -50,10 +52,6 @@ const ForgotPassword = () => {
       });
     } 
   }, [pending]);
-
-  const handleReset = () => {
-    formik.resetForm();
-  };
 
   return (
     <section class="ds s-py-90 s-py-xl-150">

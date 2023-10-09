@@ -15,8 +15,13 @@ export const forgotPassword = async (email) => {
 
 export const changePassword = async (data) => {
   let result = null;
+  let token = localStorage.getItem("token");
   try {
-    result = await axios.post(`${USER_MANAGEMENT_API}/change-password`, data);
+    result = await axios.post(`${USER_MANAGEMENT_API}/change-password`, data, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     console.log(result);
   } catch (e) {
     console.log(e);

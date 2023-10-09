@@ -25,7 +25,6 @@ const TopLineHeader = () => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    console.log("storedToken " + storedToken);
     if (storedToken) dispatch(setToken(storedToken));
   }, []);
 
@@ -49,15 +48,7 @@ const TopLineHeader = () => {
     });
   };
 
-  const handleLogoutLoading = () => {
-    toast.error("Loading !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.POSITION,
-    });
-  };
-
   useEffect(() => {
-    console.log("logoutSuccess " + logoutSuccess);
     if (logoutSuccess) {
       toast.success("Logout Success !", {
         position: toast.POSITION.TOP_RIGHT,
@@ -65,8 +56,6 @@ const TopLineHeader = () => {
       });
       handleLogoutSuccess();
     } else if (logoutError) {
-      // console.log("fail here");
-      // console.log(errorLogin);
       handleLogoutFail();
     }
   }, [logoutSuccess]);
@@ -74,7 +63,6 @@ const TopLineHeader = () => {
   const logout = () => {
     if (loggedIn) {
       let token = localStorage.getItem("token");
-
       dispatch(logoutUser(token));
     }
   };
@@ -170,13 +158,13 @@ const TopLineHeader = () => {
                         <i className="fa fa-user"></i> My Account
                       </a>
                       <a href="#">
-                        <i className="fa fa-heart-o"></i> Wishlist
+                        <i className="fa fa-heart-o"></i> Account detail
                       </a>
                       <a href="#">
                         <i className="fa fa-shopping-basket"></i> Cart
                       </a>
-                      <a href="#">
-                        <i className="fa fa-edit"></i> Checkout
+                      <a href="/change-password">
+                        <i className="fa fa-edit"></i> Change password
                       </a>
                       <a href="#" onClick={logout}>
                         <i className="fa fa-lock"></i> Logout

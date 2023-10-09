@@ -39,13 +39,6 @@ const RegisterModal = () => {
     });
   };
 
-  const handleRegisterLoading = () => {
-    toast.error("Loading !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.POSITION,
-    });
-  };
-
   const initialValues = {
     fullName: "",
     username: "",
@@ -105,6 +98,7 @@ const RegisterModal = () => {
   const handleReset = () => {
     formik.resetForm();
   };
+  
   return (
     <div
       class="modal fade popupRegistr"
