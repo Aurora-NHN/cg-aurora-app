@@ -59,21 +59,20 @@ const DynamicHeader = ({ topHeaderHeight = 120 }) => {
                     </li>
 
                     <li>
-                      <Link to="/about">About</Link>
+                      <Link to="/zodiac">Zodiac</Link>
                     </li>
 
                     <li>
-                      <Link to="/gallery">Gallery</Link>
+                      <Link to="/numerology">Numerology</Link>
                     </li>
 
                     <li>
-                      <Link to="/contact">Contact</Link>
+                      <Link to="/tarot">Tarot</Link>
                     </li>
                   </ul>
                 </nav>
               </div>
             </div>
-            
           </div>
         </div>
         <span

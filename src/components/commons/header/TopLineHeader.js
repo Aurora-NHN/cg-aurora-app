@@ -36,16 +36,16 @@ const TopLineHeader = () => {
     }
   }, [token]);
 
-  function handleLogoutSuccess() {
-    dispatch(setLoginSuccess(false));
-    dispatch(setLogoutSuccess(false));
+  function handleChangePassword() {
+    navigate("/change-password");
   }
 
-  const handleLogoutFail = () => {
-    toast.error(logoutError, {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.ERROR,
-    });
+  const handleAccountDetail = () => {
+    navigate("/account-detail");
+  };
+
+  const handleCart = () => {
+    navigate("/cart");
   };
 
   useEffect(() => {
@@ -54,9 +54,14 @@ const TopLineHeader = () => {
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.SUCCESS,
       });
-      handleLogoutSuccess();
+      dispatch(setLoginSuccess(false));
+      dispatch(setLogoutSuccess(false));
+      navigate("/");
     } else if (logoutError) {
-      handleLogoutFail();
+      toast.error(logoutError, {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.ERROR,
+      });
     }
   }, [logoutSuccess]);
 
@@ -141,7 +146,7 @@ const TopLineHeader = () => {
                   <div className="dropdown show">
                     <a
                       className="dropdown-toggle"
-                      href="#"
+                      href=""
                       role="button"
                       id="dropdown-account"
                       data-bs-toggle="dropdown"
@@ -154,19 +159,19 @@ const TopLineHeader = () => {
                       className="dropdown-menu ls"
                       aria-labelledby="dropdown-account"
                     >
-                      <a href="#">
+                      <a href="" onClick={handleAccountDetail}>
                         <i className="fa fa-user"></i> My Account
                       </a>
-                      <a href="#">
+                      {/* <a href="">
                         <i className="fa fa-heart-o"></i> Account detail
-                      </a>
-                      <a href="#">
+                      </a> */}
+                      <a href="" onClick={handleCart}>
                         <i className="fa fa-shopping-basket"></i> Cart
                       </a>
-                      <a href="/change-password">
+                      <a href="" onClick={handleChangePassword}>
                         <i className="fa fa-edit"></i> Change password
                       </a>
-                      <a href="#" onClick={logout}>
+                      <a href="" onClick={logout}>
                         <i className="fa fa-lock"></i> Logout
                       </a>
                     </div>
