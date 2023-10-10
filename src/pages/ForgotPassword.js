@@ -54,12 +54,12 @@ const ForgotPassword = () => {
   }, [pending]);
 
   return (
-    <section class="ds s-py-90 s-py-xl-150">
-      <div class="container">
-        <div class="row">
-          <main class="col-lg-12">
+    <section className="ds s-py-90 s-py-xl-150">
+      <div className="container">
+        <div className="row">
+          <main className="col-lg-12">
             <form
-              class="woocommerce-ResetPassword lost_reset_password"
+              className="woocommerce-ResetPassword lost_reset_password"
               onSubmit={formik.handleSubmit}
             >
               <p>
@@ -67,10 +67,9 @@ const ForgotPassword = () => {
                 receive a new password in email.
               </p>
 
-              <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-                <label for="user_login">Email</label>
+              <p className="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
+                <label htmlFor="user_login">Email</label>
                 <input
-                  class="woocommerce-Input woocommerce-Input--text input-text"
                   className={`form-control ${
                     formik.errors.email && formik.touched.email
                       ? "is-invalid"
@@ -88,12 +87,12 @@ const ForgotPassword = () => {
                 )}
               </p>
 
-              <div class="clear"></div>
+              <div className="clear"></div>
 
-              <p class="woocommerce-form-row form-row">
+              <p className="woocommerce-form-row form-row">
                 <input
                   type="submit"
-                  class="woocommerce-Button button"
+                  className="woocommerce-Button button"
                   value="Reset password"
                 />
               </p>

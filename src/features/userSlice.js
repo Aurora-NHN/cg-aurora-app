@@ -1,16 +1,39 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { changePassword, forgotPassword } from "~/api/userAPI";
+import {
+  changePassword,
+  forgotPassword,
+  getUserInfo,
+  editUserInfo,
+} from "~/api/userAPI";
 import { logout } from "~/api/loginAPI";
 
 const initialState = {
-  value: null,
+  value: {},
   loading: false,
   error: null,
   forgotPasswordSuccess: false,
   changePasswordSucess: false,
   logoutSuccess: false,
+  getInfoSuccess: false,
+  editInfoSuccess: false,
   token: null,
 };
+
+export const getInfo = createAsyncThunk("/get-info", async () => {
+  const response = await getUserInfo();
+  return response.data.data;
+});
+
+export const editInfo = createAsyncThunk(
+  "/edit-info",
+  async (info, { rejectWithValue }) => {
+    const response = await editUserInfo(info);
+    if (response.status !== 200) {
+      return rejectWithValue(response.data.message);
+    }
+    return response.data;
+  }
+);
 
 export const forgotPasswordUser = createAsyncThunk(
   "/forgot-password",
@@ -61,6 +84,12 @@ export const userSlice = createSlice({
     setLogoutSuccess: (state, action) => {
       state.logoutSuccess = action.payload;
     },
+    setGetInfoSuccess: (state, action) => {
+      state.getInfoSuccess = action.payload;
+    },
+    setEditInfoSuccess: (state, action) => {
+      state.editInfoSuccess = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -72,7 +101,7 @@ export const userSlice = createSlice({
       .addCase(forgotPasswordUser.rejected, (state, action) => {
         state.forgotPasswordSuccess = false;
         state.loading = false;
-        state.error = action.error;
+        state.error = action.payload;
       })
       .addCase(forgotPasswordUser.fulfilled, (state, action) => {
         state.forgotPasswordSuccess = true;
@@ -88,12 +117,46 @@ export const userSlice = createSlice({
       .addCase(changePasswordUser.rejected, (state, action) => {
         state.changePasswordSucess = false;
         state.loading = false;
-        state.error = action.error;
+        state.error = action.payload;
       })
       .addCase(changePasswordUser.fulfilled, (state, action) => {
         state.changePasswordSucess = true;
         state.loading = false;
         state.value = action.payload;
+        state.error = false;
+      })
+      .addCase(getInfo.pending, (state, action) => {
+        state.getInfoSuccess = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getInfo.rejected, (state, action) => {
+        state.getInfoSuccess = false;
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getInfo.fulfilled, (state, action) => {
+        state.getInfoSuccess = true;
+        state.loading = false;
+        state.value = action.payload;
+        state.error = false;
+      })
+      .addCase(editInfo.pending, (state, action) => {
+        state.editInfoSuccess = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(editInfo.rejected, (state, action) => {
+        state.editInfoSuccess = false;
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(editInfo.fulfilled, (state, action) => {
+        state.editInfoSuccess = true;
+        state.loading = false;
+        state.value = action.payload;
+        console.log("edit info action.payload: ");
+        console.log(action.payload);
         state.error = false;
       })
       .addCase(logoutUser.pending, (state) => {
@@ -117,23 +180,28 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setForgotPasswordSuccess, setChangePasswordSuccess, setToken, setLogoutSuccess } = userSlice.actions;
+export const {
+  setLoading,
+  setError,
+  setForgotPasswordSuccess,
+  setChangePasswordSuccess,
+  setToken,
+  setLogoutSuccess,
+  setGetInfoSuccess,
+  setEditInfoSuccess,
+} = userSlice.actions;
 
 export const selectLoading = (state) => state.user.loading;
 export const selectError = (state) => state.user.error;
 export const selectForgotPasswordSuccess = (state) =>
   state.user.forgotPasswordSuccess;
-  export const selectChangePasswordSuccess = (state) =>
-    state.user.changePasswordSucess;
+export const selectChangePasswordSuccess = (state) =>
+  state.user.changePasswordSucess;
+export const selectEditInfoSuccess = (state) => state.user.editInfoSuccess;
 export const selectForgotPassword = (state) => state.user.value;
 export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
 export const selectToken = (state) => state.user.token;
-
-export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
-  const currentValue = selectLoading(getState());
-  if (currentValue === isCalled) {
-    dispatch(setLoading(true));
-  }
-};
+export const selectUserInfo = (state) => state.user.value;
+export const selectGetInfoSuccess = (state) => state.user.getInfoSuccess;
 
 export default userSlice.reducer;

@@ -53,6 +53,7 @@ export default function ChangePassword() {
       dispatch(setChangePasswordSuccess(false));
       navigate("/");
     } else if (error) {
+        console.log(error);
       toast.error(error, {
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.ERROR,
@@ -60,19 +61,18 @@ export default function ChangePassword() {
     }
   }, [pending]);
   return (
-    <section class="ds s-py-90 s-py-xl-150">
-      <div class="container">
-        <div class="row">
-          <main class="col-lg-12">
+    <section className="ds s-py-90 s-py-xl-150">
+      <div className="container">
+        <div className="row">
+          <main className="col-lg-12">
             <form
-              class="woocommerce-ResetPassword lost_reset_password"
+              className="woocommerce-ResetPassword lost_reset_password"
               onSubmit={formik.handleSubmit}
             >
               <h3>Change Password</h3>
 
-              <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
+              <p className="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
                 <input
-                  class="woocommerce-Input woocommerce-Input--text input-text"
                   className={`form-control ${
                     formik.errors.oldPassword && formik.touched.oldPassword
                       ? "is-invalid"
@@ -93,7 +93,6 @@ export default function ChangePassword() {
               </p>
               <p>
                 <input
-                  class="woocommerce-Input woocommerce-Input--text input-text"
                   className={`form-control ${
                     formik.errors.newPassword && formik.touched.newPassword
                       ? "is-invalid"
@@ -114,7 +113,6 @@ export default function ChangePassword() {
               </p>
               <p>
                 <input
-                  class="woocommerce-Input woocommerce-Input--text input-text"
                   className={`form-control ${
                     formik.errors.confirmNewPassword &&
                     formik.touched.confirmNewPassword
@@ -135,10 +133,10 @@ export default function ChangePassword() {
                 )}
               </p>
 
-              <p class="woocommerce-form-row form-row">
+              <p className="woocommerce-form-row form-row">
                 <input
                   type="submit"
-                  class="woocommerce-Button button"
+                  className="woocommerce-Button button"
                   value="Reset password"
                 />
               </p>

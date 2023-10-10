@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 import {
   registerUser,
   selectAuthIsError,
-  selectAuthIsLoading,
   selectRegisterSuccess,
   setRegisterSuccess,
 } from "../../features/loginSlice";
@@ -10,14 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const successRegister = useSelector(selectRegisterSuccess);
-  const loadingRegister = useSelector(selectAuthIsLoading);
   const errorRegister = useSelector(selectAuthIsError);
   const closeModal = useRef();
 
@@ -98,7 +96,7 @@ const RegisterModal = () => {
   const handleReset = () => {
     formik.resetForm();
   };
-  
+
   return (
     <div
       class="modal fade popupRegistr"
