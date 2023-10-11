@@ -9,6 +9,8 @@ import {
   selectLoading,
   selectUserInfo,
   setEditInfoSuccess,
+  setError,
+  setLoading,
 } from "~/features/userSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -83,6 +85,8 @@ export default function AccountDetail() {
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.ERROR,
       });
+      dispatch(setError(null));
+      dispatch(setLoading(false));
     }
   }, [pending]);
 

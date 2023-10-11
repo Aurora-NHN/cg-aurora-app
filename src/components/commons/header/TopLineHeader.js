@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoginSuccess } from "~/features/loginSlice";
@@ -36,17 +36,6 @@ const TopLineHeader = () => {
     }
   }, [token]);
 
-  function handleChangePassword() {
-    navigate("/change-password");
-  }
-
-  const handleAccountDetail = () => {
-    navigate("/account-detail");
-  };
-
-  const handleCart = () => {
-    navigate("/cart");
-  };
 
   useEffect(() => {
     if (logoutSuccess) {
@@ -87,7 +76,6 @@ const TopLineHeader = () => {
                 <li>
                   <span>
                     <a
-                      href="#"
                       data-bs-target="#popupLogin"
                       data-bs-toggle="modal"
                     >
@@ -99,7 +87,6 @@ const TopLineHeader = () => {
                 <li>
                   <span>
                     <a
-                      href="#"
                       data-bs-target="#popupRegistr"
                       data-bs-toggle="modal"
                     >
@@ -146,7 +133,7 @@ const TopLineHeader = () => {
                   <div className="dropdown show">
                     <a
                       className="dropdown-toggle"
-                      href=""
+                      href="#"
                       role="button"
                       id="dropdown-account"
                       data-bs-toggle="dropdown"
@@ -159,18 +146,18 @@ const TopLineHeader = () => {
                       className="dropdown-menu ls"
                       aria-labelledby="dropdown-account"
                     >
-                      <a href="" onClick={handleAccountDetail}>
+                      <Link to="/account-detail">
                         <i className="fa fa-user"></i> My Account
+                      </Link>
+                      <a href="">
+                        <i className="fa fa-heart-o"></i> Buy Vip
                       </a>
-                      {/* <a href="">
-                        <i className="fa fa-heart-o"></i> Account detail
-                      </a> */}
-                      <a href="" onClick={handleCart}>
+                      <Link to="/cart">
                         <i className="fa fa-shopping-basket"></i> Cart
-                      </a>
-                      <a href="" onClick={handleChangePassword}>
+                      </Link>
+                      <Link to="/change-password">
                         <i className="fa fa-edit"></i> Change password
-                      </a>
+                      </Link>
                       <a href="" onClick={logout}>
                         <i className="fa fa-lock"></i> Logout
                       </a>

@@ -4,6 +4,7 @@ import HomeSection from "~/components/main/homepage/HomeSection";
 import { selectUserLogin } from "~/features/loginSlice";
 import React from "react";
 import { selectToken } from "~/features/userSlice";
+import ZodiacSection from "~/components/main/homepage/ZodiacSection";
 
 function Home() {
   const userLogin = useSelector(selectToken);
@@ -16,6 +17,7 @@ function Home() {
     <>
       <div style={{ minHeight: "100vh" }}>
         <HomeSection />
+        <ZodiacSection />
       </div>
     </>
   );
