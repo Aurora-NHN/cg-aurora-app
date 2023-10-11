@@ -1,0 +1,6 @@
+$placeholder-color: black;
+
+/* Sử dụng biến trong SCSS */
+input::placeholder {
+  color: $placeholder-color; /* Sử dụng biến màu chữ */
+}

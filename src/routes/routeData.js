@@ -22,6 +22,8 @@ import ForgotPassword from "~/pages/ForgotPassword";
 import AccountDetail from "~/pages/AccountDetail";
 import Checkout from "~/pages/Checkout";
 import ProductDetail from "~/pages/ProductDetail";
+import ShopDetail from "~/pages/ShopDetail";
+import Numerology from "~/pages/Numerology";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
@@ -48,4 +50,9 @@ export const ROUT_DATA = [
   { path: "/zodiac-gemini", element: Gemini, layout: GuestLayout },
   { path: "/zodiac-scorpio", element: Scorpio, layout: GuestLayout },
   // { path: "/checkout-form", element: CheckoutForm, layout: ShopLayout },
+    {path: "/", element: Home, layout: GuestLayout},
+    {path: "/shop", element: Shop, layout: ShopLayout},
+    {path: "/blogs", element: Blog, layout: GuestLayout},
+    {path: "/product-detail", element: ShopDetail, layout: ShopLayout},
+    {path: "/numerology", element: Numerology, layout: GuestLayout}
 ];

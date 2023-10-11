@@ -871,3 +871,10 @@ img.absolute_image {
     animation-play-state: paused;
   }
 }
+
+.main-background-image{
+  background-image: url("../images/bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
