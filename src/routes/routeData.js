@@ -3,12 +3,6 @@ import GuestLayout from "~/layout/GuestLayout";
 import Shop from "~/pages/Shop";
 import ShopLayout from "~/layout/ShopLayout";
 import Blog from "~/pages/Blog";
-import Cart from "~/pages/Cart";
-import Checkout from "~/pages/Checkout";
-import ShopDetail from "~/pages/ShopDetail";
-import ProductDetail from "~/pages/ProductDetail";
-import ForgotPassword from "~/pages/ForgotPassword";
-import AccountDetail from "~/pages/AccountDetail";
 import Cart from "~/components/commons/CartLineDetail";
 import ChangePassword from "~/pages/ChangePassword";
 import Libra from "~/pages/zodiac/Libra";
@@ -24,6 +18,10 @@ import Cancer from "~/pages/zodiac/Cancer";
 import Aries from "~/pages/zodiac/Aries";
 import Gemini from "~/pages/zodiac/Gemini";
 import Scorpio from "~/pages/zodiac/Scorpio";
+import ForgotPassword from "~/pages/ForgotPassword";
+import AccountDetail from "~/pages/AccountDetail";
+import Checkout from "~/pages/Checkout";
+import ProductDetail from "~/pages/ProductDetail";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
