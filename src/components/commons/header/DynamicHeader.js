@@ -47,27 +47,39 @@ const DynamicHeader = ({ topHeaderHeight = 120 }) => {
                 <nav className="top-nav">
                   <ul className="nav sf-menu">
                     <li className="active">
-                      <Link to="/">Home</Link>
+                      <Link to="/" onClick={toTop}>
+                        Home
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/blogs">Blog</Link>
+                      <Link to="/blogs" onClick={toTop}>
+                        Blog
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/shop">Shop</Link>
+                      <Link to="/shop" onClick={toTop}>
+                        Shop
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/zodiac">Zodiac</Link>
+                      <Link to="/zodiac" onClick={toTop}>
+                        Zodiac
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/numerology">Numerology</Link>
+                      <Link to="/numerology" onClick={toTop}>
+                        Numerology
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/tarot">Tarot</Link>
+                      <Link to="/tarot" onClick={toTop}>
+                        Tarot
+                      </Link>
                     </li>
                   </ul>
                 </nav>
