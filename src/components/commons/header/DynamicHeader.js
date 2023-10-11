@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+
+import React, { memo, useEffect, useState } from "react";
+
 import cx from "clsx";
 import { Link } from "react-router-dom";
 
@@ -45,60 +47,43 @@ const DynamicHeader = ({ topHeaderHeight = 120 }) => {
                 <nav className="top-nav">
                   <ul className="nav sf-menu">
                     <li className="active">
-                      <Link to="/">Home</Link>
+                      <Link to="/" onClick={toTop}>
+                        Home
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/blogs">Blog</Link>
+                      <Link to="/blogs" onClick={toTop}>
+                        Blog
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/shop">Shop</Link>
+                      <Link to="/shop" onClick={toTop}>
+                        Shop
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/about">About</Link>
+                      <Link to="/zodiac" onClick={toTop}>
+                        Zodiac
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/gallery">Gallery</Link>
+                      <Link to="/numerology" onClick={toTop}>
+                        Numerology
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/contact">Contact</Link>
+                      <Link to="/tarot" onClick={toTop}>
+                        Tarot
+                      </Link>
                     </li>
                   </ul>
                 </nav>
               </div>
-            </div>
-            <div className="col-xl-3 col-9 order-1 order-xl-2 text-xl-right text-left">
-              <span className="social-icons">
-                <a
-                  href="https://www.facebook.com/"
-                  className="fa fa-facebook "
-                  title="facebook"
-                ></a>
-                <a
-                  href="https://twitter.com/"
-                  className="fa fa-twitter "
-                  title="twitter"
-                ></a>
-                <a
-                  href="https://www.linkedin.com/"
-                  className="fa fa-linkedin "
-                  title="linkedin"
-                ></a>
-                <a
-                  href="https://www.instagram.com/"
-                  className="fa fa-instagram "
-                  title="instagram"
-                ></a>
-                <a
-                  href="https://www.youtube.com/"
-                  className="fa fa-youtube-play "
-                  title="youtube"
-                ></a>
-              </span>
             </div>
           </div>
         </div>
@@ -109,28 +94,7 @@ const DynamicHeader = ({ topHeaderHeight = 120 }) => {
           <span></span>
         </span>
       </header>
-      <div className="page_title ds s-overlay s-parallax s-pt-130 s-pt-xl-150 s-pb-65">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1>Shop with Left Sidebar</h1>
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <Link to="/about">Home</Link>
-                </li>
 
-                <li className="breadcrumb-item">
-                  <Link to="/shop">Shop</Link>
-                </li>
-
-                <li className="breadcrumb-item active">
-                  <Link to="/contact">Contact</Link>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
       <div
         id="toTop"
         className={cx({ "d-inline": !headOfPage })}
@@ -140,4 +104,4 @@ const DynamicHeader = ({ topHeaderHeight = 120 }) => {
   );
 };
 
-export default DynamicHeader;
+export default memo(DynamicHeader);

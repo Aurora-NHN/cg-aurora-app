@@ -1,19 +1,23 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import HomeSection from "~/components/main/homepage/HomeSection";
-import { selectUserLogin } from "~/features/userSlice";
+import { selectUserLogin } from "~/features/loginSlice";
+import React from "react";
+import { selectToken } from "~/features/userSlice";
+import ZodiacSection from "~/components/main/homepage/ZodiacSection";
 
 function Home() {
-  const userLogin = useSelector(selectUserLogin);
+  const userLogin = useSelector(selectToken);
 
   useEffect(() => {
-    console.log("user");
-    console.log(userLogin);
+    if (userLogin == null) {
+    }
   }, [userLogin]);
   return (
     <>
       <div style={{ minHeight: "100vh" }}>
         <HomeSection />
+        <ZodiacSection />
       </div>
     </>
   );
