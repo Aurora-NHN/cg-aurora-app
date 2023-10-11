@@ -20,6 +20,7 @@ import Cancer from "~/pages/zodiac/Cancer";
 import Aries from "~/pages/zodiac/Aries";
 import Gemini from "~/pages/zodiac/Gemini";
 import Scorpio from "~/pages/zodiac/Scorpio";
+import Pricing from "~/pages/Pricing";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
@@ -30,6 +31,7 @@ export const ROUT_DATA = [
   { path: "/account-detail", element: AccountDetail, layout: GuestLayout },
   { path: "/blogs", element: Blog, layout: GuestLayout },
   { path: "/cart", element: Cart, layout: ShopLayout },
+  { path: "/pricing", element: Pricing, layout: GuestLayout },
   { path: "/zodiac", element: ZodiacSection, layout: GuestLayout },
   { path: "/zodiac-libra", element: Libra, layout: GuestLayout },
   { path: "/zodiac-aquarius", element: Aquarius, layout: GuestLayout },

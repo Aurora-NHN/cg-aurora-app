@@ -149,9 +149,9 @@ const TopLineHeader = () => {
                       <Link to="/account-detail">
                         <i className="fa fa-user"></i> My Account
                       </Link>
-                      <a href="">
+                      <Link to="/pricing">
                         <i className="fa fa-heart-o"></i> Buy Vip
-                      </a>
+                      </Link>
                       <Link to="/cart">
                         <i className="fa fa-shopping-basket"></i> Cart
                       </Link>
