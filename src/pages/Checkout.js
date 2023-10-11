@@ -1,13 +1,13 @@
 import React from "react";
-import CartLineDetail from "~/components/commons/CartLineDetail";
+import CheckoutForm from "~/components/commons/CheckoutForm";
 
-const Cart = () => {
+export default function Checkout () {
   return (
     <div className="min-vh-100">
       <div class="ds woocommerce s-py-90 s-py-xl-150 c-gutter-60">
         <div class="container">
           <div class="row">
-            <CartLineDetail />
+            <CheckoutForm />
           </div>
         </div>
       </div>
@@ -15,4 +15,3 @@ const Cart = () => {
   );
 };
 
-export default Cart;

@@ -17,6 +17,7 @@ const categorySlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    subCategory:null,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -27,6 +28,9 @@ const categorySlice = createSlice({
     },
     setSuccess: (state, action) => {
       state.success = action.payload;
+    },
+    setSubCategory: (state, action) => {
+      state.productDetail = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -50,10 +54,11 @@ const categorySlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setSuccess } = categorySlice.actions;
+export const { setLoading, setError, setSuccess,setSubCategory } = categorySlice.actions;
 export const selectLoading = (state) => state.category.loading;
 export const selectError = (state) => state.category.error;
 export const selectSuccess = (state) => state.category.success;
 export const selectCategories = (state) => state.category.values;
+export const selectSubCategories = (state) => state.category.subCategory;
 
 export default categorySlice.reducer;

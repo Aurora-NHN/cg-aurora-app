@@ -3,13 +3,17 @@ import GuestLayout from "~/layout/GuestLayout";
 import Shop from "~/pages/Shop";
 import ShopLayout from "~/layout/ShopLayout";
 import Blog from "~/pages/Blog";
-import Cart from "~/components/commons/CartLineDetail";
-import CheckoutForm from "~/components/commons/CheckoutForm";
+import Cart from "~/pages/Cart";
+import Checkout from "~/pages/Checkout";
+import ShopDetail from "~/pages/ShopDetail";
+import ProductDetail from "~/pages/ProductDetail";
+
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
   { path: "/shop", element: Shop, layout: ShopLayout },
   { path: "/blogs", element: Blog, layout: GuestLayout },
   { path: "/cart", element: Cart, layout: ShopLayout },
-  { path: "/checkout-form", element: CheckoutForm, layout: ShopLayout },
+  { path: "/checkout-form", element: Checkout, layout: ShopLayout },
+  { path: "/product-detail/:id", element: ProductDetail, layout: ShopLayout },
 ];

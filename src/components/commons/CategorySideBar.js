@@ -60,6 +60,47 @@ export default function CategorySidebar({ onSubCategorySelect }) {
           ))}
         </ul>
       </div>
+      <div className="widget woocommerce widget_recently_viewed_products">
+        <h3 className="widget-title">Viewed Products</h3>
+        <ul className="product_list_widget">
+          <li>
+            <a href="shop-product-right.html">
+              <img src="images/shop/05.jpg" alt="img" />
+              <span className="product-title">Premium Quality</span>
+            </a>
+            <del>
+              <span className="woocommerce-Price-amount amount">
+                <span className="woocommerce-Price-currencySymbol">$</span>
+                15.00
+              </span>
+            </del>
+            <ins>
+              <span className="woocommerce-Price-amount amount">
+                <span className="woocommerce-Price-currencySymbol">$</span>
+                12.00
+              </span>
+            </ins>
+          </li>
+          <li>
+            <a href="shop-product-right.html">
+              <img src="images/shop/06.jpg" alt="img" />
+              <span className="product-title">Flying Ninja</span>
+            </a>
+            <del>
+              <span className="woocommerce-Price-amount amount">
+                <span className="woocommerce-Price-currencySymbol">$</span>
+                15.00
+              </span>
+            </del>
+            <ins>
+              <span className="woocommerce-Price-amount amount">
+                <span className="woocommerce-Price-currencySymbol">$</span>
+                12.00
+              </span>
+            </ins>
+          </li>
+        </ul>
+      </div>
     </aside>
   );
 }
