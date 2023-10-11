@@ -11,6 +11,17 @@
   font-weight: normal;
   font-style: normal;
 }
+.custom-input {
+  width: 100%; /* Set the width to 100% to make them expand to the full width of their container */
+  /* You can also set specific widths if needed */
+  /* width: 300px; */
+}
+
+.weight-container {
+  border: 1px solid white;
+  padding: 5px;
+  margin-bottom: 10px;
+}
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
