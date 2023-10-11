@@ -9,6 +9,7 @@ import {
   getProductsSortByPriceDescending,
   getProductsSortByPriceAscending,
   getProductsBySubCategoryId,
+  setProductDetail
 } from "~/features/productSlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
@@ -25,6 +26,7 @@ export default function ProductList(props) {
   const [subCategoryId, setSubCategoryId] = useState(null);
   const [newProductsBySubCategory, setNewProductsBySubCategory] =
     useState(false);
+    
 
   useEffect(() => {
     if (keyword) {
@@ -41,9 +43,8 @@ export default function ProductList(props) {
     } else {
       dispatch(getProducts(pageNumber));
     }
-   
   }, [keyword, pageNumber, sortOrder, subCategoryId]);
- 
+
   function formatCurrency(price) {
     const formatter = new Intl.NumberFormat("vi-VN", {
       style: "currency",
@@ -58,8 +59,8 @@ export default function ProductList(props) {
 
   function nextPage() {
     // if (!isNextButtonDisabled) {
-      const newPageNumber = pageNumber + 1;
-      setPageNumber(newPageNumber);
+    const newPageNumber = pageNumber + 1;
+    setPageNumber(newPageNumber);
     // }
   }
 
@@ -101,6 +102,9 @@ export default function ProductList(props) {
   const handleSubCategorySelect = (selectedSubCategoryId) => {
     setSubCategoryId(selectedSubCategoryId);
   };
+  const handleClickProductLink = (product) => {
+  dispatch(setProductDetail(product));
+  }
 
   return (
     <>
@@ -143,12 +147,19 @@ export default function ProductList(props) {
                 <li className="product" key={product.id}>
                   <div className="product-inner">
                     <a href={`shop-product-right.html/${product.id}`}>
-                      <img src={product.imageUrl} alt={product.name} />
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        onClick={handleClickProductLink(product)}
+                      />
                     </a>
                     <div className="product-wrap">
                       <h2 className="woocommerce-loop-product__title">
                         <td>
-                          <Link to={`/product-detail/${product.id}`}>
+                          <Link
+                            to={`/product-detail/${product.id}`}
+                            onClick={handleClickProductLink(product)}
+                          >
                             {product.name}
                           </Link>
                         </td>
