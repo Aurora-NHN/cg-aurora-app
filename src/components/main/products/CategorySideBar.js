@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCategories, selectCategories } from "~/features/CategorySlice";
+import useEventBus from "./eventBus";
+import { useNavigate } from "react-router-dom";
 
 export default function CategorySidebar({ onSubCategorySelect }) {
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getCategories());
   }, []);
@@ -21,7 +23,15 @@ export default function CategorySidebar({ onSubCategorySelect }) {
 
   const handleSubCategorySelect = (subCategoryId) => {
     onSubCategorySelect(subCategoryId);
+    navigate("/shop?sub-category-id=" + subCategoryId);
   };
+
+  const { on } = useEventBus(); // Change this to listen to the event
+
+  // Handle the event when subCategory is selected
+  on("subCategorySelect", (subCategoryId) => {
+    onSubCategorySelect(subCategoryId);
+  });
 
   return (
     <aside className="col-lg-4 order-lg-1">
