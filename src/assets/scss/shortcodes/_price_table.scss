@@ -19,8 +19,8 @@
       margin-bottom: 0;
     }
     .plan-price {
-      font-size: 62px;
-      font-weight: 900;
+      font-size: 32px;
+      font-weight: 500;
     }
   }
   [class*='bg-'] {
@@ -30,7 +30,7 @@
   }
   .plan-name {
     &[class*='bg-'] {
-      padding-top: 30px;
+      padding-top: 50px;
       margin-top: -40px;
     }
     h3 {
