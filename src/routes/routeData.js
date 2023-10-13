@@ -21,8 +21,8 @@ import Scorpio from "~/pages/zodiac/Scorpio";
 import ForgotPassword from "~/pages/ForgotPassword";
 import AccountDetail from "~/pages/AccountDetail";
 import Checkout from "~/pages/Checkout";
-import ProductDetail from "~/pages/ProductDetail";
-
+import Pricing from "~/pages/Pricing";
+import Product from "~/pages/Product";
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
   { path: "/shop", element: Shop, layout: ShopLayout },
@@ -33,7 +33,7 @@ export const ROUT_DATA = [
   { path: "/blogs", element: Blog, layout: GuestLayout },
   { path: "/cart", element: Cart, layout: ShopLayout },
   { path: "/checkout-form", element: Checkout, layout: ShopLayout },
-  { path: "/product-detail/:id", element: ProductDetail, layout: ShopLayout },
+  { path: "/product-detail/:id", element: Product, layout: ShopLayout },
   { path: "/zodiac", element: ZodiacSection, layout: GuestLayout },
   { path: "/zodiac-libra", element: Libra, layout: GuestLayout },
   { path: "/zodiac-aquarius", element: Aquarius, layout: GuestLayout },
@@ -47,5 +47,7 @@ export const ROUT_DATA = [
   { path: "/zodiac-aries", element: Aries, layout: GuestLayout },
   { path: "/zodiac-gemini", element: Gemini, layout: GuestLayout },
   { path: "/zodiac-scorpio", element: Scorpio, layout: GuestLayout },
-  // { path: "/checkout-form", element: CheckoutForm, layout: ShopLayout },
+  { path: "/zodiac-scorpio", element: Scorpio, layout: GuestLayout },
+  { path: "/pricing", element: Pricing, layout: ShopLayout }
+
 ];
