@@ -20,11 +20,10 @@ function HomeSection(){
                   <span>Numerology</span>
                 </h5>
                 <p>
-                  Numerology is an ancient study that draws meaning from
-                  different numbers, number combinations, letters, and symbols
-                  in your life. This art can help us tap into the underlying
-                  patterns of the universe and reveal new truths about who we
-                  are.
+                  Giữ gìn nhà cửa luôn ngăn nắp, gọn gàng là điều ai cũng muốn.
+                  Tuy nhiên thực tế là nhà cửa sau vài ba hôm sẽ lại bừa bộn, lộn xộn như cũ.
+                  Thay vì phải mất công dọn dẹp liên tục, vừa mệt mỏi vừa tốn thời gian,
+                  bạn có thể sử dụng các món phụ kiện tiện lợi dưới đây để giải quyết triệt để vấn đề này.
                 </p>
                 <div className="divider-35 divider-xl-55"></div>
                 <div className="line line-left"></div>

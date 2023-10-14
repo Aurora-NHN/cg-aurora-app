@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerUser } from "../../features/userSlice";
+import { registerUser } from "~/features/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

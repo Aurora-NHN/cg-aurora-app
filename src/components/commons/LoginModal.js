@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { loginUser} from "../../features/userSlice";
+import { loginUser} from "~/features/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 
 const LoginModal = () => {
   const [loginData, setLoginData] = useState({});
@@ -19,6 +20,11 @@ const LoginModal = () => {
   function handleSubmit() {
     dispatch(loginUser(loginData));
     navigate("/");
+  }
+
+  const handleGGLogin = (credential) => {
+    console.log('credential')
+    console.log(credential)
   }
 
   return (
@@ -96,6 +102,11 @@ const LoginModal = () => {
                       Sign In
                     </button>
                   </form>
+                  <div className={""}>
+                    {/*<GoogleOAuthProvider clientId={"86930945868-mi125c29avhqlsh88uac5ervmsln3qhd.apps.googleusercontent.com"}>*/}
+                    {/*  <GoogleLogin onSuccess={handleGGLogin} text={"signin_with"} />*/}
+                    {/*</GoogleOAuthProvider>*/}
+                  </div>
                 </div>
               </div>
             </div>
