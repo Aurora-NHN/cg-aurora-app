@@ -275,10 +275,6 @@ const BlogPage = () => {
 
                 </div>
             </section>
-
-            <div>
-                
-            </div>
         </>
     );
 };

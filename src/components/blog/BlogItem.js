@@ -50,12 +50,6 @@ function BlogItem(props) {
                             horoscopes are now known factors for anyone aged around 20, 21, 22, 23, 24,
                             25, 26...
                         </p>
-                        {
-                            blog.content? parse(blog.content):<></>
-                        }
-
-
-
                     </div>
                     <div className="entry-footer">
                         <div className="entry-meta">

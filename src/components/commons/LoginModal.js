@@ -1,31 +1,83 @@
-import React, { useState } from "react";
-import { loginUser} from "~/features/userSlice";
-import { useDispatch } from "react-redux";
+import React, { useRef, useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import {
+  loginUser,
+  selectAuthIsError,
+  selectAuthIsLoading,
+  selectLoginSuccess,
+  setLoginSuccess,
+} from "~/features/loginSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { selectToken, setLogoutSuccess, setToken } from "~/features/userSlice";
 
 const LoginModal = () => {
-  const [loginData, setLoginData] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const closeModal = useRef();
+  const token = useSelector(selectToken);
+  const successLogin = useSelector(selectLoginSuccess);
+  const loadingLogin = useSelector(selectAuthIsLoading);
+  const errorLogin = useSelector(selectAuthIsError);
 
-  function handleChange(event) {
-    setLoginData({
-      ...loginData,
-      [event.target.name]: event.target.value,
+  function loginSuccess() {
+    dispatch(setLogoutSuccess(false));
+    dispatch(setLoginSuccess(false));
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      dispatch(setToken(token));
+      closeModal.current.click();
+    }, 200);
+  }
+
+  const loginFail = () => {
+    toast.error("Login Fail !", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.ERROR,
     });
-  }
+  };
 
-  function handleSubmit() {
-    dispatch(loginUser(loginData));
-    navigate("/");
-  }
+  const loginLoading = () => {
+    toast.error("Loading Notification !", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.INFO,
+    });
+  };
 
-  const handleGGLogin = (credential) => {
-    console.log('credential')
-    console.log(credential)
-  }
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: Yup.object().shape({
+      username: Yup.string().required("Username is required"),
+      password: Yup.string().required("Password is required"),
+    }),
+    onSubmit: (values) => {
+      dispatch(loginUser(values));
+      navigate("/");
+    },
+  });
+
+  useEffect(() => {
+    if (successLogin) {
+      toast.success("Login Success !", {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.SUCCESS,
+      });
+      formik.resetForm();
+      loginSuccess();
+    } else if (errorLogin) {
+      loginFail();
+    }
+  }, [successLogin, errorLogin]);
+
+  const handleReset = () => {
+    formik.resetForm();
+  };
 
   return (
     <div
@@ -38,10 +90,12 @@ const LoginModal = () => {
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content ds bs box-shadow bordered overflow-visible s-overlay s-mobile-overlay">
           <button
+            ref={closeModal}
             type="button"
             className="close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            onClick={handleReset}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -52,7 +106,7 @@ const LoginModal = () => {
                   <h4 className="color-main2 mb-3">Log in</h4>
                   <form
                     className="form-registration c-mb-20 c-gutter-20"
-                    action="/"
+                    onSubmit={formik.handleSubmit}
                   >
                     <div className="row mb-4">
                       <div className="col-sm-12">
@@ -61,13 +115,24 @@ const LoginModal = () => {
                             type="text"
                             id="username"
                             name="username"
-                            className="form-control"
+                            className={`form-control ${
+                              formik.errors.username && formik.touched.username
+                                ? "is-invalid"
+                                : ""
+                            }`}
                             required
-                            placeholder="login"
+                            placeholder="Username"
                             aria-required="true"
-                            value={loginData.username || ""}
-                            onChange={handleChange}
+                            value={formik.values.username}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                           />
+                          {formik.errors.username &&
+                            formik.touched.username && (
+                              <div className="invalid-feedback">
+                                {formik.errors.username}
+                              </div>
+                            )}
                         </div>
                       </div>
                       <div className="col-sm-12">
@@ -75,38 +140,54 @@ const LoginModal = () => {
                           <input
                             type="password"
                             name="password"
-                            className="form-control"
-                            placeholder="password"
+                            className={`form-control ${
+                              formik.errors.password && formik.touched.password
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                            placeholder="Password"
                             aria-required="true"
                             required
-                            value={loginData.password || ""}
-                            onChange={handleChange}
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                           />
+                          {formik.errors.password &&
+                            formik.touched.password && (
+                              <div className="invalid-feedback">
+                                {formik.errors.password}
+                              </div>
+                            )}
                         </div>
                       </div>
                     </div>
+
                     <a
-                      className="registerRedirect "
-                      data-dismiss="modal"
-                      data-target="#popupRegistr"
-                      data-toggle="modal"
-                      href="#"
+                      href="/forgot-password"
+                      onClick={handleReset}
                     >
-                      Not a member? Register!
+                      Forgot Password?
+                    </a>
+
+                    <a
+                      href="#"
+                      style={{ right: "45px", position: "absolute" }}
+                      className="registerRedirect "
+                      data-bs-dismiss="modal"
+                      data-bs-target="#popupRegistr"
+                      data-bs-toggle="modal"
+                      onClick={handleReset}
+                    >
+                      Not a member? Register
                     </a>
                     <button
-                      type="button"
+                      type="submit"
                       className="btn btn-maincolor mt-30 d-block"
-                      onClick={handleSubmit}
+                      // onClick={handleReset}
                     >
                       Sign In
                     </button>
                   </form>
-                  <div className={""}>
-                    {/*<GoogleOAuthProvider clientId={"86930945868-mi125c29avhqlsh88uac5ervmsln3qhd.apps.googleusercontent.com"}>*/}
-                    {/*  <GoogleLogin onSuccess={handleGGLogin} text={"signin_with"} />*/}
-                    {/*</GoogleOAuthProvider>*/}
-                  </div>
                 </div>
               </div>
             </div>
