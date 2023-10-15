@@ -36,7 +36,6 @@ const TopLineHeader = () => {
     }
   }, [token]);
 
-
   useEffect(() => {
     if (logoutSuccess) {
       toast.success("Logout Success !", {
@@ -78,10 +77,7 @@ const TopLineHeader = () => {
               <ul className="top-includes border-divided small-text">
                 <li>
                   <span>
-                    <a
-                      data-bs-target="#popupLogin"
-                      data-bs-toggle="modal"
-                    >
+                    <a data-bs-target="#popupLogin" data-bs-toggle="modal">
                       <i className="fa fa-user"></i> Login
                     </a>
                   </span>
@@ -89,10 +85,7 @@ const TopLineHeader = () => {
 
                 <li>
                   <span>
-                    <a
-                      data-bs-target="#popupRegistr"
-                      data-bs-toggle="modal"
-                    >
+                    <a data-bs-target="#popupRegistr" data-bs-toggle="modal">
                       <i className="fa fa-lock"></i> Register
                     </a>
                   </span>

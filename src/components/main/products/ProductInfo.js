@@ -1,24 +1,17 @@
 import React from "react";
 
 const ProductInfo = ({ product }) => {
-  console.log(product);
-  const title = product.name;
-  // const rating = product.rating;
-  const quantitySold = product.quantitySold;
-  const price = product.price;
-  const description = product.description;
-
   return (
     <div>
-      <h2>{title}</h2>
+      <h2>{product.name}</h2>
       <div>
         <h5>description: </h5>
       </div>
-      <div>{description}</div>
+      <div>{product.description}</div>
       <p className="price">
-        <h6>đã bán:{quantitySold}</h6>
+        <h6>đã bán:{product.quantitySold}</h6>
         <span>
-          <span>{price}Đ</span>
+          <span>{product.price}Đ</span>
         </span>
       </p>
     </div>

@@ -13,7 +13,7 @@ const initialState = {
   loading: false,
   error: null,
   success: false,
-  productDetail: null,
+  productDetail: null
   
 };
 
@@ -30,7 +30,7 @@ export const getProductsBySubCategoryId = createAsyncThunk(
       pageNumber,
       sortOrder
     );
-    console.log(response);
+    console.log(response.data);
     return response.data.content;
   }
 );
