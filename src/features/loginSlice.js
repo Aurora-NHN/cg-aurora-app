@@ -88,7 +88,7 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setLoginSuccess, setRegisterSuccess, setValue } =
+export const { setLoading, setErrors, setLoginSuccess, setRegisterSuccess, setValue } =
   loginSlice.actions;
 
 export const selectAuthIsLoading = (state) => state.login.loading;

@@ -6,6 +6,7 @@ import React from "react";
 import { selectToken } from "~/features/userSlice";
 import ZodiacSection from "~/components/main/homepage/ZodiacSection";
 // import NumerologyAdding from "~/components/main/numerology/NumerologyAdding";
+import Pricing from "~/components/main/homepage/Pricing";
 
 function Home() {
   const userLogin = useSelector(selectToken);
@@ -19,7 +20,6 @@ function Home() {
       <div style={{ minHeight: "100vh" }}>
         <HomeSection />
         <ZodiacSection />
-        {/* <NumerologyAdding/> */}
       </div>
     </>
   );
