@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Content() {
+function NumerologyFullResult() {
 
     return (
         <section className="ds s-py-90 s-py-xl-150 main-background-image">
@@ -67,4 +67,4 @@ function Content() {
     );
 }
 
-export default Content;
+export default NumerologyFullResult;

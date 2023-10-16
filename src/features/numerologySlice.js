@@ -1,16 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createFreeNumerologyReportFree } from "~/apis/numerologyAPI";
-
+import { createFreeNumerologyReportFree } from "~/api/numerologyAPI";
 
 const initialState = {
     values: [],
-    value: null,
+    value: {},
     loading: false,
     error: null,
     success: false,
 };
 export const addFreeNumerologyReport = createAsyncThunk("/create", async(customerInputData) => {
+    console.log(customerInputData)
     const response = await createFreeNumerologyReportFree(customerInputData);
+    console.log(response.data)
+
     return response.data;
 });
 
@@ -24,7 +26,10 @@ export const numerologySlice = createSlice({
         setError: (state, action) => {
             state.error = action.payload;
         },
-        setSuccess: (state, action) => {
+        setValues: (state, action) => {
+            state.values = action.payload;
+        },
+        setCustomerInputFormSuccess: (state, action) => {
             state.success = action.payload;
         },
     },
@@ -44,7 +49,7 @@ export const numerologySlice = createSlice({
             .addCase(addFreeNumerologyReport.fulfilled,(state, action) => {
                 state.success = true;
                 state.loading = false;
-                state.value = action.payload;
+                state.value = action.payload.data;
                 state.error = false;
             })
     },
@@ -52,7 +57,8 @@ export const numerologySlice = createSlice({
 export const {
     setLoading,
     setError,
-    setSuccess,
+    setValues,
+    setCustomerInputFormSuccess
 } = numerologySlice.actions;
 
 export const selectLoading = (state) => state.numerology.loading;
@@ -60,10 +66,4 @@ export const selectError = (state) => state.numerology.error;
 export const selectSuccess = (state) => state.numerology.success;
 export const selectNumerologyReportAdded = (state) => state.numerology.value;
 
-export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
-    const currentValue = selectLoading(getState());
-    if (currentValue === isCalled) {
-        dispatch(setLoading(true));
-    }
-};
 export default numerologySlice.reducer;

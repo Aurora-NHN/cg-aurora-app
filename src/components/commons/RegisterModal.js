@@ -46,16 +46,15 @@ const RegisterModal = () => {
     gender: "Gender",
   };
 
+  const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]*$/;
+
   const validationSchema = Yup.object().shape({
     fullName: Yup.string()
-      .required("Full Name is required")
-      .matches(
-        /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/,
-        "Invalid full name"
-      ),
+        .matches(VIETNAMESE_REGEX, "Full name doesn't contain numbers or special characters")
+        .required("Full name is required"),
     username: Yup.string()
       .required("Username is required")
-      .matches(/^[a-z0-9_-]{3,16}$/, "Invalid username"),
+      .matches(/^[a-z0-9_-]{8,20}$/, "Username can only use letters,numbers, minimum length is 8 characters"),
     password: Yup.string()
       .required("Password is required")
       .matches(
