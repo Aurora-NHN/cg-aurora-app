@@ -7,16 +7,18 @@ import { setSubCategoryId } from "~/features/CategorySlice"
 import WoocommerceTabs from "./WoocommerceTabs";
 import ProductInfo from "./ProductInfo";
 import ProductImage from "./ProductImage";
-import useEventBus from "./eventBus";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "~/features/CartSlice";
+import { selectToken } from "~/features/userSlice";
 
 function ProductDetail() {
   const product = useSelector(selectProductDetail);
   const minQuantity = 1;
-  const maxQuantity = 10;
+  const maxQuantity = product.quantity;
   const [quantity, setQuantity] = useState(minQuantity);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = useSelector(selectToken);
 
   const handleIncrease = () => {
     if (quantity < maxQuantity) {
@@ -30,11 +32,15 @@ function ProductDetail() {
     }
   };
   const handleSubCategorySelect = (selectedSubCategoryId) => {
-        dispatch(setSubCategoryId(selectedSubCategoryId));
-   navigate("/shop?sub-category-id="+selectedSubCategoryId);
-   setSubCategoryId(null);
+    dispatch(setSubCategoryId(selectedSubCategoryId));
+    navigate("/shop?sub-category-id=" + selectedSubCategoryId);
+    setSubCategoryId(null);
   };
 
+  const handleAddToCartClick = (productId) => {
+    const requestData = { productId, quantity, token }
+    dispatch(addToCart(requestData));
+  }
 
   return (
     <>
@@ -57,6 +63,7 @@ function ProductDetail() {
                   <button
                     type="submit"
                     className="single_add_to_cart_button button alt"
+                    onClick={handleAddToCartClick(product.id)}
                   >
                     Add to cart
                   </button>

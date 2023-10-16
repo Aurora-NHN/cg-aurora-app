@@ -13,8 +13,8 @@ const TopLogoHeader = () => {
                 <div className="d-flex justify-content-center justify-content-lg-start">
                   <Link to="/" className="logo">
                     {/* <a href=""> */}
-                      <img src={logo} alt="img" />
-                      <span className="logo-text color-darkgrey">AURORA</span>
+                    <img src={logo} alt="img" />
+                    <span className="logo-text color-darkgrey">AURORA</span>
                     {/* </a> */}
                   </Link>
                 </div>

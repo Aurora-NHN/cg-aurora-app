@@ -1,5 +1,5 @@
 import React from "react";
-import CartLineDetail from "~/components/commons/CartLineDetail";
+import CartLineDetail from "~/components/main/products/CartLineDetail";
 
 const Cart = () => {
   return (

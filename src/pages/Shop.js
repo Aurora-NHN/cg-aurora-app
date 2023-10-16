@@ -1,5 +1,5 @@
 import React from "react";
-import ProductList from "~/components/main/products/productList";
+import ProductList from "~/components/main/products/ProductList";
 const Shop = () => {
   return (
     <div className="min-vh-100">

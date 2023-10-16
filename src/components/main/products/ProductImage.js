@@ -4,7 +4,6 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function ProductImage({ product }) {
-    console.log(product);
   const images = product.productImageUrlList.map((image) => {
     return {
       original: image.imageUrl,

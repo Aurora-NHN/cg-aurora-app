@@ -13,10 +13,13 @@ import {
   selectLoading,
   setLoading,
 } from "~/features/productSlice";
+import { addToCart,selectError } from "~/features/CartSlice";
 import { selectSubCategoryId } from "~/features/CategorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";
+import { selectToken } from "~/features/userSlice";
+import { ToastContainer, toast } from "react-toastify";
 export default function ProductList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,10 +33,14 @@ export default function ProductList() {
   const newSubCategoryId = useSelector(selectSubCategoryId);
   const loading = useSelector(selectLoading);
   const [onloading, setOnloading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
+  const token = useSelector(selectToken);
+  const cartError = useSelector(selectError);
+
   useEffect(() => {
     setTimeout(() => {
       setOnloading(false);
-    }, 1000);
+    }, 500);
   }, [loading]);
 
   useEffect(() => {
@@ -51,9 +58,9 @@ export default function ProductList() {
       dispatch(getProductsBySubCategoryId(requestData));
       navigate(
         "/shop?sub-category?id=" +
-          currentSubCategoryId +
-          "&page-number=" +
-          pageNumber
+        currentSubCategoryId +
+        "&page-number=" +
+        pageNumber
       );
     } else if (pageNumber) {
       if (sortOrder === "asc") {
@@ -105,11 +112,11 @@ export default function ProductList() {
       dispatch(getProductsByKeyword(requestData));
       navigate(
         "/shop?sort=" +
-          order +
-          "&keyword=" +
-          keyword +
-          "&page-number=" +
-          pageNumber
+        order +
+        "&keyword=" +
+        keyword +
+        "&page-number=" +
+        pageNumber
       );
     } else if (productsBySubCategory && subCategoryId) {
       const requestProductsBySubcategoryId = {
@@ -120,11 +127,11 @@ export default function ProductList() {
       dispatch(getProductsBySubCategoryId(requestProductsBySubcategoryId));
       navigate(
         "/shop?sort=" +
-          order +
-          "&sub-category?id=" +
-          subCategoryId +
-          "&page-number=" +
-          pageNumber
+        order +
+        "&sub-category?id=" +
+        subCategoryId +
+        "&page-number=" +
+        pageNumber
       );
     } else if (order === "asc") {
       dispatch(getProductsSortByPriceAscending(1));
@@ -149,6 +156,31 @@ export default function ProductList() {
     dispatch(setProductDetail(product));
     setProductDetail(null);
   };
+
+  const handleAddToCartClick = async (productId) => {
+    const requestData = { productId, quantity, token }
+    await dispatch(addToCart(requestData));
+    if(cartError.name === "TypeError"){
+      console.log(cartError)
+      addToCartFail();
+    }else{
+      addToCartSuccess();
+    }
+  }
+
+  const addToCartSuccess = () => {
+    toast.success("Đã thêm sản phẩm thành công!", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.SUCCESS,
+    });
+  };
+  const addToCartFail = () => {
+    toast.error("Thêm quá sản phẩm trong kho hàng !", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.ERROR,
+    });
+  };
+
 
   return (
     <>
@@ -226,6 +258,7 @@ export default function ProductList() {
                           <a
                             rel="nofollow"
                             className="button product_type_simple add_to_cart_button"
+                            onClick={() => handleAddToCartClick(product.id)}
                           >
                             Add to cart
                           </a>
