@@ -3,6 +3,7 @@ import {
   registerUser,
   selectAuthIsError,
   selectRegisterSuccess,
+  setErrors,
   setRegisterSuccess,
 } from "../../features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,32 +36,42 @@ const RegisterModal = () => {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
     });
+    dispatch(setErrors(false));
   };
 
   const initialValues = {
     fullName: "",
     username: "",
     password: "",
+    confirmPassword: "",
     email: "",
     phoneNumber: "",
     gender: "Gender",
   };
 
   const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]*$/;
-
   const validationSchema = Yup.object().shape({
     fullName: Yup.string()
-        .matches(VIETNAMESE_REGEX, "Full name doesn't contain numbers or special characters")
-        .required("Full name is required"),
+      .matches(
+        VIETNAMESE_REGEX,
+        "Full name doesn't contain numbers or special characters"
+      )
+      .required("Full name is required"),
     username: Yup.string()
       .required("Username is required")
-      .matches(/^[a-z0-9_-]{8,20}$/, "Username can only use letters,numbers, minimum length is 8 characters"),
+      .matches(
+        /^[a-z0-9_-]{8,20}$/,
+        "Username can only use letters,numbers, minimum length is 8 characters"
+      ),
     password: Yup.string()
       .required("Password is required")
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
         "Password must contain at least 8 characters, at least one letter and one number"
       ),
+    confirmPassword: Yup.string()
+      .required("Confirm New Password is required")
+      .oneOf([Yup.ref("password"), null], "Passwords must match"),
     email: Yup.string()
       .email("Invalid email")
       .required("Email is required")
@@ -201,6 +212,31 @@ const RegisterModal = () => {
                       <div className="col-12">
                         <div className="form-group">
                           <input
+                            type="password"
+                            name="confirmPassword"
+                            className={`form-control ${
+                              formik.errors.confirmPassword &&
+                              formik.touched.confirmPassword
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                            placeholder="Confirm Password"
+                            aria-required="true"
+                            required
+                            value={formik.values.confirmPassword}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                          />
+                          {formik.errors.confirmPassword && (
+                            <div className="invalid-feedback">
+                              {formik.errors.confirmPassword}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group">
+                          <input
                             type="email"
                             name="email"
                             className={`form-control ${
@@ -282,7 +318,6 @@ const RegisterModal = () => {
                           data-bs-dismiss="modal"
                           data-bs-target="#popupLogin"
                           data-bs-toggle="modal"
-                          href="#"
                           type="reset"
                           onClick={handleReset}
                         >

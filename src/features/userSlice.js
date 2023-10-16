@@ -157,7 +157,7 @@ export const userSlice = createSlice({
         state.value = action.payload;
         console.log("edit info action.payload: ");
         console.log(action.payload);
-        state.error = false;
+        state.error = null;
       })
       .addCase(logoutUser.pending, (state) => {
         state.logoutSuccess = false;

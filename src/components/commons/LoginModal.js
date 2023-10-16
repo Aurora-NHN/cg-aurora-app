@@ -4,23 +4,21 @@ import * as Yup from "yup";
 import {
   loginUser,
   selectAuthIsError,
-  selectAuthIsLoading,
   selectLoginSuccess,
+  setErrors,
   setLoginSuccess,
 } from "~/features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { selectToken, setLogoutSuccess, setToken } from "~/features/userSlice";
+import { setLogoutSuccess, setToken } from "~/features/userSlice";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const closeModal = useRef();
-  const token = useSelector(selectToken);
   const successLogin = useSelector(selectLoginSuccess);
-  const loadingLogin = useSelector(selectAuthIsLoading);
   const errorLogin = useSelector(selectAuthIsError);
 
   function loginSuccess() {
@@ -34,16 +32,13 @@ const LoginModal = () => {
   }
 
   const loginFail = () => {
+    dispatch(setLogoutSuccess(false));
+    dispatch(setLoginSuccess(false));
+    dispatch(setErrors(null));
+    localStorage.removeItem("token");
     toast.error("Login Fail !", {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
-    });
-  };
-
-  const loginLoading = () => {
-    toast.error("Loading Notification !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.INFO,
     });
   };
 

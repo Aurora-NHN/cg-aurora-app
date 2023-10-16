@@ -36,7 +36,6 @@ const TopLineHeader = () => {
     }
   }, [token]);
 
-
   useEffect(() => {
     if (logoutSuccess) {
       toast.success("Logout Success !", {
@@ -52,12 +51,15 @@ const TopLineHeader = () => {
         type: toast.TYPE.ERROR,
       });
     }
+    dispatch(setLoginSuccess(false));
+    dispatch(setLogoutSuccess(false));
   }, [logoutSuccess]);
 
   const logout = () => {
     if (loggedIn) {
       let token = localStorage.getItem("token");
       dispatch(logoutUser(token));
+      dispatch(setLogoutSuccess(false));
     }
   };
 
@@ -75,10 +77,7 @@ const TopLineHeader = () => {
               <ul className="top-includes border-divided small-text">
                 <li>
                   <span>
-                    <a
-                      data-bs-target="#popupLogin"
-                      data-bs-toggle="modal"
-                    >
+                    <a data-bs-target="#popupLogin" data-bs-toggle="modal">
                       <i className="fa fa-user"></i> Login
                     </a>
                   </span>
@@ -86,10 +85,7 @@ const TopLineHeader = () => {
 
                 <li>
                   <span>
-                    <a
-                      data-bs-target="#popupRegistr"
-                      data-bs-toggle="modal"
-                    >
+                    <a data-bs-target="#popupRegistr" data-bs-toggle="modal">
                       <i className="fa fa-lock"></i> Register
                     </a>
                   </span>
@@ -149,18 +145,18 @@ const TopLineHeader = () => {
                       <Link to="/account-detail">
                         <i className="fa fa-user"></i> My Account
                       </Link>
-                      <a href="">
+                      <Link to="/pricing">
                         <i className="fa fa-heart-o"></i> Buy Vip
-                      </a>
+                      </Link>
                       <Link to="/cart">
                         <i className="fa fa-shopping-basket"></i> Cart
                       </Link>
                       <Link to="/change-password">
                         <i className="fa fa-edit"></i> Change password
                       </Link>
-                      <a href="" onClick={logout}>
+                      <Link to="/" onClick={logout}>
                         <i className="fa fa-lock"></i> Logout
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </li>
