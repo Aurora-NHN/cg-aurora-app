@@ -1,7 +1,7 @@
 import axios from "axios";
 const CART_API = "http://localhost:8080/api/cart";
 
-export const addCartLineToCart = async (productId, quantity,token) => {
+export const addCartLineToCart = async (productId, quantity, token) => {
   let result = null;
   try {
     result = await axios.post(
@@ -14,6 +14,7 @@ export const addCartLineToCart = async (productId, quantity,token) => {
       }
     );
   } catch (e) {
+    console.log("Cart api error");
     console.log(e);
   }
   return result;
@@ -36,7 +37,7 @@ export const showCart = async (token) => {
   return result;
 };
 
-export const deleteCartLine = async (cartLineId,token) => {
+export const deleteCartLine = async (cartLineId, token) => {
   let result = null;
   try {
     result = await axios.delete(

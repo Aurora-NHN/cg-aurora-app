@@ -1,26 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addCartLineToCart, showCart ,deleteCartLine} from "~/api/cartAPI";
+import { addCartLineToCart, showCart, deleteCartLine } from "~/api/cartAPI";
 
 export const addToCart = createAsyncThunk(
   "cart/add",
-  async ({ productId, quantity, token }) => {
+  async ({ productId, quantity, token }, { rejectWithValue }) => {
     const response = await addCartLineToCart(productId, quantity, token);
-    console.log(response)
-    return response.data ?? undefined;
+    if (response.status !== 200) {
+      return rejectWithValue(response.data.message);
+    }
+    console.log(response.data)
+    return response.data;
   }
 );
 
 export const getCart = createAsyncThunk(
   "cart/show", async (token) => {
     const response = await showCart(token);
-    console.log(response);
     return response.data.data;
   });
 
 export const removeCartLine = createAsyncThunk(
   "cart-line/delete", async ({ cartLineId, token }) => {
     const response = await deleteCartLine(cartLineId, token);
-    console.log(response);
     return response.data.data;
   })
 
@@ -33,6 +34,8 @@ const cartSlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    quantity: null,
+    cartLine: null,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -44,6 +47,13 @@ const cartSlice = createSlice({
     setSuccess: (state, action) => {
       state.success = action.payload;
     },
+    setNewQuantity: (state, action) => {
+      state.quantity = action.payload;
+    },
+    setCartLine: (state, action) => {
+      state.cartLine = action.payload;
+    }
+
   },
   extraReducers: (builder) => {
     builder
@@ -56,7 +66,6 @@ const cartSlice = createSlice({
         state.success = false;
         state.loading = false;
         state.error = action.error;
-      
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.success = true;
@@ -99,10 +108,14 @@ const cartSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setSuccess } = cartSlice.actions;
+export const { setLoading, setError, setSuccess, setNewQuantity,setCartLine } = cartSlice.actions;
 export const selectLoading = (state) => state.cart.loading;
 export const selectError = (state) => state.cart.error;
 export const selectSuccess = (state) => state.cart.success;
 export const selectCart = (state) => state.cart.values;
-export const selectStatus = (state) => state.cart.status;
+export const selectAddToCartObj = (state) => state.cart.status;
+export const selectAddToCartSuccess = (state) => state.cart.addTocartSuccess;
+export const selectAddToCartResponse = (state) => state.cart.values;
+export const selectQuantity = (state) => state.cart.quantity;
+export const selectCartLine = (state) => state.cart.cartLine;
 export default cartSlice.reducer;

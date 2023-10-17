@@ -13,34 +13,35 @@ import {
   selectLoading,
   setLoading,
 } from "~/features/productSlice";
-import { addToCart,selectError } from "~/features/CartSlice";
+import { addToCart,selectAddToCartResponse } from "~/features/CartSlice";
 import { selectSubCategoryId } from "~/features/CategorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";
 import { selectToken } from "~/features/userSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 export default function ProductList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+  const token = useSelector(selectToken);
   const productList = useSelector(selectProductList);
+  const selectAddToCart = useSelector(selectAddToCartResponse);
+  const newSubCategoryId = useSelector(selectSubCategoryId);  
   const [keyword, setKeyword] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [sortOrder, setSortOrder] = useState("");
   const [search, setSearch] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(null);
   const [productsBySubCategory, setProductsBySubCategory] = useState(false);
-  const newSubCategoryId = useSelector(selectSubCategoryId);
-  const loading = useSelector(selectLoading);
   const [onloading, setOnloading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const token = useSelector(selectToken);
-  const cartError = useSelector(selectError);
 
+  console.log(selectAddToCart)
   useEffect(() => {
     setTimeout(() => {
       setOnloading(false);
-    }, 500);
+    }, 700);
   }, [loading]);
 
   useEffect(() => {
@@ -157,16 +158,18 @@ export default function ProductList() {
     setProductDetail(null);
   };
 
-  const handleAddToCartClick = async (productId) => {
-    const requestData = { productId, quantity, token }
-    await dispatch(addToCart(requestData));
-    if(cartError.name === "TypeError"){
-      console.log(cartError)
-      addToCartFail();
-    }else{
-      addToCartSuccess();
-    }
+  const handleAddToCartClick = (productId) => {
+    const requestData = { productId, quantity, token };
+    dispatch(addToCart(requestData));
   }
+
+  useEffect(() => {
+    if (selectAddToCart.message === "Product added to cart successfully" ) {
+      addToCartSuccess();
+    } else if(selectAddToCart.message === "Out of stock") {
+      addToCartFail();
+    }
+  }, [selectAddToCart])
 
   const addToCartSuccess = () => {
     toast.success("Đã thêm sản phẩm thành công!", {
@@ -174,13 +177,13 @@ export default function ProductList() {
       type: toast.TYPE.SUCCESS,
     });
   };
+
   const addToCartFail = () => {
     toast.error("Thêm quá sản phẩm trong kho hàng !", {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
     });
   };
-
 
   return (
     <>
@@ -220,7 +223,7 @@ export default function ProductList() {
           ) : (
             <ul className="products columns-3">
               {productList.length === 0 ? (
-                <h3 style={{ textAlign: "right" }}> Product not found</h3>
+                <h3 style={{ textAlign: "right" }}> Không có sản phẩm </h3>
               ) : (
                 productList.map((product) => (
                   <li className="product" key={product.id}>

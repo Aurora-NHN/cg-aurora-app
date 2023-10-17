@@ -1,25 +1,29 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setNewQuantity,setCartLine } from "~/features/CartSlice";
 
 const CartLineQuantity = ({ cartLine }) => {
-  console.log(cartLine);
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(cartLine.quantity);
   const minQuantity = 1;
   const maxQuantity = cartLine.productResponseDTO.quantity;
-  console.log("maxQuantity");
-  console.log(maxQuantity);
+  const [currentCartLine, setCurrentCartLine] = useState(cartLine);
+
   const handleIncrease = () => {
-    console.log('cartLine');
-    console.log(quantity);
     if (quantity < maxQuantity) {
       setQuantity(quantity + 1);
+      console.log(currentCartLine)
+      dispatch(setNewQuantity(quantity));
+      dispatch(setCartLine(currentCartLine))
     }
   };
 
   const handleDecrease = async () => {
     if (quantity > minQuantity) {
       setQuantity(quantity - 1);
+      dispatch(setNewQuantity(quantity));
+      dispatch(setCartLine(cartLine))
     }
-
   };
 
   return (
