@@ -60,6 +60,7 @@ const TopLineHeader = () => {
       let token = localStorage.getItem("token");
       dispatch(logoutUser(token));
       dispatch(setLogoutSuccess(false));
+      localStorage.removeItem("token");
     }
   };
 

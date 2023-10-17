@@ -1,12 +1,12 @@
 /*
 ** Bootstrap Overrides
 */
-@import 'override_bootstrap/breadcrumbs';
-@import 'override_bootstrap/forms';
-@import 'override_bootstrap/carousel';
-@import 'override_bootstrap/tabs';
-@import 'override_bootstrap/collapse';
-@import 'override_bootstrap/dropdowns';
+@import "override_bootstrap/breadcrumbs";
+@import "override_bootstrap/forms";
+@import "override_bootstrap/carousel";
+@import "override_bootstrap/tabs";
+@import "override_bootstrap/collapse";
+@import "override_bootstrap/dropdowns";
 
 //making container 1170px width for wide screens
 @media (min-width: 1300px) {
@@ -21,20 +21,20 @@
 
 .modal-open {
   padding-right: 0 !important;
-  .modal{
-    background-color: rgba( 225, 225, 225, .1);
+  .modal {
+    background-color: rgba(225, 225, 225, 0.1);
   }
 }
 
-.modal.show{
-  &.center{
-    display: flex!important;
+.modal.show {
+  &.center {
+    display: flex !important;
     align-items: center;
     justify-content: center;
   }
 }
 
-.modal_login_form{
+.modal_login_form {
   max-width: 770px;
   display: flex;
   position: relative;
@@ -42,41 +42,41 @@
   overflow: visible;
   margin: 20px;
   width: 100%;
-  p:not(.login-remember) label{
+  p:not(.login-remember) label {
     display: none;
   }
-  form{
-    p:not(:last-child){
+  form {
+    p:not(:last-child) {
       margin-bottom: 20px;
     }
   }
-  .menu-img{
+  .menu-img {
     flex-shrink: 0;
     height: auto;
     width: 38%;
-    &.cover-image{
+    &.cover-image {
       position: relative;
       background-position: center top;
-      img{
+      img {
         display: none;
       }
     }
   }
-  .menu-form{
+  .menu-form {
     padding: 55px 60px;
     height: 100%;
-    @media (min-width: 992px ) {
+    @media (min-width: 992px) {
       width: 100%;
     }
   }
-  .remove{
+  .remove {
     position: absolute;
     color: $colorMain;
     right: 20px;
     top: 10px;
     font-size: 20px;
     z-index: 3;
-    &:hover{
+    &:hover {
       color: $colorMain2;
     }
   }
@@ -86,16 +86,16 @@
   @media (max-width: 991px) {
     justify-content: center;
     width: auto;
-    .special-heading{
+    .special-heading {
       font-size: 30px;
     }
-    .remove{
+    .remove {
       color: $colorMain;
     }
-    .menu-img{
-      display: none!important;
+    .menu-img {
+      display: none !important;
     }
-    .menu-form{
+    .menu-form {
       padding: 40px;
     }
   }
@@ -116,7 +116,7 @@
 /* bootstrap buttons */
 .btn {
   font-size: 16px;
-  font-family: 'El Messiri', sans-serif;
+  font-family: "El Messiri", sans-serif;
   text-transform: capitalize;
   padding: 21px 30px 17px;
   border-radius: 30px;
@@ -133,31 +133,31 @@
     line-height: 1;
   }
 
-  &.btn-short{
+  &.btn-short {
     min-width: auto;
     padding-left: 30px;
     padding-right: 30px;
   }
 
-  &.btn-medium{
+  &.btn-medium {
     padding-top: 17px;
     padding-bottom: 13px;
-    &.btn-shop{
+    &.btn-shop {
       padding-right: 50px;
       &::before,
-      &::after{
+      &::after {
         width: 40px;
         height: 40px;
       }
     }
   }
-  &.btn-small{
+  &.btn-small {
     padding-top: 12px;
     padding-bottom: 8px;
     padding-right: 40px;
-    &.btn-shop{
+    &.btn-shop {
       &::before,
-      &::after{
+      &::after {
         width: 30px;
         height: 30px;
       }
@@ -167,19 +167,21 @@
 
 /* media elements */
 .media > img {
-  display: block;
+  display: b-block;
 }
 
 .media-body {
-  h3, h4 {
-    line-height: 1;
+  h3,
+  h4 {
+    align-items: flex-start;
+    line-height: 4;
     margin-top: 0.3em;
     margin-bottom: 0.2em;
   }
 
   * + &,
   & + * {
-    margin-left: 15px;
+    margin-left: 30px;
   }
 }
 
@@ -194,7 +196,7 @@ td .media-body {
   height: 0;
   padding-bottom: 80%;
   background-color: #000;
-  img{
+  img {
     position: absolute;
     left: 0;
     top: 0;
@@ -204,12 +206,12 @@ td .media-body {
   }
 }
 
-.embed-responsive-16by9{
+.embed-responsive-16by9 {
   //height property removed in v4
   height: 0;
   padding-bottom: 47%;
   background-color: #000;
-  img{
+  img {
     position: absolute;
     left: 0;
     top: 0;
@@ -219,11 +221,11 @@ td .media-body {
   }
 }
 
-.embed-responsive-21by9{
+.embed-responsive-21by9 {
   padding-bottom: 40%;
   height: 0;
   background-color: #000;
-  img{
+  img {
     position: absolute;
     left: 0;
     top: 0;
@@ -234,11 +236,11 @@ td .media-body {
 }
 
 .embed-placeholder,
-.photoswipe-link-button{
+.photoswipe-link-button {
   &:after {
     transition: all 0.3s ease-in-out;
     content: "\f0da";
-    font-family: 'FontAwesome';
+    font-family: "FontAwesome";
     position: absolute;
     color: $colorMain2;
     font-size: 22px;
@@ -247,7 +249,7 @@ td .media-body {
     height: 70px;
     text-align: center;
     padding-left: 3px;
-    border: 1px solid rgba($lightColor,.6);
+    border: 1px solid rgba($lightColor, 0.6);
     left: 50%;
     top: 50%;
     margin-left: -30px;
@@ -259,72 +261,72 @@ td .media-body {
   }
 }
 
-.photoswipe-link-button{
-  &:after{
+.photoswipe-link-button {
+  &:after {
     position: static;
     display: inline-block;
     margin: 0;
   }
 }
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
   .pswp__zoom-wrap .embed-responsive {
-    max-width: unset!important;
+    max-width: unset !important;
   }
 }
-
 
 .alert {
   border-radius: 30px;
   border: none;
   padding: 18px 30px;
   margin-bottom: 20px;
-  &:last-child{
+  &:last-child {
     margin-bottom: 0;
   }
 }
 
-.alert-success{
+.alert-success {
   color: $lightColor;
   background-color: #20aa2a;
 }
 
-.alert-info{
+.alert-info {
   color: $lightColor;
   background-color: #219bf1;
 }
 
-.alert-warning{
+.alert-warning {
   color: $darkgreyColor;
   background-color: #dd8b20;
 }
 
-.alert-danger{
+.alert-danger {
   color: $lightColor;
   background-color: #ca416e;
 }
 
-.fw-flash-messages{
+.fw-flash-messages {
   margin-bottom: 30px;
-  ul{
+  ul {
     padding: 1.5em 1.5em 1.5em 1.5em;
     border-left: 5px solid transparent;
     background-color: rgba(150, 150, 150, 0.05);
   }
-  .fw-flash-type-error{
+  .fw-flash-type-error {
     border-color: #d22348;
   }
-  .fw-flash-type-success{
+  .fw-flash-type-success {
     border-color: #3bbf31;
   }
-  .fw-flash-type-info{
+  .fw-flash-type-info {
     border-color: #2394fd;
   }
-  .fw-flash-type-warning{
+  .fw-flash-type-warning {
     border-color: #fdd123;
   }
 }
 
-.mark, mark {
+.mark,
+mark {
   background-color: transparent;
 }
 
@@ -390,10 +392,10 @@ progressbar*/
   position: relative;
   overflow: visible;
 
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-bottom: 23px;
   }
-  span{
+  span {
     position: absolute;
     right: 0;
     top: -40px;
@@ -413,10 +415,10 @@ progressbar*/
     border-radius: 3px;
   }
 
-  &.donate-progress{
-    .progress-bar{
+  &.donate-progress {
+    .progress-bar {
       position: relative;
-      span{
+      span {
         position: absolute;
         display: inline-block;
         padding: 5px;
@@ -424,8 +426,8 @@ progressbar*/
         line-height: 1;
         right: 0;
         transform: translateX(50%);
-        &::before{
-          content: '';
+        &::before {
+          content: "";
           position: absolute;
           border: 3px solid transparent;
           border-top: 3px solid $colorMain2;
@@ -436,12 +438,11 @@ progressbar*/
       }
     }
   }
-
 }
-.progress + .progress-title{
+.progress + .progress-title {
   margin-top: 20px;
 }
-.progress-title{
+.progress-title {
   text-align: left;
   font-weight: 500;
   font-size: 16px;
@@ -449,11 +450,10 @@ progressbar*/
   margin-bottom: 14px;
   color: $colorMain2;
 }
-.progress{
+.progress {
   background-color: #f4f4f5;
 }
 
-
-pre:last-child{
+pre:last-child {
   margin-bottom: 0;
 }

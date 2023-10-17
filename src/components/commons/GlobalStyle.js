@@ -1,15 +1,10 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap/dist/js/bootstrap.min"
-import "~/assets/css/font-awesome.css"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min";
+import "~/assets/css/font-awesome.css";
 import "~/assets/css/icomoon.css";
 
-import "~/assets/scss/main.scss"
-function GlobalStyle({children}){
-
-    return(
-        <>
-            {children}
-        </>
-    )
+import "~/assets/scss/main.scss";
+function GlobalStyle({ children }) {
+  return <>{children}</>;
 }
-export default GlobalStyle
+export default GlobalStyle;
