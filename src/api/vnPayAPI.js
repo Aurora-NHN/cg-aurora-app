@@ -9,22 +9,23 @@ export const createOrder = async (data) => {
       headers: {
         Authorization: "Bearer " + token,
       },
-    });
-    console.log("result: ");
-    console.log(result);  
+    }); 
   } catch (e) {
-    console.log(e);
     result = e.response;
   }
   return result;
 };
 
-export const orderReturn = async () => {
+export const getStatus = async () => {
   let result = null;
+  let token = localStorage.getItem("token");
   try {
-    result = await axios.get(`${VN_PAY_API}/vnpay-payment`);
+    result = await axios.get(`${VN_PAY_API}/vnpay/status`,{
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
   } catch (e) {
-    console.log(e);
     result = e.response;
   }
   return result;

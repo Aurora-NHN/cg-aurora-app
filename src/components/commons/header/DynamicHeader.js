@@ -4,7 +4,7 @@ import React, { memo, useEffect, useState } from "react";
 import cx from "clsx";
 import { Link } from "react-router-dom";
 
-const DynamicHeader = ({ topHeaderHeight = 120 }) => {
+const DynamicHeader = ({ topHeaderHeight = 226 }) => {
   const [headOfPage, setHeadOfPage] = useState(true);
   const [mobileActive, setMobileActive] = useState(false);
 

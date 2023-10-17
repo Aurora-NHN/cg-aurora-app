@@ -5,7 +5,7 @@ import {
   loginUser,
   selectAuthIsError,
   selectLoginSuccess,
-  setErrors,
+  setLoginError,
   setLoginSuccess,
 } from "~/features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,14 +32,11 @@ const LoginModal = () => {
   }
 
   const loginFail = () => {
-    dispatch(setLogoutSuccess(false));
-    dispatch(setLoginSuccess(false));
-    dispatch(setErrors(null));
-    localStorage.removeItem("token");
-    toast.error("Login Fail !", {
+    toast.error(errorLogin, {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
     });
+    dispatch(setLoginError(null));
   };
 
   const formik = useFormik({
@@ -65,7 +62,7 @@ const LoginModal = () => {
       });
       formik.resetForm();
       loginSuccess();
-    } else if (errorLogin) {
+    } else if (errorLogin !== null) {
       loginFail();
     }
   }, [successLogin, errorLogin]);
@@ -76,9 +73,8 @@ const LoginModal = () => {
 
   return (
     <div
-      class="modal fade popupLogin"
+      className="modal fade popupLogin"
       id="popupLogin"
-      tabindex="-1"
       role="dialog"
       aria-hidden="true"
     >
@@ -157,17 +153,13 @@ const LoginModal = () => {
                       </div>
                     </div>
 
-                    <a
-                      href="/forgot-password"
-                      onClick={handleReset}
-                    >
+                    <a href="/forgot-password" onClick={handleReset}>
                       Forgot Password?
                     </a>
 
                     <a
-                      href="#"
                       style={{ right: "45px", position: "absolute" }}
-                      class="registerRedirect "
+                      className="registerRedirect "
                       data-bs-dismiss="modal"
                       data-bs-target="#popupRegistr"
                       data-bs-toggle="modal"
@@ -178,7 +170,6 @@ const LoginModal = () => {
                     <button
                       type="submit"
                       className="btn btn-maincolor mt-30 d-block"
-                      // onClick={handleReset}
                     >
                       Sign In
                     </button>
