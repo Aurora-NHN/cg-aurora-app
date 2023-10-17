@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import post2 from "~/assets/images/recent_post2.jpg";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectBlogs} from "~/features/blogSlice";
 const data = [
     {
         id: 1,
@@ -27,35 +29,31 @@ const data = [
         createdAt: 'Nov 12, 2018'
     }
 ]
-function PopularBlog(props) {
-    const [blogs, setBlogs] = useState([]);
-
-    useEffect(() => {
-        setBlogs(data)
-    },[]);
+function PopularBlog({blog}) {
+    const blogs = useSelector(selectBlogs);
 
     return (
         <div className="widget widget_recent_posts">
             <h3 className="widget-title">Popular Posts</h3>
-            <ul className="list-unstyled">
+            <div className="list-unstyled">
                 {
                     blogs.map(blog => (
-                        <li className="media" key={blog.id}>
-                            <Link className="media-image" to={`/blogs/${blog.id}`}>
-                                <img src={blog.mainImage} alt="img"/>
+                        <div className="media border border-dark rounded mt-2" key={blog.id}>
+                            <Link className="media-image w-50" to={`/blogs/${blog.id}`}>
+                                <img src={blog.mainImageUrl} className="rounded-start" alt="img"/>
                             </Link>
-                            <div className="media-body">
-                                <h4>
-                                    <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-                                </h4>
-                                <p className="item-meta">
-                                    {blog.createdAt}
+                            <div className="media-body w-50 position-relative">
+                                <div className="pe-2">
+                                    <Link to={`/blogs/${blog.id}`} className="d-block overflow-hidden mt-2" style={{width:'100%'}}>{blog.title?.slice(0,50)}...</Link>
+                                </div>
+                                <p className="item-meta position-absolute bottom-0 end-0">
+                                    <span className="me-2">{blog.createdAt}</span>
                                 </p>
                             </div>
-                        </li>
+                        </div>
                     ))
                 }
-            </ul>
+            </div>
         </div>
     );
 }

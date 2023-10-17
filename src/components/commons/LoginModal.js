@@ -4,23 +4,21 @@ import * as Yup from "yup";
 import {
   loginUser,
   selectAuthIsError,
-  selectAuthIsLoading,
   selectLoginSuccess,
+  setLoginError,
   setLoginSuccess,
 } from "~/features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { selectToken, setLogoutSuccess, setToken } from "~/features/userSlice";
+import { setLogoutSuccess, setToken } from "~/features/userSlice";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const closeModal = useRef();
-  const token = useSelector(selectToken);
   const successLogin = useSelector(selectLoginSuccess);
-  const loadingLogin = useSelector(selectAuthIsLoading);
   const errorLogin = useSelector(selectAuthIsError);
 
   function loginSuccess() {
@@ -34,17 +32,11 @@ const LoginModal = () => {
   }
 
   const loginFail = () => {
-    toast.error("Login Fail !", {
+    toast.error(errorLogin, {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
     });
-  };
-
-  const loginLoading = () => {
-    toast.error("Loading Notification !", {
-      position: toast.POSITION.TOP_RIGHT,
-      type: toast.TYPE.INFO,
-    });
+    dispatch(setLoginError(null));
   };
 
   const formik = useFormik({
@@ -70,7 +62,7 @@ const LoginModal = () => {
       });
       formik.resetForm();
       loginSuccess();
-    } else if (errorLogin) {
+    } else if (errorLogin !== null) {
       loginFail();
     }
   }, [successLogin, errorLogin]);
@@ -83,7 +75,6 @@ const LoginModal = () => {
     <div
       className="modal fade popupLogin"
       id="popupLogin"
-      tabIndex="-1"
       role="dialog"
       aria-hidden="true"
     >
@@ -162,15 +153,11 @@ const LoginModal = () => {
                       </div>
                     </div>
 
-                    <a
-                      href="/forgot-password"
-                      onClick={handleReset}
-                    >
+                    <a href="/forgot-password" onClick={handleReset}>
                       Forgot Password?
                     </a>
 
                     <a
-                      href="#"
                       style={{ right: "45px", position: "absolute" }}
                       className="registerRedirect "
                       data-bs-dismiss="modal"
@@ -183,7 +170,6 @@ const LoginModal = () => {
                     <button
                       type="submit"
                       className="btn btn-maincolor mt-30 d-block"
-                      // onClick={handleReset}
                     >
                       Sign In
                     </button>

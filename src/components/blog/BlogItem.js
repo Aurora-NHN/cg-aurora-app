@@ -1,17 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
-import {AURORA_API} from "~/app/constants";
+import React from 'react';
 
-function BlogItem(props) {
-    const [blog, setBlog] = useState({});
+function BlogItem({blog = {}}) {
     const parse = require('html-react-parser');
-    useEffect(() => {
-        axios.get(AURORA_API + "/blogs").then(response => {
-            setBlog(response.data[0])
-        }).catch(e => {
-
-        })
-    }, [])
 
     return (
         <>
@@ -46,10 +36,9 @@ function BlogItem(props) {
 
                     <div className="entry-content mt-35">
                         <p>
-                            The boom in Millennial Astrology (for people born 1990 to 1995) means
-                            horoscopes are now known factors for anyone aged around 20, 21, 22, 23, 24,
-                            25, 26...
+                            {blog.description}
                         </p>
+
                     </div>
                     <div className="entry-footer">
                         <div className="entry-meta">

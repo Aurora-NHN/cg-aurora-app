@@ -34,7 +34,7 @@ function HomeSection() {
                 <span>To Numerology</span>
               </h3>
               <div className="divider-35 divider-xl-65"></div>
-              <Link to="/numerrology" className="btn btn-maincolor">
+              <Link to="/numerology" className="btn btn-maincolor">
                 Let’s Begin
               </Link>
             </div>

@@ -7,7 +7,6 @@ import { setSubCategoryId } from "~/features/CategorySlice"
 import WoocommerceTabs from "./WoocommerceTabs";
 import ProductInfo from "./ProductInfo";
 import ProductImage from "./ProductImage";
-// import useEventBus from "./eventBus";
 import { useNavigate } from "react-router-dom";
 
 function ProductDetail() {

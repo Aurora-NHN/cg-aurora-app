@@ -51,6 +51,8 @@ const TopLineHeader = () => {
         type: toast.TYPE.ERROR,
       });
     }
+    dispatch(setLoginSuccess(false));
+    dispatch(setLogoutSuccess(false));
   }, [logoutSuccess]);
 
   const logout = () => {
@@ -153,9 +155,9 @@ const TopLineHeader = () => {
                       <Link to="/change-password">
                         <i className="fa fa-edit"></i> Change password
                       </Link>
-                      <a href="" onClick={logout}>
+                      <Link to="/" onClick={logout}>
                         <i className="fa fa-lock"></i> Logout
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </li>
