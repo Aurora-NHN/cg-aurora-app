@@ -4,7 +4,7 @@ import {
   selectRegisterError,
   selectRegisterSuccess, setRegisterError,
   setRegisterSuccess,
-} from "../../features/loginSlice";
+} from "~/features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -110,6 +110,7 @@ const RegisterModal = () => {
     <div
       className="modal fade popupRegistr"
       id="popupRegistr"
+      tabIndex="-1"
       role="dialog"
       aria-hidden="true"
     >
@@ -296,7 +297,7 @@ const RegisterModal = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                           >
-                            <option defaultValue="Gender" disabled hidden>
+                            <option value="Gender" disabled hidden>
                               Gender
                             </option>
                             <option value="Male">Male</option>

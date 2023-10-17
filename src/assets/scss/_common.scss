@@ -739,3 +739,9 @@ dl#attachment_612 {
 .gallery + .page-links {
   margin-top: 50px;
 }
+
+.hover-pointer {
+  &:hover{
+    cursor: pointer;
+  }
+}

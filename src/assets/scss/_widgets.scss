@@ -30,6 +30,8 @@ aside > * + * {
     margin-bottom: 10px;
     margin-top: 0;
     padding: 0;
+    display: flex;
+    align-items: flex-start;
 
     &:last-child{
       margin-bottom: 0;

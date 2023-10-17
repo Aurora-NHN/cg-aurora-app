@@ -76,7 +76,7 @@ const TopLineHeader = () => {
           {!loggedIn ? (
             <div className="col-lg-6 text-lg-right text-center">
               <ul className="top-includes border-divided small-text">
-                <li>
+                <li className="hover-pointer">
                   <span>
                     <a data-bs-target="#popupLogin" data-bs-toggle="modal">
                       <i className="fa fa-user"></i> Login
@@ -84,7 +84,7 @@ const TopLineHeader = () => {
                   </span>
                 </li>
 
-                <li>
+                <li className="hover-pointer">
                   <span>
                     <a data-bs-target="#popupRegistr" data-bs-toggle="modal">
                       <i className="fa fa-lock"></i> Register
