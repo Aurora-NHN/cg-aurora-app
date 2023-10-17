@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import {
   registerUser,
-  selectAuthIsError,
-  selectRegisterSuccess,
-  setErrors,
+  selectRegisterError,
+  selectRegisterSuccess, setRegisterError,
   setRegisterSuccess,
 } from "../../features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +16,7 @@ const RegisterModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const successRegister = useSelector(selectRegisterSuccess);
-  const errorRegister = useSelector(selectAuthIsError);
+  const errorRegister = useSelector(selectRegisterError);
   const closeModal = useRef();
 
   const handleRegisterSuccess = () => {
@@ -36,7 +35,7 @@ const RegisterModal = () => {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
     });
-    dispatch(setErrors(false));
+    dispatch(setRegisterError(null));
   };
 
   const initialValues = {
@@ -109,9 +108,8 @@ const RegisterModal = () => {
 
   return (
     <div
-      class="modal fade popupRegistr"
+      className="modal fade popupRegistr"
       id="popupRegistr"
-      tabindex="-1"
       role="dialog"
       aria-hidden="true"
     >
@@ -298,7 +296,7 @@ const RegisterModal = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                           >
-                            <option value="Gender" disabled selected hidden>
+                            <option defaultValue="Gender" disabled hidden>
                               Gender
                             </option>
                             <option value="Male">Male</option>
@@ -314,7 +312,7 @@ const RegisterModal = () => {
                       </div>
                       <div className="col-12">
                         <a
-                          class="registerRedirect "
+                          className="registerRedirect "
                           data-bs-dismiss="modal"
                           data-bs-target="#popupLogin"
                           data-bs-toggle="modal"

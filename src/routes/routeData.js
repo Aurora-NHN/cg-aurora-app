@@ -5,11 +5,26 @@ import ShopLayout from "~/layout/ShopLayout";
 import Blog from "~/pages/Blog";
 import Cart from "~/components/commons/CartLineDetail";
 import ChangePassword from "~/pages/ChangePassword";
-import ZodiacSection from "~/components/main/homepage/ZodiacSection";
 import ForgotPassword from "~/pages/ForgotPassword";
 import AccountDetail from "~/pages/AccountDetail";
 import Checkout from "~/pages/Checkout";
-import ProductDetail from "~/pages/ProductDetail";
+import Product from "~/pages/Product";
+import ZodiacSection from "~/pages/ZodiacSection";
+import Libra from "~/components/main/zodiac/Libra";
+import Aquarius from "~/components/main/zodiac/Aquarius";
+import Leo from "~/components/main/zodiac/Leo";
+import Pisces from "~/components/main/zodiac/Pisces";
+import Sagittarius from "~/components/main/zodiac/Sagittarius";
+import Taurus from "~/components/main/zodiac/Taurus";
+import Virgo from "~/components/main/zodiac/Virgo";
+import Capricorn from "~/components/main/zodiac/Capricorn";
+import Cancer from "~/components/main/zodiac/Cancer";
+import Aries from "~/components/main/zodiac/Aries";
+import Gemini from "~/components/main/zodiac/Gemini";
+import Scorpio from "~/components/main/zodiac/Scorpio";
+import Pricing from "~/pages/Pricing";
+import Tarot from "~/components/main/homepage/Tarot";
+import OrderReturn from "~/components/commons/OrderReturn";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
@@ -36,4 +51,6 @@ export const ROUT_DATA = [
   { path: "/zodiac-gemini", element: Gemini, layout: GuestLayout },
   { path: "/zodiac-scorpio", element: Scorpio, layout: GuestLayout },
   { path: "/pricing", element: Pricing, layout: GuestLayout },
+  { path: "/tarot", element: Tarot, layout: GuestLayout },
+  { path: "/order-return", element: OrderReturn, layout: GuestLayout },
 ];

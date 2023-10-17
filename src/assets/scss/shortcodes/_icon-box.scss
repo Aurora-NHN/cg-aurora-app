@@ -14,8 +14,8 @@
   }
 
   //bordered icon, button icon and icon with background
-  &[class*='bg-'],
-  &[class*='btn-'],
+  &[class*="bg-"],
+  &[class*="btn-"],
   &.bordered,
   &.icon-bordered {
     width: 2em;
@@ -42,7 +42,7 @@
     border-color: $borderColor;
   }
 
-  &[class*='bg-'] {
+  &[class*="bg-"] {
     border-color: transparent;
   }
   &.icon-top {
@@ -102,7 +102,7 @@
   h3,
   h4,
   h5,
-  h6{
+  h6 {
     color: $colorMain2;
   }
 
@@ -115,7 +115,7 @@
     }
   }
   //featured box in bordered columns
-  @media (min-width:768px) {
+  @media (min-width: 768px) {
     &.featured-box {
       position: relative;
       z-index: 2;
@@ -130,9 +130,8 @@
 
   //icon
   .icon-styled {
-
     //bordered icon and icon with background
-    &[class*='bg-'],
+    &[class*="bg-"],
     &.icon-bordered {
       margin-bottom: 0.5em;
     }
@@ -152,7 +151,9 @@
   }
 
   //headings style
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     margin-bottom: 1.6em;
     line-height: 1;
   }
@@ -193,7 +194,7 @@
   &.box-shadow {
     padding: 30px;
 
-    [class*='bg-'],
+    [class*="bg-"],
     .icon-bordered {
       margin-right: 10px;
       &:last-child {
@@ -201,7 +202,6 @@
         margin-left: 30px;
       }
     }
-
   }
 
   .media-body > p:first-child {
@@ -227,28 +227,47 @@
   }
 }
 
-.vertical_box.media{
-  .media-body{
+.vertical_box.media:not(.big-media) {
+  .icon-styled {
+    i {
+      max-width: 40px !important;
+      max-height: 40px !important;
+    }
+  }
+}
+
+.vertical_box.media {
+  .media-body {
     margin-top: 0;
   }
   align-items: center;
   flex-direction: row;
-  h5{
+  h5 {
     margin-bottom: 0;
     margin-top: 0;
   }
-  &.big-media{
-    * + .media-body{
+
+  &.big-media {
+    * + .media-body {
       margin-left: 35px;
     }
 
     @media (max-width: 767px) {
       flex-direction: column;
       text-align: center;
-      * + .media-body{
+      * + .media-body {
         margin-top: 30px;
         margin-left: 0;
       }
     }
+  }
+}
+
+.color-darkgrey.ico.ico-icon_aries {
+  font-size: 30px;
+}
+.big-media {
+  .color-darkgrey.ico.ico-icon_aries {
+    font-size: 9rem;
   }
 }

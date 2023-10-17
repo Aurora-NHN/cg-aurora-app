@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCategories, selectCategories } from "~/features/CategorySlice";
-import useEventBus from "./eventBus";
 import { useNavigate } from "react-router-dom";
 
 export default function CategorySidebar({ onSubCategorySelect }) {
@@ -26,12 +25,6 @@ export default function CategorySidebar({ onSubCategorySelect }) {
     navigate("/shop?sub-category-id=" + subCategoryId);
   };
 
-  const { on } = useEventBus(); // Change this to listen to the event
-
-  // Handle the event when subCategory is selected
-  on("subCategorySelect", (subCategoryId) => {
-    onSubCategorySelect(subCategoryId);
-  });
 
   return (
     <aside className="col-lg-4 order-lg-1">

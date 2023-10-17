@@ -5,7 +5,6 @@ import LoginModal from "~/components/commons/LoginModal";
 import RegisterModal from "~/components/commons/RegisterModal";
 
 const ShopLayout = ({children}) => {
-    const [loggedIn, setLoggedIn] = useState(false);
     
 
     return (
@@ -15,7 +14,7 @@ const ShopLayout = ({children}) => {
 
         <div id="canvas">
           <div id="box_wrapper">
-            <ShopHeader loggedIn={loggedIn} />
+            <ShopHeader />
             {children}
             <Footer />
           </div>
