@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, {useEffect} from "react";
+import {useSelector} from "react-redux";
 import HomeSection from "~/components/main/homepage/HomeSection";
-import { selectToken } from "~/features/userSlice";
+import {selectToken} from "~/features/userSlice";
 import ZodiacSection from "~/components/main/homepage/ZodiacSection";
+
 // import NumerologyAdding from "~/components/main/numerology/NumerologyAdding";
-import Pricing from "~/components/main/homepage/Pricing";
-import NumerologyAdding from "~/components/main/numerolory/NumerologyAdding";
 
 function Home() {
   const userLogin = useSelector(selectToken);

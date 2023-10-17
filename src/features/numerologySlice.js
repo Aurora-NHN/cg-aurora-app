@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createFreeNumerologyReportFree } from "~/api/numerologyAPI";
+import Cookies from 'js-cookie';
 
 const initialState = {
     values: [],
@@ -9,11 +10,11 @@ const initialState = {
     success: false,
 };
 export const addFreeNumerologyReport = createAsyncThunk("/create", async(customerInputData) => {
-    console.log(customerInputData)
-    const response = await createFreeNumerologyReportFree(customerInputData);
-    console.log(response.data)
 
+    const response = await createFreeNumerologyReportFree(customerInputData);
+    localStorage.setItem('data', JSON.stringify(response.data))
     return response.data;
+
 });
 
 export const numerologySlice = createSlice({

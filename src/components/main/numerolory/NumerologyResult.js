@@ -1,22 +1,64 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {selectNumerologyReportAdded} from "~/features/numerologySlice";
-import CardResult from "~/components/main/numerolory/CardResult";
-import CardResult2 from "~/components/main/numerolory/CardResult2";
-import CardResult3 from "~/components/main/numerolory/CardResult3";
+import CardResult from "~/components/main/numerolory/freeNumberologyReport/CardResult";
+import {Ripple} from 'primereact/ripple';
+import ResultNumber from "~/components/main/numerolory/freeNumberologyReport/ResultNumber";
+import {Link} from "react-router-dom";
+
 
 function NumerologyResult() {
     const result = useSelector(selectNumerologyReportAdded);
+
+    const [currentResult, setCurrentResult] = useState({});
     const [lifePathNumber, setLifePathNumber] = useState({});
     const  [dayOfbirthNumber, setDayOfbirthNumber] = useState({});
-
+    const  [missionNumber, setMissionNumber] = useState({});
+    const  [numberArr, setNumberArr] = useState([]);
 
     useEffect(() => {
         if (result && result.lifePathResponseDTO) {
             setLifePathNumber(result.lifePathResponseDTO);
             setDayOfbirthNumber(result.dayOfBirthNumberResponseDTO);
+            setMissionNumber(result.missionNumberResponseDtTO);
+            setCurrentResult(result)
         }
+
     }, [result])
+
+
+    useEffect(()=>{
+        const data = JSON.parse(localStorage.getItem('data'))
+        if (data){
+            setCurrentResult(data.data)
+            const dataArray = [];
+            for (const key in data.data) {
+                dataArray.push(data.data[key]);
+            }
+            dataArray.splice(0,5)
+            setNumberArr(dataArray);
+        }
+    },[])
+
+
+
+    const template = (options) => {
+        const toggleIcon = options.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up';
+        const className = `${options.className} justify-content-start`;
+        const titleClassName = `${options.titleClassName} ml-2 text-primary`;
+        const style = { fontSize: '1.25rem' };
+
+        return (
+            <div className={className}>
+                <span className={titleClassName} style={style}>Header</span>
+                <span className={options.togglerClassName} onClick={options.onTogglerClick}>
+                    <span className={toggleIcon}></span>
+                    <Ripple />
+                </span>
+            </div>
+        );
+    };
+
 
     return (
         <section className="ds s-py-90 s-py-xl-150 main-background-image">
@@ -35,9 +77,7 @@ function NumerologyResult() {
                                                 <p></p>
                                             </div>
 
-                                            <div className="mb-3">
-                                                <p></p>
-                                            </div>
+                                            <div className="mb-3"></div>
                                             <div className="bg-transparent rounded-3 p-3"
                                                  style={{background: "#F9E1E0"}}>
                                                 <p style={{color: "red", textAlign: "center"}}>
@@ -49,33 +89,24 @@ function NumerologyResult() {
 
                                                 </p>
                                                 <div style={{textAlign: "center"}}>
-                                                    <button type="submit" className="btn bg-main">Di chuyển đến trang
-                                                        nạp vip
-                                                    </button>
+                                                    <Link to="/pricing" className="btn bg-main">
+                                                        Di chuyển đến trang nạp vip
+                                                    </Link>
                                                 </div>
                                             </div>
 
-                                            <div>
-                                                {/*<CardResult />*/}
-                                                <CardResult3/>
-                                            </div>
-                                            <div className="mb-3">
-                                                <p></p>
-                                            </div>
-                                            <div className=" rounded-3 p-3 text-black" style={{background: "#E8F1FD"}}>
-                                                <h5 style={{color: "black"}}>{lifePathNumber.number}</h5>
-                                                <p className="bg-light rounded-3 p-3 text-black">
-                                                    {lifePathNumber.description}
-                                                </p>
+                                            <div className="p-3">
+                                                <CardResult result ={currentResult}/>
                                             </div>
 
-                                            <br></br>
-                                            <div className=" rounded-3 p-3 text-black" style={{background: "#E8F1FD"}}>
-                                                <h5 style={{color: "black"}}>{dayOfbirthNumber.number}</h5>
-                                                <p className="bg-light rounded-3 p-3 text-black">
-                                                    {dayOfbirthNumber.description}
-                                                </p>
-                                            </div>
+                                            {
+
+                                                numberArr.map((number, index) => (
+                                                    <div key={index} className="mb-3">
+                                                        <ResultNumber result={number} />
+                                                    </div>
+                                                ))
+                                            }
 
                                         </div>
                                     </div>

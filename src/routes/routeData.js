@@ -9,10 +9,22 @@ import ZodiacSection from "~/components/main/homepage/ZodiacSection";
 import ForgotPassword from "~/pages/ForgotPassword";
 import AccountDetail from "~/pages/AccountDetail";
 import Checkout from "~/pages/Checkout";
-import ProductDetail from "~/pages/ProductDetail";
-import ShopDetail from "~/pages/ShopDetail";
 import Numerology from "~/pages/Numerology";
 import NumerologyResult from "~/components/main/numerolory/NumerologyResult";
+import Product from "~/pages/Product";
+import Libra from "~/components/main/zodiac/Libra";
+import Leo from "~/components/main/zodiac/Leo";
+import Aquarius from "~/components/main/zodiac/Aquarius";
+import Sagittarius from "~/components/main/zodiac/Sagittarius";
+import Pisces from "~/components/main/zodiac/Pisces";
+import Taurus from "~/components/main/zodiac/Taurus";
+import Virgo from "~/components/main/zodiac/Virgo";
+import Capricorn from "~/components/main/zodiac/Capricorn";
+import Cancer from "~/components/main/zodiac/Cancer";
+import Aries from "~/components/main/zodiac/Aries";
+import Gemini from "~/components/main/zodiac/Gemini";
+import Scorpio from "~/components/main/zodiac/Scorpio";
+import Pricing from "~/components/main/homepage/Pricing";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },

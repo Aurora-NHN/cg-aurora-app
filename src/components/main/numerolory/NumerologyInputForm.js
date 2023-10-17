@@ -1,13 +1,11 @@
-    import React, {useEffect, useState} from "react";
-    import { useFormik } from "formik";
-    import * as Yup from "yup";
-    import {registerUser} from "~/features/loginSlice";
-    import {createFreeNumerologyReportFree} from "~/api/numerologyAPI";
-    import {useDispatch, useSelector} from "react-redux";
-    import {useNavigate} from "react-router-dom";
-    import {addFreeNumerologyReport, setCustomerInputFormSuccess, setValues} from "~/features/numerologySlice";
+import React, {useState} from "react";
+import {useFormik} from "formik";
+import * as Yup from "yup";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {addFreeNumerologyReport, setCustomerInputFormSuccess} from "~/features/numerologySlice";
 
-    function NumerologyInputForm() {
+function NumerologyInputForm() {
 
         const dispatch = useDispatch();
         const navigate = useNavigate();
@@ -104,6 +102,7 @@
             let newMonth = str[1];
             values.monthOfBirth = newMonth;
             dispatch(addFreeNumerologyReport(values));
+
             dispatch(setCustomerInputFormSuccess(false));
             if (success){
                 navigate("/numerology-result");
@@ -115,7 +114,9 @@
             validationSchema,
             onSubmit,
         });
-
+        const toTop = () => {
+            window.scrollTo({ behavior: "smooth", top: 200, left: 0 });
+        };
         return (
             <section className="ds s-py-90 s-py-xl-150 main-background-image">
                 <div className="container">
@@ -264,16 +265,16 @@
                                                                 ))}
                                                             </select>
                                                             {formik.errors.dayOfBirth && (
-                                                                <div className="invalid-feedback">
-                                                                    {formik.errors.dayOfBirth}
-                                                                </div>
-                                                            )}
-                                                        </div>
+                                                            <div className="invalid-feedback">
+                                                                {formik.errors.dayOfBirth}
                                                             </div>
-
+                                                        )}
                                                     </div>
-                                                    <div style={{ textAlign: "center" }}>
-                                                        <button type="submit" className="btn bg-main">Tra cứu ngay</button>
+                                            </div>
+
+                                        </div>
+                                        <div style={{ textAlign: "center" }}>
+                                            <button type="submit" className="btn bg-main" onClick={toTop}>Tra cứu ngay</button>
                                                     </div>
                                                 </form>
                                             </div>
