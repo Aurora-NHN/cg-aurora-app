@@ -1,10 +1,7 @@
 import Home from "../pages/Home";
 import GuestLayout from "~/layout/GuestLayout";
 import Shop from "~/pages/Shop";
-import ShopLayout from "~/layout/ShopLayout";
 import BlogPage from "~/pages/BlogPage";
-
-import Cart from "~/components/commons/CartLineDetail";
 import ChangePassword from "~/pages/ChangePassword";
 import ForgotPassword from "~/pages/ForgotPassword";
 import AccountDetail from "~/pages/AccountDetail";
@@ -25,18 +22,21 @@ import Gemini from "~/components/main/zodiac/Gemini";
 import Scorpio from "~/components/main/zodiac/Scorpio";
 import Pricing from "~/pages/Pricing";
 import Tarot from "~/components/main/homepage/Tarot";
+import OrderReturn from "~/components/commons/OrderReturn";
+import Cart from "~/pages/Cart";
+
 import Numerology from "~/pages/Numerology";
 import NumerologyResult from "~/components/main/numerolory/NumerologyResult";
 export const ROUT_DATA = [
-    {path: "/", element: Home, layout: GuestLayout},
-    {path: "/shop", element: Shop, layout: ShopLayout},
-    {path: "/blogs", element: BlogPage, layout: GuestLayout},
+  { path: "/", element: Home, layout: GuestLayout },
+  { path: "/shop", element: Shop, layout: GuestLayout },
+  {path: "/blogs", element: BlogPage, layout: GuestLayout},
   { path: "/forgot-password", element: ForgotPassword, layout: GuestLayout },
   { path: "/change-password", element: ChangePassword, layout: GuestLayout },
   { path: "/account-detail", element: AccountDetail, layout: GuestLayout },
-  { path: "/cart", element: Cart, layout: ShopLayout },
-  { path: "/checkout-form", element: Checkout, layout: ShopLayout },
-  { path: "/product-detail/:id", element: Product, layout: ShopLayout },
+  { path: "/cart", element: Cart, layout: GuestLayout },
+  { path: "/checkout-form", element: Checkout, layout: GuestLayout },
+  { path: "/product-detail/:id", element: Product, layout: GuestLayout },
   { path: "/zodiac", element: ZodiacSection, layout: GuestLayout },
   { path: "/zodiac-libra", element: Libra, layout: GuestLayout },
   { path: "/zodiac-aquarius", element: Aquarius, layout: GuestLayout },
@@ -55,3 +55,4 @@ export const ROUT_DATA = [
   {path: "/numerology", element: Numerology, layout: GuestLayout},
   {path: "/numerology-result", element: NumerologyResult, layout: GuestLayout}
 ];
+

@@ -4,6 +4,7 @@
  */
 /* FONT PATH
  * -------------------------- */
+ 
 @font-face {
   font-family: 'FontAwesome';
   src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
@@ -15,6 +16,23 @@
   width: 100%; /* Set the width to 100% to make them expand to the full width of their container */
   /* You can also set specific widths if needed */
   /* width: 300px; */
+}
+
+
+.col-lg-4.order-lg-1 {
+  width: 300px;
+}
+.col-lg-8.order-lg-2 {
+  float: right;
+  width: 75%;
+}
+.product{
+    float: left;
+  width: 110%;
+}
+.product-gallery {
+  width: 105%;
+  height: auto;
 }
 
 .weight-container {

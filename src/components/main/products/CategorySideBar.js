@@ -25,7 +25,6 @@ export default function CategorySidebar({ onSubCategorySelect }) {
     navigate("/shop?sub-category-id=" + subCategoryId);
   };
 
-
   return (
       <aside className="col-lg-4 order-lg-1">
         <div className="widget woocommerce widget_product_categories">

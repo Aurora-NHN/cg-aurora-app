@@ -7,6 +7,7 @@ const Quantity = ({
   minQuantity,
   maxQuantity,
 }) => {
+  
   return (
     <div className="quantity d-inline-block float-right">
       <input
