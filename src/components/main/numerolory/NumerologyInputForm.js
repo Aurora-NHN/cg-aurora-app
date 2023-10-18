@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {addFreeNumerologyReport, setCustomerInputFormSuccess} from "~/features/numerologySlice";
+import {selectToken} from "~/features/userSlice";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function NumerologyInputForm() {
 
@@ -12,6 +15,18 @@ function NumerologyInputForm() {
         const [availableMonths, setAvailableMonths] = useState([]);
         const [availableDays, setAvailableDays] = useState([]);
         const success = useSelector(setCustomerInputFormSuccess);
+        const token = useSelector(selectToken);
+        const [loggedIn, setLoggedIn] = useState(false);
+
+
+    useEffect(() => {
+        if (token) {
+            setLoggedIn(true);
+
+        } else {
+            setLoggedIn(false);
+        }
+    }, [token]);
         const monthOfBirthList = [
             "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",
             "Tháng 10", "Tháng 11", "Tháng 12",
@@ -124,8 +139,18 @@ function NumerologyInputForm() {
         formik.submitForm()
     }
     const handleVipSubmit = () => {
-        formik.setFieldValue('vip', true)
-        formik.submitForm()
+
+        localStorage.removeItem("data");
+        if (loggedIn) {
+            formik.setFieldValue('vip', true)
+            formik.submitForm()
+
+        } else if (!loggedIn) {
+            toast.error("You have not signed in, login please!", {
+                position: toast.POSITION.TOP_RIGHT,
+                type: toast.TYPE.ERROR,
+            });
+        }
     }
 
         return (
@@ -144,7 +169,7 @@ function NumerologyInputForm() {
                                                 <div className="mb-3">
                                                     <p> </p>
                                                 </div>
-                                                <form onSubmit={formik.handleSubmit}>
+                                                <form >
                                                     <div className="mb-3">
                                                         <label htmlFor="fullname" className="form-label">Nhập vào họ tên đầy đủ (trong giấy khai sinh):</label>
                                                         <input type="text"

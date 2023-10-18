@@ -19,7 +19,6 @@ export const store = configureStore(
       payment: paymentReducer,
         numerology: numerologyReducer,
         cart:cartReducer,
-
         blogs: blogSlice,
 
     },

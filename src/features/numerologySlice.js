@@ -5,8 +5,11 @@ const initialState = {
     values: [],
     value: {},
     loading: false,
-    error: null,
-    success: false,
+    freeReportError: null,
+    fullReportError: null,
+    freeReportSuccess: false,
+    fullReportSuccess: false,
+
 };
 export const addFreeNumerologyReport = createAsyncThunk("/create", async(customerInputData) => {
 
@@ -33,64 +36,78 @@ export const numerologySlice = createSlice({
         setLoading:(state, action) => {
             state.loading = action.payload;
         },
-        setError: (state, action) => {
-            state.error = action.payload;
+        setFreeReportError: (state, action) => {
+            state.freeReportError = action.payload;
+        },
+        setFullReportError: (state, action) => {
+            state.fullReportError = action.payload;
         },
         setValues: (state, action) => {
             state.values = action.payload;
         },
         setCustomerInputFormSuccess: (state, action) => {
-            state.success = action.payload;
+            state.value = action.payload;
+        },
+        setFreeReportSuccess: (state, action) => {
+            state.freeReportSuccess = action.payload;
+        },
+        setFullReportSuccess: (state, action) => {
+            state.fullReportSuccess = action.payload;
         },
     },
     extraReducers: (builder) => {
         builder
         //Update states of add report action
             .addCase(addFreeNumerologyReport.pending, (state) => {
-                state.success = false;
+                state.freeReportSuccess = false;
                 state.loading = true;
-                state.error = false;
+                state.freeReportError = false;
             })
             .addCase(addFreeNumerologyReport.rejected, (state, action) => {
-                state.success = false;
+                state.freeReportSuccess = false;
                 state.loading = false;
-                state.error = action.error;
+                state.freeReportError = action.payload;
             })
             .addCase(addFreeNumerologyReport.fulfilled,(state, action) => {
-                state.success = true;
+                state.freeReportSuccess = true;
                 state.loading = false;
                 state.value = action.payload.data;
-                state.error = false;
+                state.freeReportError = false;
             })
             // từ đây
-            // .addCase(addFullVipNumerologyReport().pending, (state) => {
-            //     state.success = false;
-            //     state.loading = true;
-            //     state.error = false;
-            // })
-            // .addCase(addFullVipNumerologyReport().rejected, (state, action) => {
-            //     state.success = false;
-            //     state.loading = false;
-            //     state.error = action.error;
-            // })
-            // .addCase(addFullVipNumerologyReport().fulfilled,(state, action) => {
-            //     state.success = true;
-            //     state.loading = false;
-            //     state.value = action.payload.data;
-            //     state.error = false;
-            // })
+            .addCase(addFullVipNumerologyReport().pending, (state) => {
+                state.fullReportSuccess = false;
+                state.loading = true;
+                state.fullReportError = false;
+            })
+            .addCase(addFullVipNumerologyReport().rejected, (state, action) => {
+                state.fullReportSuccess = false;
+                state.loading = false;
+                state.fullReportError = action.payload;
+            })
+            .addCase(addFullVipNumerologyReport().fulfilled,(state, action) => {
+                state.fullReportSuccess = true;
+                state.loading = false;
+                state.value = action.payload.data;
+                state.fullReportError = false;
+            })
     },
 });
 export const {
     setLoading,
-    setError,
     setValues,
+    setFreeReportError,
+    setFullReportError,
+    setFreeReportSuccess,
+    setFullReportSuccess,
     setCustomerInputFormSuccess
 } = numerologySlice.actions;
 
 export const selectLoading = (state) => state.numerology.loading;
-export const selectError = (state) => state.numerology.error;
-export const selectSuccess = (state) => state.numerology.success;
+export const selectFreeReportError = (state) => state.numerology.freeReportError;
+export const selectFreeReportSuccess = (state) => state.numerology.freeReportSuccess;
+export const selectFullReportError = (state) => state.numerology.fullReportError;
+export const selectFullReportSuccess = (state) => state.numerology.fullReportSuccess;
 export const selectNumerologyReportAdded = (state) => state.numerology.value;
 
 export default numerologySlice.reducer;

@@ -242,7 +242,7 @@ export default function ProductList() {
                         <img src={product.imageUrl} alt={product.name} />
                       </Link>
                       <div className="product-wrap">
-                        <h2 className="woocommerce-loop-product__title">
+                        <h6 className="woocommerce-loop-product__title">
                           <td>
                             <Link
                               to={`/product-detail/${product.id}`}
@@ -251,7 +251,7 @@ export default function ProductList() {
                               {product.name}
                             </Link>
                           </td>
-                        </h2>
+                        </h6>
                         <div className="star-rating">
                           <span style={{ width: `${product.rating}%` }}>
                             Rated{" "}

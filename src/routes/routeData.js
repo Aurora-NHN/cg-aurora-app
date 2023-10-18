@@ -22,11 +22,10 @@ import Gemini from "~/components/main/zodiac/Gemini";
 import Scorpio from "~/components/main/zodiac/Scorpio";
 import Pricing from "~/pages/Pricing";
 import Tarot from "~/components/main/homepage/Tarot";
-import OrderReturn from "~/components/commons/OrderReturn";
 import Cart from "~/pages/Cart";
-
 import Numerology from "~/pages/Numerology";
 import NumerologyResult from "~/components/main/numerolory/NumerologyResult";
+
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
   { path: "/shop", element: Shop, layout: GuestLayout },
