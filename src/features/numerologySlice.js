@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createFreeNumerologyReportFree } from "~/api/numerologyAPI";
-import Cookies from 'js-cookie';
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createNumerologyReport, createFullNumerologyReport} from "~/api/numerologyAPI";
 
 const initialState = {
     values: [],
@@ -11,11 +10,21 @@ const initialState = {
 };
 export const addFreeNumerologyReport = createAsyncThunk("/create", async(customerInputData) => {
 
-    const response = await createFreeNumerologyReportFree(customerInputData);
+    const response = await createNumerologyReport(customerInputData);
     localStorage.setItem('data', JSON.stringify(response.data))
     return response.data;
 
 });
+
+export const addFullVipNumerologyReport = createAsyncThunk(
+    "/create-full-vip",
+    async (customerInputData) => {
+        localStorage.setItem('data', JSON.stringify(response.data))
+        const response = await createFullNumerologyReport(customerInputData);
+        console.log(response);
+        return response.data;
+    }
+)
 
 export const numerologySlice = createSlice({
     name: "numerology",
@@ -53,6 +62,23 @@ export const numerologySlice = createSlice({
                 state.value = action.payload.data;
                 state.error = false;
             })
+            // từ đây
+            // .addCase(addFullVipNumerologyReport().pending, (state) => {
+            //     state.success = false;
+            //     state.loading = true;
+            //     state.error = false;
+            // })
+            // .addCase(addFullVipNumerologyReport().rejected, (state, action) => {
+            //     state.success = false;
+            //     state.loading = false;
+            //     state.error = action.error;
+            // })
+            // .addCase(addFullVipNumerologyReport().fulfilled,(state, action) => {
+            //     state.success = true;
+            //     state.loading = false;
+            //     state.value = action.payload.data;
+            //     state.error = false;
+            // })
     },
 });
 export const {

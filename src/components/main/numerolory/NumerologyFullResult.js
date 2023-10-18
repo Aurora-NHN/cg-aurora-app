@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {selectNumerologyReportAdded} from "~/features/numerologySlice";
-import {Ripple} from "primereact/ripple";
-import {Link} from "react-router-dom";
 import CardResult from "~/components/main/numerolory/freeNumberologyReport/CardResult";
 import ResultNumber from "~/components/main/numerolory/freeNumberologyReport/ResultNumber";
 
@@ -14,6 +12,7 @@ function NumerologyFullResult() {
     const [lifePathNumber, setLifePathNumber] = useState({});
     const  [dayOfbirthNumber, setDayOfbirthNumber] = useState({});
     const  [missionNumber, setMissionNumber] = useState({});
+
     const  [numberArr, setNumberArr] = useState([]);
 
     useEffect(() => {
@@ -56,24 +55,6 @@ function NumerologyFullResult() {
                                             </div>
                                             <div className="mb-3">
                                                 <p></p>
-                                            </div>
-
-                                            <div className="mb-3"></div>
-                                            <div className="bg-transparent rounded-3 p-3"
-                                                 style={{background: "#F9E1E0"}}>
-                                                <p style={{color: "red", textAlign: "center"}}>
-                                                    Bạn đang sử dụng lượt tra miễn phí chỉ xem được giới hạn các luận
-                                                    giải.
-                                                    Để xem những luận giải và giải pháp mà các chuyên gia đã nghiên cứu
-                                                    cho toàn bộ các chỉ số của bạn,
-                                                    vui lòng nâng cấp thành tài khoản VIP!
-
-                                                </p>
-                                                <div style={{textAlign: "center"}}>
-                                                    <Link to="/pricing" className="btn bg-main">
-                                                        Di chuyển đến trang nạp vip
-                                                    </Link>
-                                                </div>
                                             </div>
 
                                             <div className="p-3">

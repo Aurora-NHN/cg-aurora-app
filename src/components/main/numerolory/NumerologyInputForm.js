@@ -25,17 +25,16 @@ function NumerologyInputForm() {
             yearOfBirth: "",
             monthOfBirth: "",
             dayOfBirth: "",
+            vip: false
         };
 
-        const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]*$/;
-
-        const REGEX_FOR_NAME = /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/;
+        const ENGLISH_REGEX = /^[a-zA-Z\s]*$/;
         const validationSchema = Yup.object().shape({
             fullName: Yup.string()
-                .matches(VIETNAMESE_REGEX, "Họ tên không được chứa số và ký tự đặc biệt")
+                .matches(ENGLISH_REGEX, "Họ tên không được có dấu, chứa số hoặc ký tự đặc biệt")
                 .required("Họ tên không được để trống"),
             nickName: Yup.string()
-                .matches(VIETNAMESE_REGEX, "Nickname không được chứa số và ký tự đặc biệt"),
+                .matches(ENGLISH_REGEX, "Nickname không được có dấu, chứa số hoặc ký tự đặc biệt"),
             yearOfBirth: Yup.number()
                 .typeError("Năm sinh phải là số")
                 .min(1, "Năm sinh không hợp lệ")
@@ -100,8 +99,11 @@ function NumerologyInputForm() {
             let month = formik.values.monthOfBirth;
             let str = month.split(" ");
             let newMonth = str[1];
-            values.monthOfBirth = newMonth;
-            dispatch(addFreeNumerologyReport(values));
+
+            dispatch(addFreeNumerologyReport({
+                ...values,
+                monthOfBirth : newMonth
+            }));
 
             dispatch(setCustomerInputFormSuccess(false));
             if (success){
@@ -117,6 +119,15 @@ function NumerologyInputForm() {
         const toTop = () => {
             window.scrollTo({ behavior: "smooth", top: 200, left: 0 });
         };
+
+    const handleNormalSubmit = () => {
+        formik.submitForm()
+    }
+    const handleVipSubmit = () => {
+        formik.setFieldValue('vip', true)
+        formik.submitForm()
+    }
+
         return (
             <section className="ds s-py-90 s-py-xl-150 main-background-image">
                 <div className="container">
@@ -274,7 +285,8 @@ function NumerologyInputForm() {
 
                                         </div>
                                         <div style={{ textAlign: "center" }}>
-                                            <button type="submit" className="btn bg-main" onClick={toTop}>Tra cứu ngay</button>
+                                            <button type="button" className="btn bg-main" onClick={handleNormalSubmit}>Tra cứu ngay</button>
+                                            <button type="button" className="btn bg-main" onClick={handleVipSubmit}>Tra cứu vip</button>
                                                     </div>
                                                 </form>
                                             </div>
