@@ -5,6 +5,7 @@ import loginReducer from "~/features/loginSlice";
 import categoryReducer from "~/features/CategorySlice";
 import paymentReducer from "~/features/paymentSlice";
 import cartReducer from "~/features/CartSlice"
+import blogSlice from "~/features/blogSlice";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = configureStore(
@@ -15,7 +16,9 @@ export const store = configureStore(
       login: loginReducer,
       category: categoryReducer,
       payment: paymentReducer,
-      cart:cartReducer,
+        cart:cartReducer,
+
+        blogs: blogSlice,
 
     },
   },

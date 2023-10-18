@@ -1,9 +1,9 @@
 import Home from "../pages/Home";
 import GuestLayout from "~/layout/GuestLayout";
 import Shop from "~/pages/Shop";
-import ShopLayout from "~/layout/ShopLayout";
 import Blog from "~/pages/Blog";
-import Cart from "~/pages/Cart";
+import BlogPage from "~/pages/BlogPage";
+import Cart from "~/components/commons/CartLineDetail";
 import ChangePassword from "~/pages/ChangePassword";
 import ForgotPassword from "~/pages/ForgotPassword";
 import AccountDetail from "~/pages/AccountDetail";
@@ -29,7 +29,7 @@ import OrderReturn from "~/components/commons/OrderReturn";
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
   { path: "/shop", element: Shop, layout: GuestLayout },
-  { path: "/blogs", element: Blog, layout: GuestLayout },
+  {path: "/blogs", element: BlogPage, layout: GuestLayout},
   { path: "/forgot-password", element: ForgotPassword, layout: GuestLayout },
   { path: "/change-password", element: ChangePassword, layout: GuestLayout },
   { path: "/account-detail", element: AccountDetail, layout: GuestLayout },
