@@ -1,4 +1,6 @@
+@import "react-image-gallery/styles/scss/image-gallery.scss";
 //import google fonts - only for HTML, not WP
+@import "placeholder";
 @import 'import_fonts';
 //accent colors variables
 //Theme Variables
@@ -43,6 +45,7 @@
 @import 'intro';
 @import 'subpages';
 @import 'template';
+@import "flip_card";
 //@import 'dashboard';
 //@import 'switcher_styles';
 //

@@ -22,8 +22,9 @@ import Gemini from "~/components/main/zodiac/Gemini";
 import Scorpio from "~/components/main/zodiac/Scorpio";
 import Pricing from "~/pages/Pricing";
 import Tarot from "~/components/main/homepage/Tarot";
-import OrderReturn from "~/components/commons/OrderReturn";
 import Cart from "~/pages/Cart";
+import Numerology from "~/pages/Numerology";
+import NumerologyResult from "~/components/main/numerolory/NumerologyResult";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
@@ -50,6 +51,7 @@ export const ROUT_DATA = [
   { path: "/zodiac-scorpio", element: Scorpio, layout: GuestLayout },
   { path: "/pricing", element: Pricing, layout: GuestLayout },
   { path: "/tarot", element: Tarot, layout: GuestLayout },
-  { path: "/order-return", element: OrderReturn, layout: GuestLayout },
+  {path: "/numerology", element: Numerology, layout: GuestLayout},
+  {path: "/numerology-result", element: NumerologyResult, layout: GuestLayout}
 ];
 
