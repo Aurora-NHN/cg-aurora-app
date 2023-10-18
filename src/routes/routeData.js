@@ -1,9 +1,7 @@
 import Home from "../pages/Home";
 import GuestLayout from "~/layout/GuestLayout";
 import Shop from "~/pages/Shop";
-import Blog from "~/pages/Blog";
 import BlogPage from "~/pages/BlogPage";
-import Cart from "~/components/commons/CartLineDetail";
 import ChangePassword from "~/pages/ChangePassword";
 import ForgotPassword from "~/pages/ForgotPassword";
 import AccountDetail from "~/pages/AccountDetail";
@@ -25,6 +23,7 @@ import Scorpio from "~/components/main/zodiac/Scorpio";
 import Pricing from "~/pages/Pricing";
 import Tarot from "~/components/main/homepage/Tarot";
 import OrderReturn from "~/components/commons/OrderReturn";
+import Cart from "~/pages/Cart";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
@@ -33,7 +32,6 @@ export const ROUT_DATA = [
   { path: "/forgot-password", element: ForgotPassword, layout: GuestLayout },
   { path: "/change-password", element: ChangePassword, layout: GuestLayout },
   { path: "/account-detail", element: AccountDetail, layout: GuestLayout },
-  { path: "/blogs", element: Blog, layout: GuestLayout },
   { path: "/cart", element: Cart, layout: GuestLayout },
   { path: "/checkout-form", element: Checkout, layout: GuestLayout },
   { path: "/product-detail/:id", element: Product, layout: GuestLayout },
