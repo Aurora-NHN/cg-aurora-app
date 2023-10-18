@@ -4,7 +4,8 @@ import { login, register } from "~/api/loginAPI";
 const initialState = {
   value: null,
   loading: false,
-  errors: null,
+  loginError: null,
+  registerError: null,
   loginSuccess: false,
   registerSuccess: false,
 };
@@ -38,8 +39,11 @@ export const loginSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setErrors: (state, action) => {
-      state.errors = action.payload;
+    setLoginError: (state, action) => {
+      state.loginError = action.payload;
+    },
+    setRegisterError: (state, action) => {
+      state.registerError = action.payload;
     },
     setLoginSuccess: (state, action) => {
       state.loginSuccess = action.payload;
@@ -56,46 +60,48 @@ export const loginSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.loginSuccess = false;
         state.loading = true;
-        state.errors = false;
+        state.loginError = false;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginSuccess = false;
         state.loading = false;
-        state.errors = action.error;
+        state.loginError = action.payload;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loginSuccess = true;
         state.loading = false;
         state.value = action.payload;
-        state.errors = false;
+        state.loginError = false;
         localStorage.setItem("token", action.payload.data);
       })
       .addCase(registerUser.pending, (state) => {
         state.registerSuccess = false;
         state.loading = true;
-        state.errors = false;
+        state.registerError = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.registerSuccess = false;
         state.loading = false;
-        state.errors = action.payload;
+        state.registerError = action.payload;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.registerSuccess = true;
         state.loading = false;
-        state.errors = false;
+        state.registerError = false;
       });
   },
 });
 
-export const { setLoading, setError, setLoginSuccess, setRegisterSuccess, setValue } =
+export const { setLoading, setLoginError, setRegisterError, setLoginSuccess, setRegisterSuccess, setValue } =
   loginSlice.actions;
 
 export const selectAuthIsLoading = (state) => state.login.loading;
-export const selectAuthIsError = (state) => state.login.errors;
+export const selectAuthIsError = (state) => state.login.loginError;
 export const selectLoginSuccess = (state) => state.login.loginSuccess;
 export const selectRegisterSuccess = (state) => state.login.registerSuccess;
 export const selectUserLogin = (state) => state.login.value;
 export const selectUserRegister = (state) => state.login.value;
+
+export const selectRegisterError = (state) => state.login.registerError;
 
 export default loginSlice.reducer;

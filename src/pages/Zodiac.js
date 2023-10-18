@@ -1,5 +1,5 @@
 import React from "react";
-import ZodiacSideBar from "./zodiac/ZodiacSidebar";
+import ZodiacSideBar from "../components/main/zodiac/ZodiacSidebar";
 
 const Zodiac = ({ children }) => {
   return (

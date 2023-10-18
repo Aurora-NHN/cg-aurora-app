@@ -8,9 +8,8 @@ import WoocommerceTabs from "./WoocommerceTabs";
 import ProductInfo from "./ProductInfo";
 import ProductImage from "./ProductImage";
 import { useNavigate } from "react-router-dom";
-import { addToCart } from "~/features/CartSlice";
+import { addToCart, selectAddToCartResponse } from "~/features/CartSlice";
 import { selectToken } from "~/features/userSlice";
-
 function ProductDetail() {
   const product = useSelector(selectProductDetail);
   const minQuantity = 1;
@@ -38,7 +37,7 @@ function ProductDetail() {
   };
 
   const handleAddToCartClick = (productId) => {
-    const requestData = { productId, quantity, token }
+    const requestData = { productId, quantity, token };
     dispatch(addToCart(requestData));
   }
 

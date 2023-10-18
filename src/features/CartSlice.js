@@ -3,11 +3,8 @@ import { addCartLineToCart, showCart, deleteCartLine } from "~/api/cartAPI";
 
 export const addToCart = createAsyncThunk(
   "cart/add",
-  async ({ productId, quantity, token }, { rejectWithValue }) => {
+  async ({ productId, quantity, token }) => {
     const response = await addCartLineToCart(productId, quantity, token);
-    if (response.status !== 200) {
-      return rejectWithValue(response.data.message);
-    }
     console.log(response.data)
     return response.data;
   }

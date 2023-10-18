@@ -5,9 +5,9 @@ export const login = async (loginData) => {
   let result = null;
   try {
     result = await axios.post(`${USER_MANAGEMENT_API}/login`, loginData);
-    console.log(result);
   } catch (e) {
     console.log(e);
+    result = e.response;
   }
   return result;
 };

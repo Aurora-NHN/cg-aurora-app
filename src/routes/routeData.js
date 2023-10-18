@@ -1,40 +1,42 @@
-import ZodiacSection from "~/components/main/homepage/ZodiacSection";
+import Home from "../pages/Home";
 import GuestLayout from "~/layout/GuestLayout";
+import Shop from "~/pages/Shop";
 import ShopLayout from "~/layout/ShopLayout";
-import AccountDetail from "~/pages/AccountDetail";
 import Blog from "~/pages/Blog";
 import Cart from "~/pages/Cart";
 import ChangePassword from "~/pages/ChangePassword";
-import Checkout from "~/pages/Checkout";
 import ForgotPassword from "~/pages/ForgotPassword";
-import Home from "~/pages/Home";
+import AccountDetail from "~/pages/AccountDetail";
+import Checkout from "~/pages/Checkout";
 import Product from "~/pages/Product";
-import Shop from "~/pages/Shop";
-import Aquarius from "~/pages/zodiac/Aquarius";
-import Aries from "~/pages/zodiac/Aries";
-import Cancer from "~/pages/zodiac/Cancer";
-import Capricorn from "~/pages/zodiac/Capricorn";
-import Gemini from "~/pages/zodiac/Gemini";
-import Leo from "~/pages/zodiac/Leo";
-import Libra from "~/pages/zodiac/Libra";
-import Pisces from "~/pages/zodiac/Pisces";
-import Sagittarius from "~/pages/zodiac/Sagittarius";
-import Scorpio from "~/pages/zodiac/Scorpio";
-import Taurus from "~/pages/zodiac/Taurus";
-import Virgo from "~/pages/zodiac/Virgo";
-
+import ZodiacSection from "~/pages/ZodiacSection";
+import Libra from "~/components/main/zodiac/Libra";
+import Aquarius from "~/components/main/zodiac/Aquarius";
+import Leo from "~/components/main/zodiac/Leo";
+import Pisces from "~/components/main/zodiac/Pisces";
+import Sagittarius from "~/components/main/zodiac/Sagittarius";
+import Taurus from "~/components/main/zodiac/Taurus";
+import Virgo from "~/components/main/zodiac/Virgo";
+import Capricorn from "~/components/main/zodiac/Capricorn";
+import Cancer from "~/components/main/zodiac/Cancer";
+import Aries from "~/components/main/zodiac/Aries";
+import Gemini from "~/components/main/zodiac/Gemini";
+import Scorpio from "~/components/main/zodiac/Scorpio";
+import Pricing from "~/pages/Pricing";
+import Tarot from "~/components/main/homepage/Tarot";
+import OrderReturn from "~/components/commons/OrderReturn";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
-  { path: "/shop", element: Shop, layout: ShopLayout },
+  { path: "/shop", element: Shop, layout: GuestLayout },
   { path: "/blogs", element: Blog, layout: GuestLayout },
   { path: "/forgot-password", element: ForgotPassword, layout: GuestLayout },
   { path: "/change-password", element: ChangePassword, layout: GuestLayout },
   { path: "/account-detail", element: AccountDetail, layout: GuestLayout },
   { path: "/blogs", element: Blog, layout: GuestLayout },
-  { path: "/cart", element: Cart, layout: ShopLayout },
-  { path: "/checkout-form", element: Checkout, layout: ShopLayout },
-  { path: "/product-detail/:id", element: Product, layout: ShopLayout },
+  { path: "/cart", element: Cart, layout: GuestLayout },
+  { path: "/checkout-form", element: Checkout, layout: GuestLayout },
+  { path: "/product-detail/:id", element: Product, layout: GuestLayout },
   { path: "/zodiac", element: ZodiacSection, layout: GuestLayout },
   { path: "/zodiac-libra", element: Libra, layout: GuestLayout },
   { path: "/zodiac-aquarius", element: Aquarius, layout: GuestLayout },
@@ -48,4 +50,8 @@ export const ROUT_DATA = [
   { path: "/zodiac-aries", element: Aries, layout: GuestLayout },
   { path: "/zodiac-gemini", element: Gemini, layout: GuestLayout },
   { path: "/zodiac-scorpio", element: Scorpio, layout: GuestLayout },
+  { path: "/pricing", element: Pricing, layout: GuestLayout },
+  { path: "/tarot", element: Tarot, layout: GuestLayout },
+  { path: "/order-return", element: OrderReturn, layout: GuestLayout },
 ];
+

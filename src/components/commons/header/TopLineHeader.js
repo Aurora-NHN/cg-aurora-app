@@ -52,12 +52,16 @@ const TopLineHeader = () => {
         type: toast.TYPE.ERROR,
       });
     }
+    dispatch(setLoginSuccess(false));
+    dispatch(setLogoutSuccess(false));
   }, [logoutSuccess]);
 
   const logout = () => {
     if (loggedIn) {
       let token = localStorage.getItem("token");
       dispatch(logoutUser(token));
+      dispatch(setLogoutSuccess(false));
+      localStorage.removeItem("token");
     }
   };
 
@@ -157,9 +161,9 @@ const TopLineHeader = () => {
                       <Link to="/change-password">
                         <i className="fa fa-edit"></i> Change password
                       </Link>
-                      <a href="" onClick={logout}>
+                      <Link to="/" onClick={logout}>
                         <i className="fa fa-lock"></i> Logout
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </li>

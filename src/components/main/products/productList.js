@@ -11,9 +11,8 @@ import {
   getProductsBySubCategoryId,
   setProductDetail,
   selectLoading,
-  setLoading,
 } from "~/features/productSlice";
-import { addToCart,selectAddToCartResponse } from "~/features/CartSlice";
+import { addToCart, selectAddToCartResponse } from "~/features/CartSlice";
 import { selectSubCategoryId } from "~/features/CategorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
@@ -27,7 +26,7 @@ export default function ProductList() {
   const token = useSelector(selectToken);
   const productList = useSelector(selectProductList);
   const selectAddToCart = useSelector(selectAddToCartResponse);
-  const newSubCategoryId = useSelector(selectSubCategoryId);  
+  const newSubCategoryId = useSelector(selectSubCategoryId);
   const [keyword, setKeyword] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [sortOrder, setSortOrder] = useState("");
@@ -36,8 +35,7 @@ export default function ProductList() {
   const [productsBySubCategory, setProductsBySubCategory] = useState(false);
   const [onloading, setOnloading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-
-  console.log(selectAddToCart)
+  const [check,setCheck] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setOnloading(false);
@@ -161,14 +159,20 @@ export default function ProductList() {
   const handleAddToCartClick = (productId) => {
     const requestData = { productId, quantity, token };
     dispatch(addToCart(requestData));
+    setCheck(true)
   }
 
   useEffect(() => {
-    if (selectAddToCart.message === "Product added to cart successfully" ) {
-      addToCartSuccess();
-    } else if(selectAddToCart.message === "Out of stock") {
-      addToCartFail();
+    if(check){
+      if (selectAddToCart.message === "Product added to cart successfully") {
+        console.log("hbhb")
+        addToCartSuccess();
+      } else if (selectAddToCart.message === "Out of stock") {
+        console.log("aaaa")
+        addToCartFail();
+      }
     }
+
   }, [selectAddToCart])
 
   const addToCartSuccess = () => {
@@ -176,6 +180,7 @@ export default function ProductList() {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.SUCCESS,
     });
+    setCheck(false);
   };
 
   const addToCartFail = () => {
@@ -183,6 +188,7 @@ export default function ProductList() {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
     });
+    setCheck(false);
   };
 
   return (
