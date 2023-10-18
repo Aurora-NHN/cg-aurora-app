@@ -43,7 +43,7 @@ const Pricing = () => {
         if (orderSuccess === true) {
             window.location.href = vnPayUrl;
         }
-        // dispatch(setOrderSuccess(false));
+        dispatch(setOrderSuccess(false));
     }, [orderSuccess]);
 
     return (
