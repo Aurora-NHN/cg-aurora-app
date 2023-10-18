@@ -1,6 +1,7 @@
 import horoscope from "~/assets/images/horoscope.png";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
+import React from "react";
 
 function HomeSection() {
   return (

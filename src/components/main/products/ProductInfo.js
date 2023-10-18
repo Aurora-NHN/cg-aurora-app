@@ -10,7 +10,7 @@ const ProductInfo = ({ product }) => {
   }
   return (
     <div>
-      <h2>{product.name}</h2>
+      <h3>{product.name}</h3>
       <div>
         <h5>description: </h5>
       </div>
