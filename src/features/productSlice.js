@@ -30,7 +30,6 @@ export const getProductsBySubCategoryId = createAsyncThunk(
       pageNumber,
       sortOrder
     );
-    console.log(response.data);
     return response.data.content;
   }
 );

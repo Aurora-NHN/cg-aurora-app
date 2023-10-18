@@ -1,6 +1,13 @@
 import React from "react";
 
 const ProductInfo = ({ product }) => {
+  function formatCurrency(price) {
+    const formatter = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return formatter.format(price);
+  }
   return (
     <div>
       <h2>{product.name}</h2>
@@ -11,7 +18,7 @@ const ProductInfo = ({ product }) => {
       <p className="price">
         <h6>đã bán:{product.quantitySold}</h6>
         <span>
-          <span>{product.price}Đ</span>
+          <span>{formatCurrency(product.price)}</span>
         </span>
       </p>
     </div>
