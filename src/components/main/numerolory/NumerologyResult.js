@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
-import {selectNumerologyReportAdded} from "~/features/numerologySlice";
+import {selectFreeReportSuccess, selectFullReportSuccess} from "~/features/numerologySlice";
 import CardResult from "~/components/main/numerolory/freeNumberologyReport/CardResult";
 import {Ripple} from 'primereact/ripple';
 import ResultNumber from "~/components/main/numerolory/freeNumberologyReport/ResultNumber";
@@ -8,8 +8,8 @@ import {Link} from "react-router-dom";
 
 
 function NumerologyResult() {
-    const result = useSelector(selectNumerologyReportAdded);
-
+    const resultFree = useSelector(selectFreeReportSuccess);
+    const resultFull = useSelector(selectFullReportSuccess);
     const [currentResult, setCurrentResult] = useState({});
     const [lifePathNumber, setLifePathNumber] = useState({});
     const  [dayOfbirthNumber, setDayOfbirthNumber] = useState({});
@@ -17,30 +17,38 @@ function NumerologyResult() {
     const  [numberArr, setNumberArr] = useState([]);
 
     useEffect(() => {
-        if (result && result.lifePathResponseDTO) {
-            setLifePathNumber(result.lifePathResponseDTO);
-            setDayOfbirthNumber(result.dayOfBirthNumberResponseDTO);
-            setMissionNumber(result.missionNumberResponseDtTO);
-            setCurrentResult(result)
-        }
 
-    }, [result])
+            let data = JSON.parse(localStorage.getItem('data'));
 
-
-    useEffect(()=>{
-        const data = JSON.parse(localStorage.getItem('data'))
-        if (data){
-            setCurrentResult(data.data)
-            const dataArray = [];
-            for (const key in data.data) {
-                dataArray.push(data.data[key]);
+            if (data) {
+                setCurrentResult(data);
+                let dataArray = [];
+                for (const key in data) {
+                    dataArray.push(data[key]);
+                }
+                dataArray.splice(0, 5);
+                setNumberArr(dataArray);
             }
-            dataArray.splice(0,5)
-            setNumberArr(dataArray);
+
+        }, []);
+
+    useEffect(() => {
+        if (resultFree === true && resultFree.lifePathResponseDTO) {
+            setLifePathNumber(resultFree.lifePathResponseDTO);
+            setDayOfbirthNumber(resultFree.dayOfBirthNumberResponseDTO);
+            setMissionNumber(resultFree.missionNumberResponseDtTO);
+            setCurrentResult(resultFree)
         }
-    },[])
+        if (resultFull === true && resultFull.lifePathResponseDTO) {
+            setLifePathNumber(resultFull.lifePathResponseDTO);
+            setDayOfbirthNumber(resultFull.dayOfBirthNumberResponseDTO);
+            setMissionNumber(resultFull.missionNumberResponseDtTO);
+            //Bo thêm các đối tượng còn laị
+            //list th
+            setCurrentResult(resultFull)
+        }
 
-
+    }, [resultFree, resultFull])
 
     const template = (options) => {
         const toggleIcon = options.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up';

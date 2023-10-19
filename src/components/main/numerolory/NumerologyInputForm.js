@@ -3,20 +3,27 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {addFreeNumerologyReport, setCustomerInputFormSuccess} from "~/features/numerologySlice";
+import {
+    addFreeNumerologyReport,
+    selectFreeReportError,
+    selectFullReportError,
+    setCustomerInputFormSuccess
+} from "~/features/numerologySlice";
 import {selectToken} from "~/features/userSlice";
 import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function NumerologyInputForm() {
 
-        const dispatch = useDispatch();
-        const navigate = useNavigate();
-        const [availableMonths, setAvailableMonths] = useState([]);
-        const [availableDays, setAvailableDays] = useState([]);
-        const success = useSelector(setCustomerInputFormSuccess);
-        const token = useSelector(selectToken);
-        const [loggedIn, setLoggedIn] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [availableMonths, setAvailableMonths] = useState([]);
+    const [availableDays, setAvailableDays] = useState([]);
+    const success = useSelector(setCustomerInputFormSuccess);
+    const token = useSelector(selectToken);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const freeReportError = useSelector(selectFreeReportError);
+    const fullReportError = useSelector(selectFullReportError);
 
 
     useEffect(() => {
@@ -152,6 +159,8 @@ function NumerologyInputForm() {
             });
         }
     }
+
+
 
         return (
             <section className="ds s-py-90 s-py-xl-150 main-background-image">
