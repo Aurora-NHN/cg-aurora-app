@@ -11,29 +11,35 @@ import {
   getProductsBySubCategoryId,
   setProductDetail,
   selectLoading,
-  setLoading,
 } from "~/features/productSlice";
+import { addToCart, selectAddToCartResponse } from "~/features/CartSlice";
 import { selectSubCategoryId } from "~/features/CategorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";
+import { selectToken } from "~/features/userSlice";
+import { toast } from "react-toastify";
 export default function ProductList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+  const token = useSelector(selectToken);
   const productList = useSelector(selectProductList);
+  const selectAddToCart = useSelector(selectAddToCartResponse);
+  const newSubCategoryId = useSelector(selectSubCategoryId);
   const [keyword, setKeyword] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [sortOrder, setSortOrder] = useState("");
   const [search, setSearch] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(null);
   const [productsBySubCategory, setProductsBySubCategory] = useState(false);
-  const newSubCategoryId = useSelector(selectSubCategoryId);
-  const loading = useSelector(selectLoading);
   const [onloading, setOnloading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
+  const [check,setCheck] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setOnloading(false);
-    }, 1000);
+    }, 700);
   }, [loading]);
 
   useEffect(() => {
@@ -51,9 +57,9 @@ export default function ProductList() {
       dispatch(getProductsBySubCategoryId(requestData));
       navigate(
         "/shop?sub-category?id=" +
-          currentSubCategoryId +
-          "&page-number=" +
-          pageNumber
+        currentSubCategoryId +
+        "&page-number=" +
+        pageNumber
       );
     } else if (pageNumber) {
       if (sortOrder === "asc") {
@@ -105,11 +111,11 @@ export default function ProductList() {
       dispatch(getProductsByKeyword(requestData));
       navigate(
         "/shop?sort=" +
-          order +
-          "&keyword=" +
-          keyword +
-          "&page-number=" +
-          pageNumber
+        order +
+        "&keyword=" +
+        keyword +
+        "&page-number=" +
+        pageNumber
       );
     } else if (productsBySubCategory && subCategoryId) {
       const requestProductsBySubcategoryId = {
@@ -120,11 +126,11 @@ export default function ProductList() {
       dispatch(getProductsBySubCategoryId(requestProductsBySubcategoryId));
       navigate(
         "/shop?sort=" +
-          order +
-          "&sub-category?id=" +
-          subCategoryId +
-          "&page-number=" +
-          pageNumber
+        order +
+        "&sub-category?id=" +
+        subCategoryId +
+        "&page-number=" +
+        pageNumber
       );
     } else if (order === "asc") {
       dispatch(getProductsSortByPriceAscending(1));
@@ -148,6 +154,41 @@ export default function ProductList() {
   const handleClickProductLink = (product) => {
     dispatch(setProductDetail(product));
     setProductDetail(null);
+  };
+
+  const handleAddToCartClick = (productId) => {
+    const requestData = { productId, quantity, token };
+    dispatch(addToCart(requestData));
+    setCheck(true)
+  }
+
+  useEffect(() => {
+    if(check){
+      if (selectAddToCart.message === "Product added to cart successfully") {
+        console.log("hbhb")
+        addToCartSuccess();
+      } else if (selectAddToCart.message === "Out of stock") {
+        console.log("aaaa")
+        addToCartFail();
+      }
+    }
+
+  }, [selectAddToCart])
+
+  const addToCartSuccess = () => {
+    toast.success("Đã thêm sản phẩm thành công!", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.SUCCESS,
+    });
+    setCheck(false);
+  };
+
+  const addToCartFail = () => {
+    toast.error("Thêm quá sản phẩm trong kho hàng !", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.ERROR,
+    });
+    setCheck(false);
   };
 
   return (
@@ -188,7 +229,7 @@ export default function ProductList() {
           ) : (
             <ul className="products columns-3">
               {productList.length === 0 ? (
-                <h3 style={{ textAlign: "right" }}> Product not found</h3>
+                <h3 style={{ textAlign: "right" }}> Không có sản phẩm </h3>
               ) : (
                 productList.map((product) => (
                   <li className="product" key={product.id}>
@@ -201,7 +242,7 @@ export default function ProductList() {
                         <img src={product.imageUrl} alt={product.name} />
                       </Link>
                       <div className="product-wrap">
-                        <h2 className="woocommerce-loop-product__title">
+                        <h6 className="woocommerce-loop-product__title">
                           <td>
                             <Link
                               to={`/product-detail/${product.id}`}
@@ -210,7 +251,7 @@ export default function ProductList() {
                               {product.name}
                             </Link>
                           </td>
-                        </h2>
+                        </h6>
                         <div className="star-rating">
                           <span style={{ width: `${product.rating}%` }}>
                             Rated{" "}
@@ -226,6 +267,7 @@ export default function ProductList() {
                           <a
                             rel="nofollow"
                             className="button product_type_simple add_to_cart_button"
+                            onClick={() => handleAddToCartClick(product.id)}
                           >
                             Add to cart
                           </a>

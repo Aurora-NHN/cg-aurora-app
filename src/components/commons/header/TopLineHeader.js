@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoginSuccess } from "~/features/loginSlice";
+import { getCart } from "~/features/CartSlice";
 import {
   logoutUser,
   selectLoading,
@@ -63,6 +64,11 @@ const TopLineHeader = () => {
       localStorage.removeItem("token");
     }
   };
+
+  const showCart = () =>{
+    let token = localStorage.getItem("token");
+    dispatch(getCart(token))
+  }
 
   return (
     <section className="page_topline ds s-py-10 c-my-10">
@@ -161,7 +167,15 @@ const TopLineHeader = () => {
                     </div>
                   </div>
                 </li>
-
+                <li>
+                  <Link to="/cart" onClick={showCart}>
+                    <div className="dropdown-toggle dropdown-shopping-cart">
+                      <i className="fa fa-shopping-basket"></i>
+                      <span className="badge bg-maincolor">3</span>
+                      $27.00
+                    </div>
+                  </Link>
+                </li>
                 <li>
                   <span className="social-icons">
                     <a
@@ -193,6 +207,7 @@ const TopLineHeader = () => {
                 </li>
               </ul>
             </div>
+
           )}
         </div>
       </div>

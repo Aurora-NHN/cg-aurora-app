@@ -9,7 +9,7 @@ import About from "~/components/main/homepage/About";
 import Tarot from "~/components/main/homepage/Tarot";
 import Colleagues from "~/components/main/homepage/Colleagues";
 import Swal from "sweetalert2";
-import {getBillStatus, selectBillStatus, selectOrderSuccess} from "~/features/paymentSlice";
+import {selectBillStatus, selectOrderSuccess} from "~/features/paymentSlice";
 
 function Home() {
     const paymentSuccess = useSelector(selectOrderSuccess)

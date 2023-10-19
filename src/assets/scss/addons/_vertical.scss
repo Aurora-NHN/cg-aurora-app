@@ -24,7 +24,7 @@ py-* - same value for top and for bottom padding
 
 @each $value in $section-vertical-padding {
   .s-py-#{$value} > [class*='container'] {
-    padding-top: #{$value}px;
+    // padding-top: #{$value}px;
     padding-bottom: #{$value}px;
   }
 }
@@ -45,7 +45,7 @@ py-* - same value for top and for bottom padding
 
     @each $value in $section-vertical-padding {
       .s-py-#{$breakpoint-abbr}-#{$value} > [class*='container'] {
-        padding-top: #{$value}px;
+        // padding-top: #{$value}px;
         padding-bottom: #{$value}px;
       }
     }
