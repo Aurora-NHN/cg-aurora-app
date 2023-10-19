@@ -442,7 +442,10 @@ pre {
 
 .media {
   display: flex;
-  align-items: center;
+  .media-image img{
+    max-height: 161px;
+    max-width: 161px;
+  }
   h3 {
     text-transform: uppercase;
   }
@@ -743,5 +746,11 @@ dl#attachment_612 {
 .hover-pointer {
   &:hover{
     cursor: pointer;
+  }
+}
+
+.google-login{
+  iframe{
+    margin: 0 !important;
   }
 }
