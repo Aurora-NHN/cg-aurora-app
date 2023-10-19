@@ -38,11 +38,11 @@ function PopularBlog({blog}) {
             <div className="list-unstyled">
                 {
                     blogs.map(blog => (
-                        <div className="media border border-dark rounded mt-2" key={blog.id}>
+                        <div className="media border border-dark rounded mt-2 position-relative" key={blog.id}>
                             <Link className="media-image w-50" to={`/blogs/${blog.id}`}>
                                 <img src={blog.mainImageUrl} className="rounded-start" alt="img"/>
                             </Link>
-                            <div className="media-body w-50 position-relative">
+                            <div className="media-body w-50">
                                 <div className="pe-2">
                                     <Link to={`/blogs/${blog.id}`} className="d-block overflow-hidden mt-2" style={{width:'100%'}}>{blog.title?.slice(0,50)}...</Link>
                                 </div>
