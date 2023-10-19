@@ -72,20 +72,21 @@ export const numerologySlice = createSlice({
                 state.freeReportSuccess = true;
                 state.loading = false;
                 state.value = action.payload.data;
+                localStorage.setItem('data', JSON.stringify(action.payload.data))
                 state.freeReportError = false;
             })
             // từ đây
-            .addCase(addFullVipNumerologyReport().pending, (state) => {
+            .addCase(addFullVipNumerologyReport.pending, (state) => {
                 state.fullReportSuccess = false;
                 state.loading = true;
                 state.fullReportError = false;
             })
-            .addCase(addFullVipNumerologyReport().rejected, (state, action) => {
+            .addCase(addFullVipNumerologyReport.rejected, (state, action) => {
                 state.fullReportSuccess = false;
                 state.loading = false;
                 state.fullReportError = action.payload;
             })
-            .addCase(addFullVipNumerologyReport().fulfilled,(state, action) => {
+            .addCase(addFullVipNumerologyReport.fulfilled,(state, action) => {
                 state.fullReportSuccess = true;
                 state.loading = false;
                 state.value = action.payload.data;

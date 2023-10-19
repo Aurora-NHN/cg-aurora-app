@@ -12,7 +12,7 @@ const initialState = {
   loading: false,
   error: null,
   forgotPasswordSuccess: false,
-  changePasswordSucess: false,
+  changePasswordSuccess: false,
   logoutSuccess: false,
   getInfoSuccess: false,
   editInfoSuccess: false,
@@ -198,7 +198,6 @@ export const selectForgotPasswordSuccess = (state) =>
 export const selectChangePasswordSuccess = (state) =>
   state.user.changePasswordSucess;
 export const selectEditInfoSuccess = (state) => state.user.editInfoSuccess;
-export const selectForgotPassword = (state) => state.user.value;
 export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
 export const selectToken = (state) => state.user.token;
 export const selectUserInfo = (state) => state.user.value;
