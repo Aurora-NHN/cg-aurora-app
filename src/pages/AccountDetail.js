@@ -80,7 +80,6 @@ export default function AccountDetail() {
       dispatch(getInfo());
       navigate("/account-detail");
     } else if (error) {
-      console.log(error);
       toast.error(error, {
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.ERROR,

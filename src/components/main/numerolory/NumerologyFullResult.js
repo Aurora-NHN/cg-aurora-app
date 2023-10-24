@@ -60,6 +60,9 @@ function NumerologyFullResult() {
                                             <div className="p-3">
                                                 <CardResult result ={currentResult}/>
                                             </div>
+                                            {
+
+                                            }
 
                                             {
 

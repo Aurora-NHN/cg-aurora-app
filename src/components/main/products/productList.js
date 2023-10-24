@@ -165,10 +165,8 @@ export default function ProductList() {
   useEffect(() => {
     if(check){
       if (selectAddToCart.message === "Product added to cart successfully") {
-        console.log("hbhb")
         addToCartSuccess();
       } else if (selectAddToCart.message === "Out of stock") {
-        console.log("aaaa")
         addToCartFail();
       }
     }

@@ -17,7 +17,7 @@ export default function CartLineDetail() {
   const currentCartLine = useSelector(selectCartLine);
   const [subTotalPrice, setSubToTalPrice] = useState(cart.totalAmount);
   const [newCartLinePrice, setNewCartLinePrice] = useState(0);
-  console.log(newQuantity)
+
   useEffect(() => {
     setTimeout(() => {
       setOnloading(false);

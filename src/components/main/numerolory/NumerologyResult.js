@@ -1,72 +1,54 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
-import {selectFreeReportSuccess, selectFullReportSuccess} from "~/features/numerologySlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectNumerologyReportAdded, setReportSuccess} from "~/features/numerologySlice";
 import CardResult from "~/components/main/numerolory/freeNumberologyReport/CardResult";
-import {Ripple} from 'primereact/ripple';
-import ResultNumber from "~/components/main/numerolory/freeNumberologyReport/ResultNumber";
 import {Link} from "react-router-dom";
+import Result from "~/components/main/numerolory/freeNumberologyReport/Result";
 
 
 function NumerologyResult() {
-    const resultFree = useSelector(selectFreeReportSuccess);
-    const resultFull = useSelector(selectFullReportSuccess);
+    const dispatch = useDispatch();
+    const apiData = useSelector(selectNumerologyReportAdded);
     const [currentResult, setCurrentResult] = useState({});
-    const [lifePathNumber, setLifePathNumber] = useState({});
-    const  [dayOfbirthNumber, setDayOfbirthNumber] = useState({});
-    const  [missionNumber, setMissionNumber] = useState({});
-    const  [numberArr, setNumberArr] = useState([]);
-
+    const [meanOfAllNumberList, setMeanOfAllNumberList] = useState([]);
+    const [numberArr, setNumberArr] = useState([]);
+    const [lifePhase, setLifePhase] = useState({});
     useEffect(() => {
+        let data = {};
 
-            let data = JSON.parse(localStorage.getItem('data'));
-
-            if (data) {
-                setCurrentResult(data);
-                let dataArray = [];
-                for (const key in data) {
-                    dataArray.push(data[key]);
-                }
-                dataArray.splice(0, 5);
-                setNumberArr(dataArray);
-            }
-
-        }, []);
-
-    useEffect(() => {
-        if (resultFree === true && resultFree.lifePathResponseDTO) {
-            setLifePathNumber(resultFree.lifePathResponseDTO);
-            setDayOfbirthNumber(resultFree.dayOfBirthNumberResponseDTO);
-            setMissionNumber(resultFree.missionNumberResponseDtTO);
-            setCurrentResult(resultFree)
-        }
-        if (resultFull === true && resultFull.lifePathResponseDTO) {
-            setLifePathNumber(resultFull.lifePathResponseDTO);
-            setDayOfbirthNumber(resultFull.dayOfBirthNumberResponseDTO);
-            setMissionNumber(resultFull.missionNumberResponseDtTO);
-            //Bo thêm các đối tượng còn laị
-            //list th
-            setCurrentResult(resultFull)
+        if (apiData) {
+            data = apiData;
+        } else {
+            let storedData = JSON.parse(localStorage.getItem('data'));
+            if (storedData) data = storedData;
         }
 
-    }, [resultFree, resultFull])
+        setCurrentResult(data);
+        const meanOfNumberList = data.meanOfNumberResponseDTOList;
 
-    const template = (options) => {
-        const toggleIcon = options.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up';
-        const className = `${options.className} justify-content-start`;
-        const titleClassName = `${options.titleClassName} ml-2 text-primary`;
-        const style = { fontSize: '1.25rem' };
+        if (meanOfNumberList) {
+            setMeanOfAllNumberList(meanOfNumberList);
+        }
 
-        return (
-            <div className={className}>
-                <span className={titleClassName} style={style}>Header</span>
-                <span className={options.togglerClassName} onClick={options.onTogglerClick}>
-                    <span className={toggleIcon}></span>
-                    <Ripple />
-                </span>
-            </div>
-        );
-    };
+        let dataArray = [];
+        for (const key in data) {
+            dataArray.push(data[key]);
 
+        }
+        const lifePhase = dataArray[15];
+        dataArray.splice(0, 8);
+        setNumberArr(dataArray);
+
+
+    }, [apiData]);
+
+    useEffect(() => {
+        dispatch(setReportSuccess(false));
+        console.log('meanOfAllNumberList')
+        console.log(meanOfAllNumberList)
+        console.log('numberArr')
+        console.log(numberArr)
+    }, [])
 
     return (
         <section className="ds s-py-90 s-py-xl-150 main-background-image">
@@ -104,17 +86,24 @@ function NumerologyResult() {
                                             </div>
 
                                             <div className="p-3">
-                                                <CardResult result ={currentResult}/>
+                                                <CardResult result={currentResult}/>
+
+                                                <div>
+
+                                                </div>
+                                                {
+                                                    meanOfAllNumberList.map((number, index) => (
+                                                        <div key={index} className="mb-3">
+                                                            <Result
+                                                                result={number}
+                                                                index={index}
+                                                                data={numberArr[index]}
+                                                                // lifePhase={lifePhase}
+                                                            />
+                                                        </div>
+                                                    ))
+                                                }
                                             </div>
-
-                                            {
-
-                                                numberArr.map((number, index) => (
-                                                    <div key={index} className="mb-3">
-                                                        <ResultNumber result={number} />
-                                                    </div>
-                                                ))
-                                            }
 
                                         </div>
                                     </div>
@@ -125,7 +114,6 @@ function NumerologyResult() {
                 </div>
             </div>
         </section>
-
     );
 }
 
