@@ -13,7 +13,9 @@ function ResultNumber({result={}}){
 
         return (
             <div className={className}>
-                <span className={titleClassName} style={style}>{result.name}: {result.number} </span>
+                <span className={titleClassName} style={style}>
+                    {result.name}: {result.number}
+                </span>
                 <span className={options.togglerClassName} onClick={options.onTogglerClick}>
                     <span className={toggleIcon}></span>
                     <Ripple />
@@ -21,13 +23,26 @@ function ResultNumber({result={}}){
             </div>
         );
     };
+    if (result === null) {
+        return <div>No result available</div>;
+    }
 
+    if (result.description === null) {
+        return(
+            <Panel headerTemplate={template} toggleable>
+                    <p className="m-0" style={{color:"red"}}>
+                        Bạn cần nâng cấp vip để xem thông tin này.
+                    </p>
+            </Panel>
+        );
+    }
     return(
         <Panel headerTemplate={template} toggleable>
                 {FormatParagraph(result.description).map((paragraph, index) => (
                     <p key={index} className="m-0">
                         {paragraph}
                     </p>
+
                 ))}
         </Panel>
 

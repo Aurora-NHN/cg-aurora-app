@@ -1,39 +1,30 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {createNumerologyReport, createFullNumerologyReport} from "~/api/numerologyAPI";
+import {createNumerologyReport} from "~/api/numerologyAPI";
+import {toast} from "react-toastify";
 
 const initialState = {
     values: [],
-    value: {},
+    value: null,
     loading: false,
-    freeReportError: null,
-    fullReportError: null,
-    freeReportSuccess: false,
-    fullReportSuccess: false,
-
+    reportSuccess: false,
+    reportError: null
 };
-export const addFreeNumerologyReport = createAsyncThunk("/create", async(customerInputData) => {
-
-    const response = await createNumerologyReport(customerInputData);
-    localStorage.setItem('data', JSON.stringify(response.data))
-    return response.data;
-
-});
-
-export const addFullVipNumerologyReport = createAsyncThunk(
-    "/create-full-vip",
-    async (customerInputData) => {
-        localStorage.setItem('data', JSON.stringify(response.data))
-        const response = await createFullNumerologyReport(customerInputData);
-        console.log(response);
-        return response.data;
-    }
-)
+export const addNumerologyReport = createAsyncThunk(
+    "/createNumerologyReport", async (customerInputData, {rejectWithValue}) => {
+        console.log('action dispatched')
+        const response = await createNumerologyReport(customerInputData);
+        if (response.status === 200 || response.status === 201) {
+            return response.data;
+        } else {
+            return rejectWithValue(response.data.message)
+        }
+    });
 
 export const numerologySlice = createSlice({
     name: "numerology",
     initialState,
-    reducers:{
-        setLoading:(state, action) => {
+    reducers: {
+        setLoading: (state, action) => {
             state.loading = action.payload;
         },
         setFreeReportError: (state, action) => {
@@ -48,49 +39,34 @@ export const numerologySlice = createSlice({
         setCustomerInputFormSuccess: (state, action) => {
             state.value = action.payload;
         },
-        setFreeReportSuccess: (state, action) => {
-            state.freeReportSuccess = action.payload;
-        },
-        setFullReportSuccess: (state, action) => {
-            state.fullReportSuccess = action.payload;
-        },
+        setReportSuccess: (state, action) => {
+            state.reportSuccess = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
-        //Update states of add report action
-            .addCase(addFreeNumerologyReport.pending, (state) => {
-                state.freeReportSuccess = false;
+            //Update states of add report action
+            .addCase(addNumerologyReport.pending, (state) => {
+                state.reportSuccess = false;
                 state.loading = true;
-                state.freeReportError = false;
+                state.reportError = null;
             })
-            .addCase(addFreeNumerologyReport.rejected, (state, action) => {
-                state.freeReportSuccess = false;
+            .addCase(addNumerologyReport.rejected, (state, action) => {
+                state.reportSuccess = false;
                 state.loading = false;
-                state.freeReportError = action.payload;
+                state.reportError = action.payload;
+                toast("Report error!" + action.payload, {type: "error", autoClose: 2000})
             })
-            .addCase(addFreeNumerologyReport.fulfilled,(state, action) => {
-                state.freeReportSuccess = true;
+            .addCase(addNumerologyReport.fulfilled, (state, action) => {
+                console.log('action fulfilled')
+                console.log(action.payload.data)
+                state.reportSuccess = true;
                 state.loading = false;
                 state.value = action.payload.data;
-                state.freeReportError = false;
+                localStorage.setItem('data', JSON.stringify(action.payload.data));
+                state.reportError = null;
             })
-            // từ đây
-            .addCase(addFullVipNumerologyReport.pending, (state) => {
-                state.fullReportSuccess = false;
-                state.loading = true;
-                state.fullReportError = false;
-            })
-            .addCase(addFullVipNumerologyReport.rejected, (state, action) => {
-                state.fullReportSuccess = false;
-                state.loading = false;
-                state.fullReportError = action.payload;
-            })
-            .addCase(addFullVipNumerologyReport.fulfilled,(state, action) => {
-                state.fullReportSuccess = true;
-                state.loading = false;
-                state.value = action.payload.data;
-                state.fullReportError = false;
-            })
+
     },
 });
 export const {
@@ -98,16 +74,15 @@ export const {
     setValues,
     setFreeReportError,
     setFullReportError,
-    setFreeReportSuccess,
+    setReportSuccess,
     setFullReportSuccess,
     setCustomerInputFormSuccess
 } = numerologySlice.actions;
 
 export const selectLoading = (state) => state.numerology.loading;
-export const selectFreeReportError = (state) => state.numerology.freeReportError;
-export const selectFreeReportSuccess = (state) => state.numerology.freeReportSuccess;
+export const selectReportError = (state) => state.numerology.reportError;
+export const selectReportSuccess = (state) => state.numerology.reportSuccess;
 export const selectFullReportError = (state) => state.numerology.fullReportError;
-export const selectFullReportSuccess = (state) => state.numerology.fullReportSuccess;
 export const selectNumerologyReportAdded = (state) => state.numerology.value;
 
 export default numerologySlice.reducer;

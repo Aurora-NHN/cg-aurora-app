@@ -50,7 +50,6 @@ export const findProductsByKeyWord = async (keyword, pageNumber, sortOrder) => {
 
     result = await axios.get(url);
   } catch (e) {}
-  console.log(result);
   return result;
 };
 export const findProductsSortByPriceDescending = async (pageNumber) => {

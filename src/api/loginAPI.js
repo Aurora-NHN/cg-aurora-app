@@ -31,7 +31,6 @@ export const register = async (registerData) => {
       `${USER_MANAGEMENT_API}/register-user`,
       registerData
     );
-    console.log(result);
   } catch (e) {
     console.log(e);
     result = e.response;
