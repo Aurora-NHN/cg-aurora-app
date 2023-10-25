@@ -36,25 +36,24 @@ function NumerologyInputForm() {
         } else {
             setLoggedIn(false);
         }
-    }, [token, dispatch]);
+    }, [token]);
+
     const monthOfBirthList = [
         "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",
         "Tháng 10", "Tháng 11", "Tháng 12",
     ];
-
 
     const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 
     const initialValues = {
         fullName: "",
         nickName: "",
-        yearOfBirth: "",
+        yearOfBirth: 1996,
         monthOfBirth: "",
-        dayOfBirth: "",
+        dayOfBirth: 1,
         vip: false
     };
 
-    const ENGLISH_REGEX = /^[a-zA-Z\s]*$/;
     const VIETNAMESE_REGEX =/^[a-zA-ZÀ-ỹ\s]+$/;
 
     const validationSchema = Yup.object().shape({
@@ -77,38 +76,40 @@ function NumerologyInputForm() {
                 const month = this.parent.monthOfBirth;
                 const year = this.parent.yearOfBirth;
 
-                if (month && year) {
-                    const daysInMonth = {
-                        "Tháng 1": 31,
-                        "Tháng 2": isLeapYear(year) ? 29 : 28,
-                        "Tháng 3": 31,
-                        "Tháng 4": 30,
-                        "Tháng 5": 31,
-                        "Tháng 6": 30,
-                        "Tháng 7": 31,
-                        "Tháng 8": 31,
-                        "Tháng 9": 30,
-                        "Tháng 10": 31,
-                        "Tháng 11": 30,
-                        "Tháng 12": 31,
-                    };
+                if (formik.touched.monthOfBirth && formik.touched.yearOfBirth){
+                    if (month && year) {
+                        const daysInMonth = {
+                            "Tháng 1": 31,
+                            "Tháng 2": isLeapYear(year) ? 29 : 28,
+                            "Tháng 3": 31,
+                            "Tháng 4": 30,
+                            "Tháng 5": 31,
+                            "Tháng 6": 30,
+                            "Tháng 7": 31,
+                            "Tháng 8": 31,
+                            "Tháng 9": 30,
+                            "Tháng 10": 31,
+                            "Tháng 11": 30,
+                            "Tháng 12": 31,
+                        };
 
-                    if (daysInMonth[month] && parseInt(value) >= 1 && parseInt(value) <= daysInMonth[month]) {
-                        return true;
+                        if (daysInMonth[month] && parseInt(value) >= 1 && parseInt(value) <= daysInMonth[month]) {
+                            return true;
+                        } else {
+                            return false;
+                        }
                     } else {
                         return false;
                     }
-                } else {
-                    return false;
                 }
+                return true;
             }),
     });
+
     useEffect(() => {
-        if (!selectedYear.length || !selectedMonth.length) {
-            setAvailableDays(getDefaultDays());
-        }
-        updateAvailableMonthsAndDays(selectedYear, selectedMonth);
-    }, [selectedYear, selectedMonth]);
+       setAvailableDays(getDefaultDays)
+    }, []);
+
     const getDefaultDays = () => {
         const defaultDays = [];
         for (let i = 1; i <= 31; i++) {
@@ -134,7 +135,6 @@ function NumerologyInputForm() {
             setAvailableDays([...Array(maxDays[selectedMonthIndex]).keys()].map(day => (day + 1)));
         }
     };
-
 
     const onSubmit = (values) => {
         let month = formik.values.monthOfBirth;
@@ -164,6 +164,12 @@ function NumerologyInputForm() {
         window.scrollTo({behavior: "smooth", top: 200, left: 0});
     };
 
+    useEffect(()=>{
+        if (availableDays.indexOf(formik.values.dayOfBirth) === -1){
+            formik.setFieldValue('dayOfBirth', availableDays[availableDays.length - 1])
+        }
+    },[formik.values])
+
     const handleNormalSubmit = () => {
         formik.submitForm()
     }
@@ -176,18 +182,32 @@ function NumerologyInputForm() {
         formik.submitForm();
 
     }
+    const acceptBuyVipFunction = () => {
+        navigate("/pricing");
+    }
 
 
     useEffect(() => {
             if (getCountSuccess){
-                if (loggedIn){
-                confirmDialog({
-                    message: 'Bạn đang có ' + count + ' lượt VIP. Bạn có muốn làm báo cáo VIP?',
-                    header: 'Confirmation',
-                    icon: 'pi pi-exclamation-triangle',
-                    accept: () => acceptFunction()
+                if (loggedIn ){
+                    if (count != undefined && count != 0){
+                        confirmDialog({
+                            message: 'Bạn đang có ' + count + ' lượt VIP. Bạn có muốn làm báo cáo VIP?',
+                            header: 'Xác nhận',
+                            icon: 'pi pi-exclamation-triangle',
+                            accept: () => acceptFunction()
 
-                });
+                        });
+                    }else {
+                        confirmDialog({
+                            message: 'Bạn chưa chưa phải là tài khoản VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
+                            header: 'Xác nhận',
+                            icon: 'pi pi-exclamation-triangle',
+                            accept: () => acceptBuyVipFunction()
+
+                        });
+                    }
+
                 }
                 else if (!loggedIn) {
                     toast.error("Vui lòng đăng nhập để xem báo cáo VIP!", {
