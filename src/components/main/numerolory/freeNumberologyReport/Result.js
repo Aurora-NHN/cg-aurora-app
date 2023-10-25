@@ -6,8 +6,7 @@ import ReportPanel from "~/components/main/numerolory/freeNumberologyReport/Repo
 function Result({
                     result = {},
                     index,
-                    data,
-                    // lifePhase
+                    data
                 }) {
 
     const template = (options) => {
