@@ -4,7 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoginSuccess } from "~/features/loginSlice";
-import { getCart } from "~/features/CartSlice";
+import {
+  selectCart,
+  getCart
+} from "~/features/CartSlice";
 import {
   logoutUser,
   selectLoading,
@@ -14,7 +17,7 @@ import {
   setToken,
   setLogoutSuccess,
 } from "~/features/userSlice";
-
+import CartIcon from "~/components/main/products/CartIcon";
 const TopLineHeader = () => {
   const token = useSelector(selectToken);
   const logoutSuccess = useSelector(selectLogoutSuccess);
@@ -23,6 +26,16 @@ const TopLineHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
+  const cart = useSelector(selectCart);
+  const [currentCart, setCurrentCart] = useState(cart);
+
+  useEffect(() => {
+    if (loggedIn) {
+      const tokenGetCart = localStorage.getItem("token");
+      dispatch(getCart(tokenGetCart));
+      setCurrentCart(cart);
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -64,11 +77,6 @@ const TopLineHeader = () => {
       localStorage.removeItem("token");
     }
   };
-
-  const showCart = () =>{
-    let token = localStorage.getItem("token");
-    dispatch(getCart(token))
-  }
 
   return (
     <section className="page_topline ds s-py-10 c-my-10">
@@ -168,13 +176,7 @@ const TopLineHeader = () => {
                   </div>
                 </li>
                 <li>
-                  <Link to="/cart" onClick={showCart}>
-                    <div className="dropdown-toggle dropdown-shopping-cart">
-                      <i className="fa fa-shopping-basket"></i>
-                      <span className="badge bg-maincolor">3</span>
-                      $27.00
-                    </div>
-                  </Link>
+                  <CartIcon cart={currentCart} />
                 </li>
                 <li>
                   <span className="social-icons">
@@ -207,7 +209,6 @@ const TopLineHeader = () => {
                 </li>
               </ul>
             </div>
-
           )}
         </div>
       </div>

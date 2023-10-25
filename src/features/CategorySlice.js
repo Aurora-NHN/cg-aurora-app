@@ -51,8 +51,9 @@ const categorySlice = createSlice({
         state.values = action.payload;
         state.error = false;
       });
-  },
-});
+    },
+  });
+  
 
 export const { setLoading, setError, setSuccess,setSubCategoryId} = categorySlice.actions;
 export const selectLoading = (state) => state.category.loading;

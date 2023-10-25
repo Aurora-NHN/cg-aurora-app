@@ -1,6 +1,8 @@
 import React from "react";
+import _ from "lodash";
 
 const ProductInfo = ({ product }) => {
+  console.log(product)
   function formatCurrency(price) {
     const formatter = new Intl.NumberFormat("vi-VN", {
       style: "currency",
@@ -8,20 +10,50 @@ const ProductInfo = ({ product }) => {
     });
     return formatter.format(price);
   }
+      const renderCapitalizedText = (text) => {
+        return <h4 style={{ fontFamily: "Arial" }}>{_.capitalize(text)}</h4>;
+      };
+      
   return (
-    <div>
-      <h3>{product.name}</h3>
+    <>
       <div>
-        <h5>description: </h5>
+        {renderCapitalizedText(product.name)}
+        <div style={{ padding: "80px",marginLeft: "-80px" }}>
+          <p>
+            <h6 style={{ fontFamily: "Arial" }}>
+              Nhà sản xuất:
+              <span style={{ color: "white", marginLeft: "10px" }}>
+                {product.producer}
+              </span>
+            </h6>
+            <span></span>
+          </p>
+          <p>
+            <h6 style={{ fontFamily: "Arial" }}>
+              Bao gồm:
+              <span style={{ color: "white", marginLeft: "10px" }}>
+                {product.include}
+              </span>
+            </h6>
+            <span></span>
+          </p>
+          <p className="price">
+            <h6>
+              Đã bán:{" "}
+              <span style={{ color: "white", marginLeft: "10px" }}>
+                {product.quantitySold}
+              </span>
+            </h6>
+            <span>
+              <span style={{ color: "white" }}>
+                {formatCurrency(product.price)}
+              </span>
+            </span>
+          </p>
+        </div>
+        
       </div>
-      <div>{product.description}</div>
-      <p className="price">
-        <h6>đã bán:{product.quantitySold}</h6>
-        <span>
-          <span>{formatCurrency(product.price)}</span>
-        </span>
-      </p>
-    </div>
+    </>
   );
 };
 

@@ -309,9 +309,9 @@ function NumerologyInputForm() {
                                             </div>
 
                                         </div>
-                                        <div style={{ textAlign: "center" }}>
-                                            <button type="button" className="btn bg-main" onClick={handleNormalSubmit}>Tra cứu ngay</button>
-                                            <button type="button" className="btn bg-main" onClick={handleVipSubmit}>Tra cứu vip</button>
+                                        <div style={{ textAlign: "center"}}>
+                                            <button type="button" className="btn bg-main me-3" onClick={handleNormalSubmit}>Tra cứu ngay</button>
+                                            <button type="button" className="btn bg-main ms-3" onClick={handleVipSubmit}>Tra cứu vip</button>
                                                     </div>
                                                 </form>
                                             </div>

@@ -19,7 +19,7 @@ function ProductImage({ product }) {
           showNav={false}
           showPlayButton={false}
           autoPlay={true}
-          slideInterval={1500 * images.length}
+          slideInterval={1000 * images.length}
           showFullscreenButton={false}
         />
       </div>

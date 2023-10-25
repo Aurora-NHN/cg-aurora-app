@@ -13,14 +13,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLogoutSuccess, setToken } from "~/features/userSlice";
-
 const LoginModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const closeModal = useRef();
   const successLogin = useSelector(selectLoginSuccess);
   const errorLogin = useSelector(selectAuthIsError);
-
+  const modalRef = useRef(null);
+  
   function loginSuccess() {
     dispatch(setLogoutSuccess(false));
     dispatch(setLoginSuccess(false));

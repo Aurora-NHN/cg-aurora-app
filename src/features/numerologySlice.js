@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {createNumerologyReport, createFullNumerologyReport} from "~/api/numerologyAPI";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createNumerologyReport, createFullNumerologyReport } from "~/api/numerologyAPI";
 
 const initialState = {
     values: [],
@@ -11,7 +11,7 @@ const initialState = {
     fullReportSuccess: false,
 
 };
-export const addFreeNumerologyReport = createAsyncThunk("/create", async(customerInputData) => {
+export const addFreeNumerologyReport = createAsyncThunk("/create", async (customerInputData) => {
 
     const response = await createNumerologyReport(customerInputData);
     localStorage.setItem('data', JSON.stringify(response.data))
@@ -32,8 +32,8 @@ export const addFullVipNumerologyReport = createAsyncThunk(
 export const numerologySlice = createSlice({
     name: "numerology",
     initialState,
-    reducers:{
-        setLoading:(state, action) => {
+    reducers: {
+        setLoading: (state, action) => {
             state.loading = action.payload;
         },
         setFreeReportError: (state, action) => {
@@ -57,7 +57,7 @@ export const numerologySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        //Update states of add report action
+            //Update states of add report action
             .addCase(addFreeNumerologyReport.pending, (state) => {
                 state.freeReportSuccess = false;
                 state.loading = true;
@@ -68,28 +68,11 @@ export const numerologySlice = createSlice({
                 state.loading = false;
                 state.freeReportError = action.payload;
             })
-            .addCase(addFreeNumerologyReport.fulfilled,(state, action) => {
+            .addCase(addFreeNumerologyReport.fulfilled, (state, action) => {
                 state.freeReportSuccess = true;
                 state.loading = false;
                 state.value = action.payload.data;
                 state.freeReportError = false;
-            })
-            // từ đây
-            .addCase(addFullVipNumerologyReport().pending, (state) => {
-                state.fullReportSuccess = false;
-                state.loading = true;
-                state.fullReportError = false;
-            })
-            .addCase(addFullVipNumerologyReport().rejected, (state, action) => {
-                state.fullReportSuccess = false;
-                state.loading = false;
-                state.fullReportError = action.payload;
-            })
-            .addCase(addFullVipNumerologyReport().fulfilled,(state, action) => {
-                state.fullReportSuccess = true;
-                state.loading = false;
-                state.value = action.payload.data;
-                state.fullReportError = false;
             })
     },
 });

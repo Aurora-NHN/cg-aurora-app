@@ -13,8 +13,9 @@ const initialState = {
   loading: false,
   error: null,
   success: false,
-  productDetail: null
-  
+  productDetail: null,
+  viewedFirstProduct:localStorage.getItem("firstProduct"),
+  viewedSecondProduct:localStorage.getItem("secondProduct"),
 };
 
 export const getProducts = createAsyncThunk("/products", async (pageNumber) => {
@@ -76,6 +77,12 @@ export const productSlice = createSlice({
       state.success = action.payload;
     },
     setProductDetail: (state, action) => {
+      state.productDetail = action.payload;
+    },
+    setViewedFirstProduct: (state, action) => {
+      state.productDetail = action.payload;
+    },
+    setViewedSecondProduct: (state, action) => {
       state.productDetail = action.payload;
     },
 
@@ -165,18 +172,14 @@ export const productSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setSuccess,setProductDetail } = productSlice.actions;
+export const { setLoading, setError, setSuccess,setProductDetail,setViewedFirstProduct,setViewedSecondProduct } = productSlice.actions;
 
 export const selectLoading = (state) => state.product.loading;
 export const selectError = (state) => state.product.error;
 export const selectSuccess = (state) => state.product.success;
 export const selectProductDetail = (state) => state.product.productDetail;
 export const selectProductList = (state) => state.product.values;
-export const setLoadingTrueIfCalled = (isCalled) => (dispatch, getState) => {
-  const currentValue = selectLoading(getState());
-  if (currentValue === isCalled) {
-    dispatch(setLoading(true));
-  }
-};
+export const selectViewedFirstProduct = (state) => state.product.viewedFirstProduct;
+export const selectViewedSecondProduct = (state) => state.product.viewedSecondProduct;
 
 export default productSlice.reducer;

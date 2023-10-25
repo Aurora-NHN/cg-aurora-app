@@ -21,7 +21,7 @@ function Search({ onSearch }) {
         type="search"
         id="search-form-top"
         className="search-field"
-        placeholder="Search keyword"
+        placeholder="Tìm kiếm"
         name="search"
         onChange={(e) => setKeyword(e.target.value)}
         onKeyDown={handleKeyDown}
