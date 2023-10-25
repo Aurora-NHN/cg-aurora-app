@@ -442,7 +442,10 @@ pre {
 
 .media {
   display: flex;
-  align-items: center;
+  .media-image img{
+    max-height: 161px;
+    max-width: 161px;
+  }
   h3 {
     text-transform: uppercase;
   }
@@ -751,4 +754,10 @@ dl#attachment_612 {
 
 .p-panel-content{
   background: rgba(255, 255, 255, 0.87);
+}
+
+.google-login{
+  iframe{
+    margin: 0 !important;
+  }
 }
