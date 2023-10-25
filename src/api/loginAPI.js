@@ -51,6 +51,7 @@ export const logout = async (token) => {
       }
     );
   } catch (e) {
+    result = e.response;
     console.log(e);
   }
   return result;

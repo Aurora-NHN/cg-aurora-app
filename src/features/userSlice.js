@@ -13,7 +13,7 @@ const initialState = {
   loading: false,
   error: null,
   forgotPasswordSuccess: false,
-  changePasswordSucess: false,
+  changePasswordSuccess: false,
   logoutSuccess: false,
   getInfoSuccess: false,
   editInfoSuccess: false,

@@ -62,9 +62,16 @@
   //featured border
   &.plan-featured {
     border: 10px solid $colorMain;
+    background: $colorMain;
     transform: translateY(-10px);
     .plan-button {
       top: 48px;
+      .btn-shop{
+        background: white;
+      }
+    }
+    .btn-shop:hover::before{
+      color: #0b0e1e;
     }
   }
 }
@@ -93,7 +100,7 @@
       font-size: 35px;
       top: -5px;
       position: relative;
-      color: $lightColor;
+      color: $colorMain;
     }
     .plan-price{
       font-family: 'El Messiri', sans-serif;
@@ -190,7 +197,7 @@
     }
     .price-wrap{
       .plan-sign{
-        color: $darkColor;
+        color: $lightColor;
       }
       .plan-price{
         color: $lightColor;

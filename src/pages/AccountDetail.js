@@ -16,7 +16,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function AccountDetail() {
   const dispatch = useDispatch();
@@ -37,13 +37,14 @@ export default function AccountDetail() {
     }
   }, [userInfo]);
 
+  const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]*$/;
   const validationSchema = Yup.object().shape({
     fullName: Yup.string()
-      .required("Full Name is required")
-      .matches(
-        /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/,
-        "Invalid full name"
-      ),
+        .matches(
+            VIETNAMESE_REGEX,
+            "Full name doesn't contain numbers or special characters"
+        )
+        .required("Full name is required"),
     email: Yup.string()
       .email("Invalid email")
       .required("Email is required")
@@ -109,13 +110,19 @@ export default function AccountDetail() {
                   <nav className="woocommerce-MyAccount-navigation">
                     <ul>
                       <li className="is-active">
-                        <a href="/account-detail">My Account</a>
+                        <Link to={"/account-detail"}>
+                        My Account
+                        </Link>
                       </li>
                       <li>
-                        <a href="/cart">Cart</a>
+                        <Link to={"/cart"}>
+                          Cart
+                        </Link>
                       </li>
                       <li>
-                        <a href="/change-password">Change Password</a>
+                        <Link to={"/change-password"}>
+                          Change Password
+                        </Link>
                       </li>
                     </ul>
                   </nav>

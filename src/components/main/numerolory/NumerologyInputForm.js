@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,46 +16,27 @@ import "react-toastify/dist/ReactToastify.css";
 import {confirmDialog} from "primereact/confirmdialog";
 
 function NumerologyInputForm() {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [availableMonths, setAvailableMonths] = useState([]);
     const [availableDays, setAvailableDays] = useState([]);
     const success = useSelector(selectReportSuccess);
     const token = useSelector(selectToken);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [selectedYear, setSelectedYear] = useState("");
-    const [selectedMonth, setSelectedMonth] = useState("");
     const count = useSelector(selectCountOfUser);
     const getCountSuccess = useSelector(selectGetCountSuccess);
-
-    useEffect(() => {
-        if (token) {
-            setLoggedIn(true);
-
-        } else {
-            setLoggedIn(false);
-        }
-    }, [token]);
-
     const monthOfBirthList = [
         "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",
         "Tháng 10", "Tháng 11", "Tháng 12",
     ];
-
-    const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-
     const initialValues = {
-        fullName: "",
-        nickName: "",
+        fullName: '',
+        nickName: '',
         yearOfBirth: 1996,
-        monthOfBirth: "",
-        dayOfBirth: "",
+        monthOfBirth: '',
+        dayOfBirth: '',
         vip: false
     };
-
-    const VIETNAMESE_REGEX =/^[a-zA-ZÀ-ỹ\s]+$/;
-
+    const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]+$/;
     const validationSchema = Yup.object().shape({
         fullName: Yup.string()
             .matches(VIETNAMESE_REGEX, "Họ tên không được có dấu, chứa số hoặc ký tự đặc biệt")
@@ -76,7 +57,7 @@ function NumerologyInputForm() {
                 const month = this.parent.monthOfBirth;
                 const year = this.parent.yearOfBirth;
 
-                if (formik.touched.monthOfBirth && formik.touched.yearOfBirth){
+                if (formik.touched.monthOfBirth && formik.touched.yearOfBirth) {
                     if (month && year) {
                         const daysInMonth = {
                             "Tháng 1": 31,
@@ -105,11 +86,6 @@ function NumerologyInputForm() {
                 return true;
             }),
     });
-
-    useEffect(() => {
-       setAvailableDays(getDefaultDays)
-    }, []);
-
     const getDefaultDays = () => {
         const defaultDays = [];
         for (let i = 1; i <= 31; i++) {
@@ -117,25 +93,7 @@ function NumerologyInputForm() {
         }
         return defaultDays;
     };
-
-    const updateAvailableMonthsAndDays = (selectedYear, selectedMonth) => {
-        const isLeap = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-        const months = [
-            "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
-            "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
-            "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",
-        ];
-
-        const maxDays = [31, isLeap(selectedYear) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        setAvailableMonths(months);
-
-        if (selectedMonth) {
-            const selectedMonthIndex = months.indexOf(selectedMonth);
-            setAvailableDays([...Array(maxDays[selectedMonthIndex]).keys()].map(day => (day + 1)));
-        }
-    };
-
+    const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
     const onSubmit = (values) => {
         let month = formik.values.monthOfBirth;
         let str = month.split(" ");
@@ -148,28 +106,14 @@ function NumerologyInputForm() {
 
         dispatch(setCustomerInputFormSuccess(false));
     };
-
-    useEffect(()=>{
-        if (success){
-            navigate("/numerology-result");
-        }
-    },[success])
-
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit,
     });
-    const toTop = () => {
-        window.scrollTo({behavior: "smooth", top: 200, left: 0});
+    const updateAvailableMonthsAndDays = () => {
+
     };
-
-    useEffect(()=>{
-        if (availableDays.indexOf(formik.values.dayOfBirth) === -1){
-            formik.setFieldValue('dayOfBirth', availableDays[availableDays.length - 1])
-        }
-    },[formik.values])
-
     const handleNormalSubmit = () => {
         formik.submitForm()
     }
@@ -180,48 +124,82 @@ function NumerologyInputForm() {
         localStorage.removeItem("data");
         formik.setFieldValue('vip', true);
         formik.submitForm();
-
     }
     const acceptBuyVipFunction = () => {
         navigate("/pricing");
     }
 
-
     useEffect(() => {
-            if (getCountSuccess){
-                if (loggedIn ){
-                    if (count != undefined && count != 0){
-                        confirmDialog({
-                            message: 'Bạn đang có ' + count + ' lượt VIP. Bạn có muốn làm báo cáo VIP?',
-                            header: 'Xác nhận',
-                            icon: 'pi pi-exclamation-triangle',
-                            accept: () => acceptFunction()
+        const selectedMonth = formik.values.monthOfBirth;
+        const selectedYear = formik.values.yearOfBirth;
+        const months = [
+            "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+            "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
+            "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",
+        ];
+        const maxDays = [31, isLeapYear(selectedYear) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (selectedMonth) {
+            const selectedMonthIndex = months.indexOf(selectedMonth);
+            setAvailableDays([...Array(maxDays[selectedMonthIndex]).keys()].map(day => (day + 1)));
+        }
+    }, [formik.values.monthOfBirth, formik.values.yearOfBirth]);
+    useEffect(() => {
+        if (token) {
+            setLoggedIn(true);
 
-                        });
-                    }else {
-                        confirmDialog({
-                            message: 'Bạn chưa chưa phải là tài khoản VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
-                            header: 'Xác nhận',
-                            icon: 'pi pi-exclamation-triangle',
-                            accept: () => acceptBuyVipFunction()
+        } else {
+            setLoggedIn(false);
+        }
+    }, [token]);
+    useEffect(() => {
+        setAvailableDays(getDefaultDays)
+    }, []);
+    useEffect(() => {
+        if (success) {
+            navigate("/numerology-result");
+        }
+    }, [success])
+    useEffect(() => {
+        if (getCountSuccess) {
+            if (loggedIn) {
+                if (count !== undefined && count !== 0) {
+                    confirmDialog({
+                        message: 'Bạn đang có ' + count + ' lượt VIP. Bạn có muốn làm báo cáo VIP?',
+                        header: 'Xác nhận',
+                        icon: 'pi pi-exclamation-triangle',
+                        accept: () => acceptFunction()
 
-                        });
-                    }
+                    });
+                } else {
+                    confirmDialog({
+                        message: 'Bạn chưa chưa phải là tài khoản VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
+                        header: 'Xác nhận',
+                        icon: 'pi pi-exclamation-triangle',
+                        accept: () => acceptBuyVipFunction()
 
-                }
-                else if (!loggedIn) {
-                    toast.error("Vui lòng đăng nhập để xem báo cáo VIP!", {
-                        position: toast.POSITION.TOP_RIGHT,
-                        type: toast.TYPE.ERROR,
                     });
                 }
+
+            } else if (!loggedIn) {
+                toast.error("Vui lòng đăng nhập để xem báo cáo VIP!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    type: toast.TYPE.ERROR,
+                });
             }
+        }
         dispatch(setGetCountSuccess(false));
 
     }, [getCountSuccess])
+    useEffect(() => {
+        const currentMonth = formik.values.monthOfBirth;
+        const currentDay = formik.values.dayOfBirth;
+        if (currentMonth && (availableDays.indexOf(Number(currentDay)) === -1)) {
+                formik.setFieldValue("dayOfBirth", 1)
+        }
+    }, [formik.values.monthOfBirth]);
 
     return (
-        <section className="ds s-py-90 s-py-xl-150 main-background-image">
+        <section className="ds s-py-90 s-py-xl-150 main-background-image pt-5">
             <div className="container">
                 <div className="row">
                     <main className="col-lg-12">
@@ -302,10 +280,7 @@ function NumerologyInputForm() {
                                                                 required
                                                                 aria-required="true"
                                                                 value={formik.values.dayOfBirth}
-                                                                onChange={(e) => {
-                                                                    formik.handleChange(e);
-                                                                    updateAvailableMonthsAndDays(formik.values.yearOfBirth, formik.values.monthOfBirth);
-                                                                }}
+                                                                onChange={formik.handleChange}
                                                                 onBlur={formik.handleBlur}
                                                             >
                                                                 <option value="" disabled>Chọn ngày sinh</option>
@@ -336,13 +311,8 @@ function NumerologyInputForm() {
                                                             required
                                                             aria-required="true"
                                                             value={formik.values.monthOfBirth}
-                                                            onChange={(e) => {
-                                                                formik.handleChange(e);
-                                                                const selectedMonth = e.target.value;
-                                                                updateAvailableMonthsAndDays(formik.values.yearOfBirth, selectedMonth); // Update available months and days
-                                                            }}
+                                                            onChange={formik.handleChange}
                                                             onBlur={formik.handleBlur}
-
                                                         >
                                                             <option value="" disabled>Chọn tháng sinh</option>
                                                             {monthOfBirthList.map((month) => (
@@ -358,7 +328,7 @@ function NumerologyInputForm() {
                                                     </div>
                                                     <div className="col-md-4 mb-1">
                                                         <label htmlFor="yearOfBirth" className="form-label">Nhập năm
-                                                            sinh (VD: 1996):</label>
+                                                            sinh:</label>
                                                         <input type="number"
                                                                className={`form-control form-text bg-light-subtle text-black ${
                                                                    formik.errors.yearOfBirth && formik.touched.yearOfBirth
@@ -368,10 +338,7 @@ function NumerologyInputForm() {
                                                                id="yearOfBirth"
                                                                placeholder="1996"
                                                                value={formik.values.yearOfBirth}
-                                                               onChange={(e) => {
-                                                                   formik.handleChange(e);
-                                                                   updateAvailableMonthsAndDays(e.target.value, formik.values.monthOfBirth);
-                                                               }}
+                                                               onChange={formik.handleChange}
                                                                onBlur={formik.handleBlur}
                                                         />
                                                         {formik.errors.yearOfBirth && (
@@ -383,13 +350,14 @@ function NumerologyInputForm() {
 
 
                                                 </div>
-                                                <div className="row justify-content-center" style={{ textAlign: "center" }}>
-                                                    <div className="col-md-3 mb-1">
-                                                        <button type="button" className="btn bg-main" onClick={handleNormalSubmit}>
+                                                <div className="row justify-content-center justify-content-md-around">
+                                                    <div className="col-md-4 my-2 d-flex justify-content-around">
+                                                        <button type="button" className="btn bg-main"
+                                                                onClick={handleNormalSubmit}>
                                                             Tra cứu ngay
                                                         </button>
                                                     </div>
-                                                    <div className="col-md-3 mb-1">
+                                                    <div className="col-md-4 my-2 d-flex justify-content-around">
                                                         <button type="button" className="btn bg-main" onClick={confirm}>
                                                             Tra cứu vip
                                                         </button>
