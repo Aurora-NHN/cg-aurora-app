@@ -46,6 +46,7 @@ export default function CartLineDetail() {
     return <h6 style={{ fontFamily: "Arial" }}>{text}</h6>;
   };
   return (
+
     <section className="ds s-py-50 s-py-xl-100 c-gutter-60">
       {onloading ? (
         <h3>Loading...</h3>

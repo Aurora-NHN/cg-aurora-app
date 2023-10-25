@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
+  googleLogin,
   loginUser,
   selectAuthIsError,
   selectLoginSuccess,
@@ -13,14 +14,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLogoutSuccess, setToken } from "~/features/userSlice";
+import {GoogleLogin} from "@react-oauth/google";
+
 const LoginModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const closeModal = useRef();
   const successLogin = useSelector(selectLoginSuccess);
   const errorLogin = useSelector(selectAuthIsError);
-  const modalRef = useRef(null);
-  
+
   function loginSuccess() {
     dispatch(setLogoutSuccess(false));
     dispatch(setLoginSuccess(false));
@@ -71,6 +73,13 @@ const LoginModal = () => {
     formik.resetForm();
   };
 
+  const handleGGSuccess = (response) => {
+    dispatch(googleLogin(response.credential))
+  }
+  const handleGGError = () => {
+
+  }
+
   return (
     <div
       className="modal fade popupLogin"
@@ -83,7 +92,7 @@ const LoginModal = () => {
           <button
             ref={closeModal}
             type="button"
-            className="close"
+            className="close btn btn-maincolor rounded-4"
             data-bs-dismiss="modal"
             aria-label="Close"
             onClick={handleReset}
@@ -159,7 +168,7 @@ const LoginModal = () => {
 
                     <a
                       style={{ right: "45px", position: "absolute" }}
-                      className="registerRedirect "
+                      className="registerRedirect hover-pointer"
                       data-bs-dismiss="modal"
                       data-bs-target="#popupRegistr"
                       data-bs-toggle="modal"
@@ -167,12 +176,22 @@ const LoginModal = () => {
                     >
                       Not a member? Register
                     </a>
-                    <button
-                      type="submit"
-                      className="btn btn-maincolor mt-30 d-block"
-                    >
-                      Sign In
-                    </button>
+                    <div className="d-flex flex-column align-items-center">
+                      <div className="mt-4">
+                        <button
+                            type="submit"
+                            className="btn btn-maincolor d-block"
+                        >
+                          Login
+                        </button>
+                      </div>
+                      <div className="mt-2 google-login">
+                        <GoogleLogin onSuccess={handleGGSuccess} shape={"circle"}
+                                     onError={handleGGError} theme="filled_black"
+                                     text={"continue_with"}
+                                     size={"large"}/>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>

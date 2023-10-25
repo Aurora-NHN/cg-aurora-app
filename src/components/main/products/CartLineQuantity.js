@@ -29,6 +29,9 @@ const CartLineQuantity = ({ cartLine }) => {
   const handleIncrease = () => {
     if (quantity < maxQuantity) {
       setQuantity(quantity + 1);
+      console.log(currentCartLine)
+      dispatch(setNewQuantity(quantity));
+      dispatch(setCartLine(currentCartLine))
     }
   };
 

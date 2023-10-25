@@ -21,7 +21,6 @@ import CartIcon from "~/components/main/products/CartIcon";
 const TopLineHeader = () => {
   const token = useSelector(selectToken);
   const logoutSuccess = useSelector(selectLogoutSuccess);
-  const loading = useSelector(selectLoading);
   const logoutError = useSelector(selectError);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,7 +55,6 @@ const TopLineHeader = () => {
         position: toast.POSITION.TOP_RIGHT,
         type: toast.TYPE.SUCCESS,
       });
-      dispatch(setLoginSuccess(false));
       dispatch(setLogoutSuccess(false));
       navigate("/");
     } else if (logoutError) {
@@ -65,8 +63,6 @@ const TopLineHeader = () => {
         type: toast.TYPE.ERROR,
       });
     }
-    dispatch(setLoginSuccess(false));
-    dispatch(setLogoutSuccess(false));
   }, [logoutSuccess]);
 
   const logout = () => {

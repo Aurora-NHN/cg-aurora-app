@@ -43,7 +43,6 @@ export const getProductsByKeyword = createAsyncThunk(
       pageNumber,
       sortOrder
     );
-    console.log(response);
     return response.data.content;
   }
 );

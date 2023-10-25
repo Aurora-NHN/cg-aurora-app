@@ -14,7 +14,6 @@ export const createOrderVNPay = createAsyncThunk(
     "/create-order",
     async (data) => {
         const response = await createOrder(data);
-        console.log(response)
         return response.data;
     }
 );
