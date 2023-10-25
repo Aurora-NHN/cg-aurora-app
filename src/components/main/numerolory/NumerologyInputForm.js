@@ -50,7 +50,7 @@ function NumerologyInputForm() {
         nickName: "",
         yearOfBirth: 1996,
         monthOfBirth: "",
-        dayOfBirth: 1,
+        dayOfBirth: "",
         vip: false
     };
 
