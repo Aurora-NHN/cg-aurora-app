@@ -59,3 +59,18 @@ export const editUserInfo = async (data) => {
   }
   return result;
 };
+export const getCountOfUser= async () => {
+  let result = null;
+  let token = localStorage.getItem("token");
+  try {
+    result = await axios.get(`${USER_MANAGEMENT_API}/count`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    result = e.response;
+  }
+  return result;
+};

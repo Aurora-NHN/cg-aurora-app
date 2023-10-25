@@ -1,4 +1,7 @@
 const formatParagraph = (text) => {
+    if (text === null) {
+        return [""];
+    }
     if (!text) {
         return [];
     }

@@ -6,6 +6,7 @@ import { store } from "./app/store";
 import { ToastContainer } from "react-toastify";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import {CLIENT_ID} from "~/app/constants";
+import {ConfirmDialog} from "primereact/confirmdialog";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <GoogleOAuthProvider clientId={CLIENT_ID}>
                 <AppRoutes/>
                 <ToastContainer/>
+                <ConfirmDialog />
             </GoogleOAuthProvider>
         </BrowserRouter>
       </Provider>

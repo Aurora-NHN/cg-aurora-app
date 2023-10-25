@@ -4,6 +4,7 @@ import {
   forgotPassword,
   getUserInfo,
   editUserInfo,
+  getCountOfUser
 } from "~/api/userAPI";
 import { logout } from "~/api/loginAPI";
 
@@ -16,7 +17,9 @@ const initialState = {
   logoutSuccess: false,
   getInfoSuccess: false,
   editInfoSuccess: false,
+  getCountSuccess: false,
   token: null,
+  count: 0,
 };
 
 export const getInfo = createAsyncThunk("/get-info", async () => {
@@ -45,7 +48,13 @@ export const forgotPasswordUser = createAsyncThunk(
     return response.data;
   }
 );
-
+export const getCountForUser = createAsyncThunk(
+    "/get-count",
+    async () => {
+      const response = await getCountOfUser();
+      return response.data;
+    }
+);
 export const changePasswordUser = createAsyncThunk(
   "/change-password",
   async (data, { rejectWithValue }) => {
@@ -90,6 +99,12 @@ export const userSlice = createSlice({
     setEditInfoSuccess: (state, action) => {
       state.editInfoSuccess = action.payload;
     },
+    setGetCountSuccess: (state, action) => {
+      state.getCountSuccess = action.payload;
+    },
+    setCount: (state, action) => {
+      state.count = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -174,7 +189,24 @@ export const userSlice = createSlice({
         state.error = false;
         state.token = null;
         localStorage.removeItem("token");
-      });
+      })
+        .addCase(getCountForUser.pending, (state) => {
+          state.getCountSuccess = false;
+          state.loading = true;
+          state.error = false;
+        })
+        .addCase(getCountForUser.rejected, (state, action) => {
+          state.getCountSuccess = false;
+          state.loading = false;
+          state.error = action.payload;
+        })
+        .addCase(getCountForUser.fulfilled, (state, action) => {
+          state.getCountSuccess = true;
+          state.loading = false;
+          state.count = action.payload.data;
+          state.error = false;
+        })
+    ;
   },
 });
 
@@ -185,6 +217,9 @@ export const {
   setChangePasswordSuccess,
   setToken,
   setLogoutSuccess,
+  setGetInfoSuccess,
+  setGetCountSuccess,
+  setCount,
   setEditInfoSuccess,
 } = userSlice.actions;
 
@@ -195,9 +230,11 @@ export const selectForgotPasswordSuccess = (state) =>
 export const selectChangePasswordSuccess = (state) =>
   state.user.changePasswordSucess;
 export const selectEditInfoSuccess = (state) => state.user.editInfoSuccess;
+export const selectForgotPassword = (state) => state.user.value;
 export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
 export const selectToken = (state) => state.user.token;
 export const selectUserInfo = (state) => state.user.value;
 export const selectGetInfoSuccess = (state) => state.user.getInfoSuccess;
-
+export const selectCountOfUser = (state) => state.user.count;
+export const selectGetCountSuccess = (state) => state.user.getCountSuccess;
 export default userSlice.reducer;

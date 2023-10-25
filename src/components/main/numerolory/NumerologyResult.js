@@ -1,64 +1,73 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
-import {selectNumerologyReportAdded} from "~/features/numerologySlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectNumerologyReportAdded, setReportSuccess} from "~/features/numerologySlice";
 import CardResult from "~/components/main/numerolory/freeNumberologyReport/CardResult";
-import {Ripple} from 'primereact/ripple';
-import ResultNumber from "~/components/main/numerolory/freeNumberologyReport/ResultNumber";
 import {Link} from "react-router-dom";
+import Result from "~/components/main/numerolory/freeNumberologyReport/Result";
 
 
 function NumerologyResult() {
-    const result = useSelector(selectNumerologyReportAdded);
-
+    const dispatch = useDispatch();
+    const apiData = useSelector(selectNumerologyReportAdded);
     const [currentResult, setCurrentResult] = useState({});
-    const [lifePathNumber, setLifePathNumber] = useState({});
-    const  [dayOfbirthNumber, setDayOfbirthNumber] = useState({});
-    const  [missionNumber, setMissionNumber] = useState({});
-    const  [numberArr, setNumberArr] = useState([]);
+    const [meanOfAllNumberList, setMeanOfAllNumberList] = useState([]);
+    const [numberArr, setNumberArr] = useState([]);
+    const [lifePhase, setLifePhase] = useState({});
+    const [count, setCount] = useState(0);
+    const [monthOfBirth, setMonthOfBirth] = useState('');
+    const [dayOfBirth, setDayOfBirth] = useState('');
+    const [yearOfBirth, setYearOfBirth] = useState('');
+    const [fullName, setFullName] = useState('');
+    useEffect(() => {
+        let data = {};
+
+        if (apiData) {
+            data = apiData;
+            console.log('apiData');
+            console.log(apiData);
+
+        } else {
+            let storedData = JSON.parse(localStorage.getItem('data'));
+            if (storedData) data = storedData;
+        }
+
+        setCurrentResult(data);
+        const meanOfNumberList = data.meanOfNumberResponseDTOList;
+
+        const count = data.userResponseDtoForNumerologyReport?.count;
+        if (count){
+            setCount(count);
+        }
+
+
+        const dayOfBirth = data.dayOfBirth;
+        setDayOfBirth(dayOfBirth);
+        const monthOfBirth = data.monthOfBirth;
+        setMonthOfBirth(monthOfBirth);
+        const yearOfBirth = data.yearOfBirth;
+        setYearOfBirth(yearOfBirth);
+        const fullName = data.fullName;
+        setFullName(fullName);
+
+        if (meanOfNumberList) {
+            setMeanOfAllNumberList(meanOfNumberList);
+        }
+
+        let dataArray = [];
+        for (const key in data) {
+            dataArray.push(data[key]);
+
+        }
+        const lifePhase = dataArray[15];
+        dataArray.splice(0, 8);
+        setNumberArr(dataArray);
+
+
+    }, [apiData]);
 
     useEffect(() => {
-        if (result && result.lifePathResponseDTO) {
-            setLifePathNumber(result.lifePathResponseDTO);
-            setDayOfbirthNumber(result.dayOfBirthNumberResponseDTO);
-            setMissionNumber(result.missionNumberResponseDtTO);
-            setCurrentResult(result)
-        }
-
-    }, [result])
-
-
-    useEffect(()=>{
-        const data = JSON.parse(localStorage.getItem('data'))
-        if (data){
-            setCurrentResult(data.data)
-            const dataArray = [];
-            for (const key in data.data) {
-                dataArray.push(data.data[key]);
-            }
-            dataArray.splice(0,5)
-            setNumberArr(dataArray);
-        }
-    },[])
-
-
-
-    const template = (options) => {
-        const toggleIcon = options.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up';
-        const className = `${options.className} justify-content-start`;
-        const titleClassName = `${options.titleClassName} ml-2 text-primary`;
-        const style = { fontSize: '1.25rem' };
-
-        return (
-            <div className={className}>
-                <span className={titleClassName} style={style}>Header</span>
-                <span className={options.togglerClassName} onClick={options.onTogglerClick}>
-                    <span className={toggleIcon}></span>
-                    <Ripple />
-                </span>
-            </div>
-        );
-    };
-
+        dispatch(setReportSuccess(false));
+    }, [])
 
     return (
         <section className="ds s-py-90 s-py-xl-150 main-background-image">
@@ -73,40 +82,55 @@ function NumerologyResult() {
                                             <div>
                                                 <h2 style={{textAlign: "center"}}>BÁO CÁO THẦN SỐ HỌC</h2>
                                             </div>
-                                            <div className="mb-3">
-                                                <p></p>
+                                            <div className="mb-3 text-center mt-4 font-weight-bold text-warning" style={{fontSize: '25px'}}>
+                                                <span className="">
+                                                    {fullName.toUpperCase()}
+                                                </span>
+                                                <br/>
+                                                <span>{`${dayOfBirth}/${monthOfBirth}/${yearOfBirth}`}</span>
                                             </div>
 
                                             <div className="mb-3"></div>
-                                            <div className="bg-transparent rounded-3 p-3"
-                                                 style={{background: "#F9E1E0"}}>
-                                                <p style={{color: "red", textAlign: "center"}}>
-                                                    Bạn đang sử dụng lượt tra miễn phí chỉ xem được giới hạn các luận
-                                                    giải.
-                                                    Để xem những luận giải và giải pháp mà các chuyên gia đã nghiên cứu
-                                                    cho toàn bộ các chỉ số của bạn,
-                                                    vui lòng nâng cấp thành tài khoản VIP!
+                                            {
+                                                count <= 0 && count != undefined &&(
+                                                    <div className="bg-transparent rounded-3 p-3" style={{background: "#F9E1E0"}}>
 
-                                                </p>
-                                                <div style={{textAlign: "center"}}>
-                                                    <Link to="/pricing" className="btn bg-main">
-                                                        Di chuyển đến trang nạp vip
-                                                    </Link>
-                                                </div>
-                                            </div>
+                                                        <p style={{color: "red", textAlign: "center"}}>
+                                                            Bạn đang sử dụng lượt tra miễn phí chỉ xem được giới hạn các luận
+                                                            giải.
+                                                            Để xem những luận giải và giải pháp mà các chuyên gia đã nghiên cứu
+                                                            cho toàn bộ các chỉ số của bạn,
+                                                            vui lòng nâng cấp thành tài khoản VIP!
+
+                                                        </p>
+                                                        <div style={{textAlign: "center"}}>
+                                                            <Link to="/pricing" className="btn bg-main">
+                                                                Di chuyển đến trang nạp vip
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
 
                                             <div className="p-3">
-                                                <CardResult result ={currentResult}/>
+                                                <CardResult result={currentResult}/>
+
+                                                <div>
+
+                                                </div>
+                                                {
+                                                    meanOfAllNumberList.map((number, index) => (
+                                                        <div key={index} className="mb-3">
+                                                            <Result
+                                                                result={number}
+                                                                index={index}
+                                                                data={numberArr[index]}
+                                                                // lifePhase={lifePhase}
+                                                            />
+                                                        </div>
+                                                    ))
+                                                }
                                             </div>
-
-                                            {
-
-                                                numberArr.map((number, index) => (
-                                                    <div key={index} className="mb-3">
-                                                        <ResultNumber result={number} />
-                                                    </div>
-                                                ))
-                                            }
 
                                         </div>
                                     </div>
@@ -117,7 +141,6 @@ function NumerologyResult() {
                 </div>
             </div>
         </section>
-
     );
 }
 

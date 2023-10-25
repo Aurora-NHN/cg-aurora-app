@@ -53,16 +53,19 @@ h1 {
   margin-top: 70px;
   margin-bottom: 0.15em;
 }
+
 h2 {
   font-size: 50px;
   margin-top: 70px;
   margin-bottom: 0.2em;
 }
+
 h3 {
   font-size: 40px;
   margin-top: 70px;
   margin-bottom: 0.25em;
 }
+
 h4 {
   font-size: 30px;
   margin-top: 70px;
@@ -154,6 +157,7 @@ figcaption {
   p {
     margin-bottom: 0;
   }
+
   font-size: 0.95em;
   line-height: 1.4;
   padding: 10px 0 7px;
@@ -172,6 +176,7 @@ a {
   text-decoration: none;
   transition: all 0.2s ease-in-out 0s;
   color: $darkgreyColor;
+
   &:hover {
     color: $colorMain2;
     text-decoration: none;
@@ -194,6 +199,7 @@ blockquote {
     font-style: italic;
     line-height: 24px;
     position: relative;
+
     &::before {
       content: "";
       position: absolute;
@@ -212,9 +218,11 @@ blockquote {
       font-family: "El Messiri", sans-serif;
       font-size: 24px;
     }
+
     span:not(:last-child) {
       margin-right: 20px;
     }
+
     span + span {
       &::before {
         content: "|";
@@ -225,11 +233,13 @@ blockquote {
 
   .media {
     margin: 15px 0;
+
     img {
       max-width: 60px;
       border-radius: 50%;
     }
   }
+
   h3,
   h4,
   .text-small {
@@ -240,6 +250,7 @@ blockquote {
     & > p {
       padding-right: 55px;
       text-indent: unset;
+
       &::before {
         left: auto;
         right: 0;
@@ -291,6 +302,7 @@ table {
   width: 100%;
   max-width: 100%;
   margin: 10px 0;
+
   td,
   th {
     border: 1px solid $borderColor;
@@ -299,6 +311,7 @@ table {
     vertical-align: middle;
     text-align: center;
   }
+
   th {
     color: $darkgreyColor;
     font-weight: normal;
@@ -332,31 +345,39 @@ table {
 .no_border {
   border: none;
   margin: 0;
+
   td,
   th {
     border: none;
     text-align: left;
     padding: 4px;
   }
+
   th {
     font-size: 20px;
     font-weight: bold;
+
     &:nth-of-type(5n + 1) {
       color: #93b1bb;
     }
+
     &:nth-of-type(5n + 2) {
       color: #fc7c0b;
     }
+
     &:nth-of-type(5n + 3) {
       color: $darkgreyColor;
     }
+
     &:nth-of-type(5n + 4) {
       color: #61228c;
     }
+
     &:nth-of-type(5n + 5) {
       color: #2c7eff;
     }
   }
+
   td {
     color: $darkgreyColor;
     line-height: 26.5px;
@@ -367,6 +388,7 @@ table {
 .border_right {
   border: none;
   margin: 0;
+
   td,
   th {
     border: none;
@@ -374,6 +396,7 @@ table {
     padding-top: 15px;
     padding-bottom: 15px;
   }
+
   th {
     padding-left: 25px;
     padding-right: 0;
@@ -381,13 +404,16 @@ table {
       padding-left: 15px;
     }
   }
+
   td {
     padding-left: 5px;
     padding-right: 15px;
+
     &:first-child {
       padding-left: 0;
     }
   }
+
   td:not(:last-of-type) {
     border-right: 1px solid $borderColor;
   }
@@ -396,6 +422,7 @@ table {
 .some_border {
   border: none;
   margin: 0;
+
   td,
   th {
     border: none;
@@ -406,10 +433,12 @@ table {
       padding-right: 20px;
     }
   }
+
   th {
     width: 40%;
     text-align: right;
   }
+
   tr {
     border: 1px solid $borderColor;
   }
@@ -426,11 +455,13 @@ pre {
   background-color: $universalBackgroundColor;
   padding: 0.5em 1em;
 }
+
 //block with signature on main page
 .big {
   margin: 0.85em 0 1.3em;
   font-size: 20px;
   line-height: 1.8em;
+
   em {
     display: inline-block;
     margin: 0.3em 0 0;
@@ -442,13 +473,17 @@ pre {
 
 .media {
   display: flex;
-  .media-image img{
-    max-height: 161px;
-    max-width: 161px;
+
+  .media-image img {
+    height: 161px;
+    width: 161px;
+    object-fit: cover;
   }
+
   h3 {
     text-transform: uppercase;
   }
+
   .dropcap {
     margin-right: 0;
   }
@@ -456,6 +491,7 @@ pre {
 
 .small-text {
   @include small-text();
+
   &.extra-letter-spacing {
     @media (min-width: 768px) {
       letter-spacing: 1em;
@@ -472,6 +508,7 @@ pre {
 .owl-carousel.owl-theme:not(.owl-topline-news-slider) .owl-nav {
   transform: translateY(-50%);
   height: 60px;
+
   & > div {
     opacity: 1;
     height: 60px;
@@ -481,39 +518,49 @@ pre {
     display: flex;
     align-items: center;
     justify-content: center;
+
     &:hover {
       opacity: 1;
     }
+
     i {
       color: $lightColor;
       font-size: 12px;
     }
+
     &:first-child {
       left: -30px;
+
       i {
         position: relative;
         left: 15px;
         transition: all 0.3s ease-in-out;
       }
+
       &:hover {
         left: 5px;
         background-color: $darkgreyColor;
+
         i {
           color: $lightColor;
           left: 0;
         }
       }
     }
+
     &:last-child {
       right: -30px;
+
       i {
         position: relative;
         right: 15px;
         transition: all 0.3s ease-in-out;
       }
+
       &:hover {
         right: 5px;
         background-color: $darkgreyColor;
+
         i {
           color: $lightColor;
           right: 0;
@@ -545,31 +592,38 @@ address {
 
 .owl-custom-nav {
   display: inline-flex;
+
   .owl-prev {
     i {
       position: relative;
       transform: rotate(180deg);
     }
   }
+
   a + a {
     margin-left: 15px;
   }
+
   i {
     font-size: 30px;
   }
+
   a {
     opacity: 1;
     transition: all 0.3s ease-in-out;
+
     &:hover {
       color: inherit;
       opacity: 0.5;
     }
   }
+
   &.romb {
     position: relative;
     margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 50px;
+
     a {
       display: flex;
       align-items: center;
@@ -579,24 +633,29 @@ address {
       height: 80px;
       border: 2px solid $colorMain;
       transform: rotate(45deg);
+
       &:first-child {
         i {
           transform: rotate(135deg);
         }
       }
+
       &:last-child {
         margin-top: 62px;
         margin-left: -19px;
+
         i {
           transform: rotate(-45deg);
         }
       }
+
       &:hover {
         color: $lightColor !important;
         opacity: 1;
         background-color: $colorMain;
       }
     }
+
     @media (max-width: 767px) {
       display: flex;
       justify-content: center;
@@ -613,6 +672,7 @@ mark {
 .modal {
   .modal-content {
     position: relative;
+
     button.close {
       position: absolute;
       right: 20px;
@@ -622,12 +682,15 @@ mark {
       font-weight: 300;
       z-index: 10;
       box-shadow: none;
+
       &:hover {
         color: $colorMain;
       }
     }
+
     .modal-body {
       padding: 40px;
+
       .container {
         padding: 0;
       }
@@ -639,6 +702,7 @@ mark {
   .has-text-color {
     color: $lightColor !important;
   }
+
   .wp-block-table.is-style-stripes td {
     border-color: $darkBorderColor;
   }
@@ -654,10 +718,12 @@ mark {
 
 .wp-block-button {
   clear: both;
+
   &:hover {
     color: $darkgreyColor !important;
   }
 }
+
 .is-style-outline {
   &:hover {
     color: $lightColor !important;
@@ -683,25 +749,31 @@ mark {
 #user-registration {
   margin: 0;
   background-color: transparent;
+
   .ur-frontend-form {
     border: none;
     padding: 0;
   }
+
   .user-registration-form__label-for-checkbox {
     input {
       display: none;
     }
   }
+
   .user-registration-Input::placeholder {
     color: $darkgreyColor;
   }
+
   .ur-form-grid {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .form-row {
       display: flex;
       flex-direction: column-reverse;
+
       .button {
         margin-bottom: 0;
         border: 2px solid $colorMain;
@@ -722,6 +794,7 @@ mark {
 
 .wp-block-search {
   flex-wrap: nowrap;
+
   & + p {
     margin-top: 20px;
   }
@@ -744,20 +817,40 @@ dl#attachment_612 {
 }
 
 .hover-pointer {
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }
-.text-main{
+
+.text-main {
   color: #ca416e !important;
 }
 
-.p-panel-content{
+.p-panel-content {
   background: rgba(255, 255, 255, 0.87);
 }
 
-.google-login{
-  iframe{
+.google-login {
+  iframe {
     margin: 0 !important;
   }
+}
+
+.p-dialog-footer {
+  button {
+    margin: 10px;
+    border-radius: 5px;
+
+    &:hover {
+      color: #ca416e;
+    }
+  }
+}
+
+.p-dialog-header-icons {
+  .p-dialog-header-close{
+    border-radius: 5px !important;
+    color: black;
+  }
+
 }
