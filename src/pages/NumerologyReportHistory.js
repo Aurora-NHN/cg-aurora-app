@@ -2,19 +2,18 @@ import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import NavigateForUser from "~/components/commons/NavigateForUser";
 import AllNumerologyReport from "~/components/main/numerologyReportHistory/AllNumerologyReport";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {findAllNumerologyReportForUser} from "~/features/numerologySlice";
 
 function  NumerologyReportHistory(){
     const dispatch = useDispatch();
-
     useEffect(()=>{
         dispatch(findAllNumerologyReportForUser());
     },[])
 
     return(
         <>
-            <div style={{ minHeight: "100vh" }}>
+            <div>
                 <section className="ds s-py-90 s-py-xl-150">
                     <div className="container">
                         <div className="row">

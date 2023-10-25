@@ -1,15 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectNumerologyReports, setNumerologyDetail} from "~/features/numerologySlice";
 import {useNavigate} from "react-router-dom";
 import {Button} from "primereact/button";
 import { format, parseISO } from 'date-fns';
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AllNumerologyReport() {
     const reports = useSelector(selectNumerologyReports);
     const dispatch = useDispatch();
     const navgigate = useNavigate();
-
 
     const handleClickReportDetail = (report) => {
         dispatch(setNumerologyDetail(report));

@@ -101,10 +101,17 @@ export const numerologySlice = createSlice({
                 toast("Report error!" + action.payload, {type: "error", autoClose: 2000})
             })
             .addCase(findAllNumerologyReportForUser.fulfilled, (state, action) => {
+                const data = action.payload.data
                 state.getHistorySuccess = true;
                 state.loading = false;
-                state.values = action.payload.data;
+                state.values = data;
                 state.getHistoryError = null;
+                if (!data || data.length === 0){
+                    toast.error("Bạn chưa có báo cáo Vip !", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        type: toast.TYPE.ERROR,
+                    });
+                }
             })
 
     },
