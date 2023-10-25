@@ -1,14 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Ripple} from 'primereact/ripple';
 import styles from "./result_number.module.scss"
 import ReportPanel from "~/components/main/numerolory/freeNumberologyReport/ReportPanel";
 
-function Result({
-                    result = {},
-                    index,
-                    data
-                }) {
-
+function Result({result = {}, index, data}) {
     const template = (options) => {
         const toggleIcon = options.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up';
         const className = `${options.className} justify-content-start ${styles.panelHeader}`;
@@ -30,16 +25,14 @@ function Result({
         );
     };
 
+
+
     const [arr, setArr] = useState([]);
-
-    useEffect(() => {
-    }, [])
-
 
     return (
         <>
             {
-              <ReportPanel template={template} result={result} data={data}/>
+                <ReportPanel template={template} result={result} data={data}/>
             }
         </>
     )

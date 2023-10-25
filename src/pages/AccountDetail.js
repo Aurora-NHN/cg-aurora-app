@@ -17,6 +17,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import NavigateForUser from "~/components/commons/NavigateForUser";
 
 export default function AccountDetail() {
   const dispatch = useDispatch();
@@ -106,20 +107,7 @@ export default function AccountDetail() {
               )}
               <div className="entry-content">
                 <div className="woocommerce">
-                  <nav className="woocommerce-MyAccount-navigation">
-                    <ul>
-                      <li className="is-active">
-                        <a href="/account-detail">My Account</a>
-                      </li>
-                      <li>
-                        <a href="/cart">Cart</a>
-                      </li>
-                      <li>
-                        <a href="/change-password">Change Password</a>
-                      </li>
-                    </ul>
-                  </nav>
-
+                  <NavigateForUser/>
                   <div className="woocommerce-MyAccount-content">
                     {userDetail ? (
                       <form
