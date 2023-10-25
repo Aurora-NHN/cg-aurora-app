@@ -850,7 +850,22 @@ dl#attachment_612 {
 .p-dialog-header-icons {
   .p-dialog-header-close{
     border-radius: 5px !important;
-    color: black;
+    color: white;
+    &:hover{
+      svg{
+        color: $colorMain;
+      }
+    }
+    svg{
+      min-width: 1em;
+    }
   }
+}
 
+.card-body{
+  .card-container{
+    .card-main{
+      cursor: context-menu;
+    }
+  }
 }

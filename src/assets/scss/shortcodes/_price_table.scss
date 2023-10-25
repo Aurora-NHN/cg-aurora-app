@@ -62,9 +62,16 @@
   //featured border
   &.plan-featured {
     border: 10px solid $colorMain;
+    background: $colorMain;
     transform: translateY(-10px);
     .plan-button {
       top: 48px;
+      .btn-shop{
+        background: white;
+      }
+    }
+    .btn-shop:hover::before{
+      color: #0b0e1e;
     }
   }
 }

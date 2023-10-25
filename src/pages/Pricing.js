@@ -63,7 +63,7 @@ const Pricing = () => {
                         </p>
                         <div className="divider-40 divider-xl-60"/>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-xl-4">
                         <div className="pricing-plan price-layout-1 bg-darkgrey">
                             <div className="icon-styled fs-50">
                                 <i className="color-darkgrey ico ico-diamond"/>
@@ -102,8 +102,8 @@ const Pricing = () => {
                         </div>
                         <div className="divider-60 divider-lg-0"/>
                     </div>
-                    <div className="col-lg-4">
-                        <div className="pricing-plan price-layout-1 cs plan-featured">
+                    <div className="col-xl-4">
+                        <div className="pricing-plan price-layout-1 plan-featured">
                             <div className="icon-styled fs-50">
                                 <i className="text-white ico ico-gem"/>
                             </div>
@@ -140,7 +140,7 @@ const Pricing = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-xl-4">
                         <div className="pricing-plan price-layout-1 bg-darkgrey">
                             <div className="icon-styled fs-50">
                                 <i className="color-darkgrey ico ico-gems"/>
