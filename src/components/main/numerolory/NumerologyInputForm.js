@@ -36,7 +36,7 @@ function NumerologyInputForm() {
         } else {
             setLoggedIn(false);
         }
-    }, [token, dispatch]);
+    }, [token]);
     const monthOfBirthList = [
         "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",
         "Tháng 10", "Tháng 11", "Tháng 12",
@@ -54,7 +54,6 @@ function NumerologyInputForm() {
         vip: false
     };
 
-    const ENGLISH_REGEX = /^[a-zA-Z\s]*$/;
     const VIETNAMESE_REGEX =/^[a-zA-ZÀ-ỹ\s]+$/;
 
     const validationSchema = Yup.object().shape({
@@ -176,18 +175,32 @@ function NumerologyInputForm() {
         formik.submitForm();
 
     }
+    const acceptBuyVipFunction = () => {
+        navigate("/pricing");
+    }
 
 
     useEffect(() => {
             if (getCountSuccess){
-                if (loggedIn){
-                confirmDialog({
-                    message: 'Bạn đang có ' + count + ' lượt VIP. Bạn có muốn làm báo cáo VIP?',
-                    header: 'Confirmation',
-                    icon: 'pi pi-exclamation-triangle',
-                    accept: () => acceptFunction()
+                if (loggedIn ){
+                    if (count != undefined && count != 0){
+                        confirmDialog({
+                            message: 'Bạn đang có ' + count + ' lượt VIP. Bạn có muốn làm báo cáo VIP?',
+                            header: 'Xác nhận',
+                            icon: 'pi pi-exclamation-triangle',
+                            accept: () => acceptFunction()
 
-                });
+                        });
+                    }else {
+                        confirmDialog({
+                            message: 'Bạn chưa chưa phải là tài khoản VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
+                            header: 'Xác nhận',
+                            icon: 'pi pi-exclamation-triangle',
+                            accept: () => acceptBuyVipFunction()
+
+                        });
+                    }
+
                 }
                 else if (!loggedIn) {
                     toast.error("Vui lòng đăng nhập để xem báo cáo VIP!", {
