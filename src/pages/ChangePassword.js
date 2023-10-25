@@ -60,10 +60,10 @@ export default function ChangePassword() {
     }
   }, [pending]);
   return (
-    <section className="ds s-py-90 s-py-xl-150">
+    <section className="ds s-py-80 s-py-xl-150">
       <div className="container">
         <div className="row">
-          <main className="col-lg-12">
+          <main className="col-lg-12 pt-5">
             <form
               className="woocommerce-ResetPassword lost_reset_password"
               onSubmit={formik.handleSubmit}

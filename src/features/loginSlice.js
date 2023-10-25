@@ -137,7 +137,6 @@ export const selectLoginSuccess = (state) => state.login.loginSuccess;
 export const selectRegisterSuccess = (state) => state.login.registerSuccess;
 export const selectUserLogin = (state) => state.login.value;
 export const selectUserRegister = (state) => state.login.value;
-
 export const selectRegisterError = (state) => state.login.registerError;
 
 export default loginSlice.reducer;

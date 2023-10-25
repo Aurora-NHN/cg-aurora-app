@@ -43,7 +43,7 @@ const Pricing = () => {
         if (orderSuccess === true) {
             window.location.href = vnPayUrl;
         }
-        // dispatch(setOrderSuccess(false));
+        dispatch(setOrderSuccess(false));
     }, [orderSuccess]);
 
     return (
@@ -63,7 +63,7 @@ const Pricing = () => {
                         </p>
                         <div className="divider-40 divider-xl-60"/>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-xl-4">
                         <div className="pricing-plan price-layout-1 bg-darkgrey">
                             <div className="icon-styled fs-50">
                                 <i className="color-darkgrey ico ico-diamond"/>
@@ -102,8 +102,8 @@ const Pricing = () => {
                         </div>
                         <div className="divider-60 divider-lg-0"/>
                     </div>
-                    <div className="col-lg-4">
-                        <div className="pricing-plan price-layout-1 cs plan-featured">
+                    <div className="col-xl-4">
+                        <div className="pricing-plan price-layout-1 plan-featured">
                             <div className="icon-styled fs-50">
                                 <i className="text-white ico ico-gem"/>
                             </div>
@@ -112,20 +112,20 @@ const Pricing = () => {
                                 <h3 className="mt-0">Vip Pro</h3>
                                 <div className="plan-description">Starting View Numerology</div>
                             </div>
-                            <div className="plan-features text-center">
-                                <ul className="list-bordered">
-                                    <li>Ask Three Question</li>
-                                    <li>Vip Account</li>
-                                    <li>View Numerolory</li>
-                                    <li>View History Numerolory</li>
+                            <div className="plan-features text-center ">
+                                <ul className="list-bordered ">
+                                    <li className={"text-white"}>Ask Three Question</li>
+                                    <li className={"text-white"}>Vip Account</li>
+                                    <li className={"text-white"}>View Numerolory</li>
+                                    <li className={"text-white"}>View History Numerolory</li>
                                 </ul>
                             </div>
                             <div className="price-wrap">
                                 <div className="wrapper">
                                     <span className="plan-price">650.000</span>
-                                    <span className="plan-sign">đ</span>
+                                    <span className="plan-sign text-white">đ</span>
                                 </div>
-                                <span className="plan-decimals text-left">
+                                <span className="plan-decimals text-left text-white">
                   3 <br/>
                   People
                 </span>
@@ -140,7 +140,7 @@ const Pricing = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-xl-4">
                         <div className="pricing-plan price-layout-1 bg-darkgrey">
                             <div className="icon-styled fs-50">
                                 <i className="color-darkgrey ico ico-gems"/>

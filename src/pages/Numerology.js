@@ -6,8 +6,7 @@ const Numerology = () => {
 
     return (
         <>
-
-            <div style={{ minHeight: "100vh" }}>
+            <div>
                 <NumerologyInputForm/>
             </div>
         </>

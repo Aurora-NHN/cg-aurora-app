@@ -16,8 +16,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import NavigateForUser from "~/components/commons/NavigateForUser";
+=======
+import {Link, useNavigate} from "react-router-dom";
+>>>>>>> fb46d2c472ab549736035089093daacdc5647bde
 
 export default function AccountDetail() {
   const dispatch = useDispatch();
@@ -38,13 +42,14 @@ export default function AccountDetail() {
     }
   }, [userInfo]);
 
+  const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]*$/;
   const validationSchema = Yup.object().shape({
     fullName: Yup.string()
-      .required("Full Name is required")
-      .matches(
-        /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/,
-        "Invalid full name"
-      ),
+        .matches(
+            VIETNAMESE_REGEX,
+            "Full name doesn't contain numbers or special characters"
+        )
+        .required("Full name is required"),
     email: Yup.string()
       .email("Invalid email")
       .required("Email is required")
@@ -107,7 +112,30 @@ export default function AccountDetail() {
               )}
               <div className="entry-content">
                 <div className="woocommerce">
+<<<<<<< HEAD
                   <NavigateForUser/>
+=======
+                  <nav className="woocommerce-MyAccount-navigation">
+                    <ul>
+                      <li className="is-active">
+                        <Link to={"/account-detail"}>
+                        My Account
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={"/cart"}>
+                          Cart
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={"/change-password"}>
+                          Change Password
+                        </Link>
+                      </li>
+                    </ul>
+                  </nav>
+
+>>>>>>> fb46d2c472ab549736035089093daacdc5647bde
                   <div className="woocommerce-MyAccount-content">
                     {userDetail ? (
                       <form

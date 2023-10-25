@@ -70,7 +70,7 @@ function NumerologyResult() {
         <section className="ds s-py-90 s-py-xl-150 main-background-image">
             <div className="container">
                 <div className="row">
-                    <main className="col-lg-12">
+                    <main className="col-lg-12 pt-5">
                         <article>
                             <div className="entry-content">
                                 <div className="woocommerce">
