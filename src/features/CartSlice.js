@@ -73,6 +73,9 @@ const cartSlice = createSlice({
     setRemovedCartLineTotalPrice: (state, action) => {
       state.removedCartLineTotalPrice = action.payload;
     },
+    setCartLine: (state, action) => {
+      state.cartLine = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -164,6 +167,7 @@ export const {
   setError,
   setSuccess,
   setNewQuantity,
+  setCartLine,
   setChangeCartLineTotalPrice,
   setRemovedCartLineTotalPrice,
   setCurrentCartLine,

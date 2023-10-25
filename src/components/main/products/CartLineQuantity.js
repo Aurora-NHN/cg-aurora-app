@@ -4,6 +4,8 @@ import {
   removeCartLine,
   setNewQuantity,
   setCurrentCartLine,
+  setCartLine,
+  selectCartLine
 } from "~/features/CartSlice";
 import _ from "lodash";
 import { setProductDetail } from "~/features/productSlice";
@@ -12,6 +14,7 @@ import { selectToken } from "~/features/userSlice";
 
 const CartLineQuantity = ({ cartLine }) => {
   const dispatch = useDispatch();
+  const currentCartLine = useSelector(selectCartLine);
   const [quantity, setQuantity] = useState(cartLine.quantity);
   const minQuantity = 1;
   const maxQuantity = cartLine.productResponseDTO.quantity;
@@ -29,7 +32,6 @@ const CartLineQuantity = ({ cartLine }) => {
   const handleIncrease = () => {
     if (quantity < maxQuantity) {
       setQuantity(quantity + 1);
-      console.log(currentCartLine)
       dispatch(setNewQuantity(quantity));
       dispatch(setCartLine(currentCartLine))
     }
