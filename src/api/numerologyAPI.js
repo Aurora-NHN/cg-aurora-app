@@ -20,4 +20,22 @@ export const createNumerologyReport = async (customerInputData) => {
     return result;
 };
 
+export const getAllNumerologyReportForUser = async () => {
+    let result = null;
+    let token = localStorage.getItem("token");
+    try {
+        result = await axios.get(
+            `${NUMEROLOGY_API}/history`,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                }
+            }
+        );
+    }catch (e){
+        console.log(e);
+        result = e.response;
+    }
+    return result;
+};
 

@@ -11,18 +11,20 @@ import OrderSlice from "~/features/OrderSlice";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = configureStore(
-  {
-    reducer: {
-      user: userReducer,
-      product: productReducer,
-      login: loginReducer,
-      category: categoryReducer,
-      payment: paymentReducer,
-      numerology: numerologyReducer,
-      cart: cartReducer,
-      blogs: blogSlice,
-      order: OrderSlice,
+    {
+        reducer: {
+            user: userReducer,
+            product: productReducer,
+            login: loginReducer,
+            category: categoryReducer,
+            payment: paymentReducer,
+            numerology: numerologyReducer,
+            cart: cartReducer,
+            blogs: blogSlice,
+            order: OrderSlice,
+
+        },
     },
-  },
-  composeEnhancers(applyMiddleware())
+    composeEnhancers(applyMiddleware())
 );
+

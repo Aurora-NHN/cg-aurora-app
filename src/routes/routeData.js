@@ -25,6 +25,8 @@ import Tarot from "~/components/main/homepage/Tarot";
 import Cart from "~/pages/Cart";
 import Numerology from "~/pages/Numerology";
 import NumerologyResult from "~/components/main/numerolory/NumerologyResult";
+import NumerologyReportHistory from "~/pages/NumerologyReportHistory";
+import NumerologyReportDetail from "~/components/main/numerolory/history/NumerologyReportDetail";
 
 export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
@@ -52,6 +54,8 @@ export const ROUT_DATA = [
   { path: "/pricing", element: Pricing, layout: GuestLayout },
   { path: "/tarot", element: Tarot, layout: GuestLayout },
   {path: "/numerology", element: Numerology, layout: GuestLayout},
-  {path: "/numerology-result", element: NumerologyResult, layout: GuestLayout}
+  {path: "/numerology-result", element: NumerologyResult, layout: GuestLayout},
+  {path: "/numerology-report-history", element: NumerologyReportHistory, layout: GuestLayout},
+  { path: "/numerology-detail", element:NumerologyReportDetail , layout: GuestLayout },
 ];
 
