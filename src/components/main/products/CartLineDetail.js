@@ -46,7 +46,6 @@ export default function CartLineDetail() {
     return <h6 style={{ fontFamily: "Arial" }}>{text}</h6>;
   };
   return (
-
     <section className="ds s-py-50 s-py-xl-100 c-gutter-60">
       {onloading ? (
         <h3>Loading...</h3>
@@ -56,11 +55,10 @@ export default function CartLineDetail() {
             <main className="col-lg-12">
               <div className="woocommerce-notices-wrapper">
                 <div
-                  className="woocommerce-message"
+                  className="woocommerce-info"
                   style={{ fontFamily: "Arial" }}
                 >
-                  <a href="#" tabIndex="1" className="button wc-forward">
-                    View cart
+                  <a href="#" tabIndex="1" className="showcoupon">
                   </a>
                   Những sản phẩm chất lượng cao cấp đã được thêm vào giỏ hàng
                   của bạn.

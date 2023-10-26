@@ -4,20 +4,39 @@ const API_PROVINCE = "https://vapi.vnappmob.com/api/province/";
 const API_DISTRICT = "https://vapi.vnappmob.com/api/province/district/";
 const API_WARD = "https://vapi.vnappmob.com/api/province/ward/";
 
-export const createOrderAPI = async (address, token) => {
+export const createOrderDetailAPI = async (address, token) => {
   let result = null;
   try {
-    result = await axios.post(`${ORDER_API}/create`, address, {
+    result = await axios.post(`${ORDER_API}/create-order-detail`, address, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   } catch (e) {
-    console.log("Cart api error");
     console.log(e);
   }
   return result;
 };
+export const createOrderAPI = async (token) => {
+  let result = null;
+  try {
+    result = await axios.post(
+      `${ORDER_API}/save-order`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    result = e.response;
+  }
+  return result;
+};
+
+
 export const provincesAPI = async () => {
   let result = null;
   try {

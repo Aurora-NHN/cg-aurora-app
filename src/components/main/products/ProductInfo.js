@@ -2,7 +2,6 @@ import React from "react";
 import _ from "lodash";
 
 const ProductInfo = ({ product }) => {
-  console.log(product)
   function formatCurrency(price) {
     const formatter = new Intl.NumberFormat("vi-VN", {
       style: "currency",

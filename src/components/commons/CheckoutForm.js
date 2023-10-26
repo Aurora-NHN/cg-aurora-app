@@ -5,20 +5,29 @@ import { useSelector } from "react-redux";
 import {
   selectAddress,
   selectGetAddressSuccess,
-  setAddressSuccess,
   createOrder,
+  setAddressSuccess
 } from "~/features/OrderSlice";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
+import {
+  createOrderVNPay,
+  selectOrder,
+  selectOrderSuccess,
+  setOrderSuccess,
+} from "~/features/paymentSlice";
 
 export default function CheckoutForm() {
   const cart = useSelector(selectCart);
   const [currentCart, setCurrentCart] = useState(cart);
   const address = useSelector(selectAddress);
-  const [checkCity, setCheckCity] = useState(false);
   const [shipmentCost, setShipmentCost] = useState(0);
   const success = useSelector(selectGetAddressSuccess);
   const dispatch = useDispatch();
+  const [paymentMethod, setPaymentMethod] = useState(null);
+  const vnPayUrl = useSelector(selectOrder);
+  const orderVnpaySuccess = useSelector(selectOrderSuccess);
 
   function formatCurrency(price) {
     const formatter = new Intl.NumberFormat("vi-VN", {
@@ -41,13 +50,45 @@ export default function CheckoutForm() {
         setShipmentCost(35000);
       }
     }
-    setCheckCity(false);
   }, [success, cart]);
 
-    const onClickOrder = () => {
-      let token = localStorage.getItem("token");
-      let requestData = {address,token}
-      dispatch(createOrder(requestData));
+  const changePaymentMethod = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+  const isEmpty = (object) => {
+    return Object.keys(object).length === 0;
+  };
+  const onSubmit = () => {
+    if (isEmpty(address)) {
+      orderFail();
+    } else {
+      if (paymentMethod === "vnpay") {
+        dispatch(createOrderVNPay({ vipPack: 4 }));
+      } else if (paymentMethod === null) {
+        dispatch(createOrderVNPay({ vipPack: 4 }));
+      } else if (paymentMethod === "cod") {
+        let token = localStorage.getItem("token");
+        dispatch(createOrder(token));
+      }
+         dispatch(setAddressSuccess(false));
+    }
+  };
+  const orderFail = () => {
+    toast.error("Bạn chưa nhập địa chỉ!", {
+      position: toast.POSITION.TOP_RIGHT,
+      type: toast.TYPE.ERROR,
+    });
+  };
+
+  useEffect(() => {
+    if (orderVnpaySuccess === true && vnPayUrl) {
+      window.location.href = vnPayUrl;
+    }
+    dispatch(setOrderSuccess(false));
+  }, [orderVnpaySuccess]);
+
+    const onClickSetSuccess = () => {
+   
     };
 
   return (
@@ -64,141 +105,144 @@ export default function CheckoutForm() {
               </div>
               <div className="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout"></div>
               <OrderCustomerDetail />
-          
-                <div
-                  id="order_review"
-                  className="woocommerce-checkout-review-order"
-                >
-                  <h3>Thanh toán</h3>
-                  <table className="shop_table woocommerce-checkout-review-order-table">
-                    <thead>
-                      <tr>
-                        <th className="product-name">
-                          {renderCapitalizedText("Sản phẩm")}
-                        </th>
-                        <th className="product-total">
-                          {renderCapitalizedText("sl")}
-                        </th>
-                        <th className="product-total">
-                          {renderCapitalizedText("Giá")}
-                        </th>
+
+              <div
+                id="order_review"
+                className="woocommerce-checkout-review-order"
+              >
+                <h3>Thanh toán</h3>
+                <table className="shop_table woocommerce-checkout-review-order-table">
+                  <thead>
+                    <tr>
+                      <th className="product-name">
+                        {renderCapitalizedText("Sản phẩm")}
+                      </th>
+                      <th className="product-total">
+                        {renderCapitalizedText("sl")}
+                      </th>
+                      <th className="product-total">
+                        {renderCapitalizedText("Giá")}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentCart.cartLineDTOList.map((cartLine) => (
+                      <tr key={cartLine.id} className="cart_item">
+                        <td className="product-name">
+                          {cartLine.productResponseDTO.name}&nbsp;
+                        </td>
+                        <td className="product-total">{cartLine.quantity}</td>
+                        <td className="product-total">
+                          <span className="woocommerce-Price-amount amount">
+                            <span className="woocommerce-Price-currencySymbol"></span>
+                            {formatCurrency(cartLine.totalPrice)}
+                          </span>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {currentCart.cartLineDTOList.map((cartLine) => (
-                        <tr key={cartLine.id} className="cart_item">
-                          <td className="product-name">
-                            {cartLine.productResponseDTO.name}&nbsp;
-                          </td>
-                          <td className="product-total">{cartLine.quantity}</td>
-                          <td className="product-total">
-                            <span className="woocommerce-Price-amount amount">
-                              <span className="woocommerce-Price-currencySymbol"></span>
-                              {formatCurrency(cartLine.totalPrice)}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                    <tfoot>
-                      <div style={{ padding: "30px", marginLeft: "-30px" }}>
-                        {success ? (
-                          <div>
-                            <p>
-                              <h4 style={{ fontFamily: "Arial" }}>
-                                Phí giao hàng
-                                <span
-                                  style={{ color: "white", marginLeft: "10px" }}
-                                >
-                                  {formatCurrency(shipmentCost)}
-                                </span>
-                              </h4>
-                              <span></span>
-                            </p>
-                            <p>
-                              <h4 style={{ fontFamily: "Arial" }}>
-                                Tổng
-                                <span
-                                  style={{ color: "white", marginLeft: "10px" }}
-                                >
-                                  {formatCurrency(
-                                    cart.totalAmount + shipmentCost
-                                  )}
-                                </span>
-                              </h4>
-                              <span></span>
-                            </p>
-                          </div>
-                        ) : (
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <div style={{ padding: "30px", marginLeft: "-30px" }}>
+                      {success ? (
+                        <div>
+                          <p>
+                            <h6 style={{ fontFamily: "Arial" }}>
+                              Phí giao hàng
+                              <span
+                                style={{ color: "white", marginLeft: "10px" }}
+                              >
+                                {formatCurrency(shipmentCost)}
+                              </span>
+                            </h6>
+                            <span></span>
+                          </p>
                           <p>
                             <h4 style={{ fontFamily: "Arial" }}>
                               Tổng
                               <span
                                 style={{ color: "white", marginLeft: "10px" }}
                               >
-                                {formatCurrency(cart.totalAmount)}
+                                {formatCurrency(
+                                  cart.totalAmount + shipmentCost
+                                )}
                               </span>
                             </h4>
                             <span></span>
                           </p>
-                        )}
-                      </div>
-                    </tfoot>
-                  </table>
-
-                  <div id="payment" className="woocommerce-checkout-payment">
-                    <ul className="wc_payment_methods payment_methods methods">
-                      <li className="wc_payment_method payment_method_cheque">
-                        <input
-                          id="payment_method_cheque"
-                          type="radio"
-                          className="input-radio"
-                          name="payment_method"
-                          value="cheque"
-                          checked="checked"
-                          data-order_button_text=""
-                        />
-                        <label htmlFor="payment_method_cheque">
-                          Thanh toán vnpay
-                        </label>
-                        <div
-                          className="payment_box payment_method_cheque"
-                          style={{ display: "none" }}
-                        >
-                          <p>
-                            Please send a check to Store Name, Store Street,
-                            Store Town, Store State / County, Store Postcode.
-                          </p>
                         </div>
-                      </li>
-                      <li className="wc_payment_method payment_method_cod">
-                        <input
-                          id="payment_method_cod"
-                          type="radio"
-                          className="input-radio"
-                          name="payment_method"
-                          value="cod"
-                          data-order_button_text=""
-                        />
-                        <label htmlFor="payment_method_cod">
-                          Thanh toán khi nhận hàng
-                        </label>
-                      </li>
-                    </ul>
-                    <div className="form-row place-order">
-                      <input
-                        type="submit"
-                        className="button alt"
-                        name="woocommerce_checkout_place_order"
-                        id="place_order"
-                        value="Thanh toán"
-                        data-value="Place order"
-                        onClick={onClickOrder}
-
-                      />
+                      ) : (
+                        <p>
+                          <h4 style={{ fontFamily: "Arial" }}>
+                            Tổng
+                            <span
+                              style={{ color: "white", marginLeft: "10px" }}
+                            >
+                              {formatCurrency(cart.totalAmount)}
+                            </span>
+                          </h4>
+                          <span></span>
+                        </p>
+                      )}
                     </div>
+                  </tfoot>
+                </table>
+
+                <div id="payment" className="woocommerce-checkout-payment">
+                  <ul
+                    onChange={changePaymentMethod}
+                    className="wc_payment_methods payment_methods methods"
+                  >
+                    <li className="wc_payment_method payment_method_cheque">
+                      <input
+                        id="payment_method_cheque"
+                        type="radio"
+                        className="input-radio"
+                        name="payment_method"
+                        defaultValue="vnpay"
+                        value="vnpay"
+                        checked="checked"
+                        data-order_button_text=""
+                      />
+                      <label htmlFor="payment_method_cheque">
+                        Thanh toán vnpay
+                      </label>
+                      <div
+                        className="payment_box payment_method_cheque"
+                        style={{ display: "none" }}
+                      >
+                        <p>
+                          Please send a check to Store Name, Store Street, Store
+                          Town, Store State / County, Store Postcode.
+                        </p>
+                      </div>
+                    </li>
+                    <li className="wc_payment_method payment_method_cod">
+                      <input
+                        id="payment_method_cod"
+                        type="radio"
+                        className="input-radio"
+                        name="payment_method"
+                        value="cod"
+                        data-order_button_text=""
+                      />
+                      <label htmlFor="payment_method_cod">
+                        Thanh toán khi nhận hàng
+                      </label>
+                    </li>
+                  </ul>
+                  <div className="form-row place-order">
+                    <input
+                      type="submit"
+                      className="button alt"
+                      name="woocommerce_checkout_place_order"
+                      id="place_order"
+                      value="Thanh toán"
+                      data-value="Place order"
+                      onClick={onSubmit}
+                    />
                   </div>
                 </div>
+              </div>
             </main>
           </div>
         </div>

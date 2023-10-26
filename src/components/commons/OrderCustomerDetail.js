@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { setOrderAddress, setAddressSuccess } from "~/features/OrderSlice";
-import { getProvince,getWard,getDistrist } from "~/features/OrderSlice";
+import { createOrderDetail } from "~/features/OrderSlice";
 
 export default function OrderCustomerDetail() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function OrderCustomerDetail() {
       fullName: "",
       phoneNumber: "",
       city: "Chọn tỉnh thành…",
-      address: "",
+      expectedDelivery: "",
       order_comments: "",
     },
     validationSchema: Yup.object().shape({
@@ -29,12 +29,14 @@ export default function OrderCustomerDetail() {
       city: Yup.string()
         .required("Thành phố không được để trống.")
         .notOneOf(["Chọn tỉnh thành…"], "Hãy chọn tỉnh thành"),
-      address: Yup.string().required("Địa chỉ không được để trống"),
+      expectedDelivery: Yup.string().required("Địa chỉ không được để trống"),
       order_comments: Yup.string(),
     }),
-    onSubmit: (values) => {
-      console.log("submit formik");
-      dispatch(setOrderAddress(values));
+    onSubmit: (address) => {
+      let token = localStorage.getItem("token");
+      let requestData = { address, token };
+      dispatch(createOrderDetail(requestData));
+      dispatch(setOrderAddress(address));
       dispatch(setAddressSuccess(true));
     },
   });
@@ -206,23 +208,24 @@ export default function OrderCustomerDetail() {
               >
                 <input
                   type="text"
-                  name="address"
-                  id="address"
+                  name="expectedDelivery"
+                  id="expectedDelivery"
                   placeholder="Địa chỉ nhận hàng"
                   className={`input-text ${
-                    formik.errors.address && formik.touched.address
+                    formik.errors.expectedDelivery &&
+                    formik.touched.expectedDelivery
                       ? "is-invalid"
                       : ""
                   }`}
                   required
                   aria-required="true"
-                  value={formik.values.address}
+                  value={formik.values.expectedDelivery}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.address && (
+                {formik.errors.expectedDelivery && (
                   <div className="invalid-feedback">
-                    {formik.errors.address}
+                    {formik.errors.expectedDelivery}
                   </div>
                 )}
               </p>
