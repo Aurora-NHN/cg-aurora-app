@@ -10,11 +10,16 @@ const WoocommerceTabs = ({ product }) => {
   const renderTabContent = () => {
     switch (activeTab) {
       case "description":
-        return <div>{product.description}</div>;
+        return <div style={{ fontFamily: "Arial" }}>{product.description}</div>;
       case "review":
-        return <div>{product.reviews}</div>;
+        return <div style={{ fontFamily: "Arial" }}>{product.reviews}</div>;
       case "Additional information":
-        return <div className="weight-container">Weight: {product.weight}</div>;
+        return (
+          <div style={{ fontFamily: "Arial" }} 
+          className="weight-container">
+            Khối lượng: {product.weight}g
+          </div>
+        );
       default:
         return null;
     }
@@ -29,15 +34,20 @@ const WoocommerceTabs = ({ product }) => {
           }`}
         >
           <a
+            style={{ fontFamily: "Arial" }}
             href="#tab-description"
             onClick={() => handleTabClick("description")}
           >
-            Description
+            Mô tả
           </a>
         </li>
         <li className={`reviews_tab ${activeTab === "review" ? "active" : ""}`}>
-          <a href="#tab-reviews" onClick={() => handleTabClick("review")}>
-            Reviews
+          <a
+            style={{ fontFamily: "Arial" }}
+            href="#tab-reviews"
+            onClick={() => handleTabClick("review")}
+          >
+            Đánh giá
           </a>
         </li>
         <li
@@ -46,10 +56,11 @@ const WoocommerceTabs = ({ product }) => {
           }`}
         >
           <a
+            style={{ fontFamily: "Arial" }}
             href="#tab-Additional information"
             onClick={() => handleTabClick("Additional information")}
           >
-            Additional information
+            Thông tin sản phẩm
           </a>
         </li>
       </ul>

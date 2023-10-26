@@ -1,23 +1,54 @@
-import React from "react";
-export default function CartIcon(){
+import React, { useEffect, useState } from "react";
+import {
+  selectCart,
+  getCart,
+} from "~/features/CartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-    return(
-        <div className="dropdown">
-        <a
-          className="dropdown-toggle dropdown-shopping-cart"
-          href="#"
-          role="button"
-          id="dropdown-shopping-cart"
-          data-bs-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        
-        >
-          {/* <i className="fa fa-shopping-basket"></i>
+export default function CartIcon({ cart }) {
+  const newCart = useSelector(selectCart);
+  const [currentCart, setCurrentCart] = useState(cart);
+  const dispatch = useDispatch();
+
+  const showCart = () => {
+    let token = localStorage.getItem("token");
+    dispatch(getCart(token));
+  };
+  function formatCurrency(price) {
+    const formatter = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return formatter.format(price);
+  }
+  useEffect(() => {
+    setCurrentCart(newCart);
+  }, [newCart]);
+
+  return (
+    <div className="dropdown">
+      <Link to="/cart" onClick={showCart}>
+        <div className="dropdown-toggle dropdown-shopping-cart">
+          <i className="fa fa-shopping-basket"></i>
+          {currentCart.cartLineDTOList === undefined ||
+          currentCart.cartLineDTOList.length === 0 ? (
+            <span className="badge bg-maincolor">0</span>
+          ) : (
+            <span className="badge bg-maincolor">
+              {currentCart.cartLineDTOList.length}
+            </span>
+          )}
+          {currentCart.totalAmount === undefined
+            ? formatCurrency(0)
+            : formatCurrency(currentCart.totalAmount)}
+        </div>
+      </Link>
+      {/* <i className="fa fa-shopping-basket"></i>
           <span className="badge bg-maincolor">3</span>
           $27.00 */}
-        </a>
-        <div
+      {/* </a> */}
+      {/* <div
                         className="dropdown-menu dropdown-menu-right ds bs box-shadow bordered rounded"
                         aria-labelledby="dropdown-shopping-cart"
                       >
@@ -96,8 +127,7 @@ export default function CartIcon(){
                             </div>
                           </div>
                         </div>
-                      </div> 
-        </div>
-              
-    );
+                      </div>  */}
+    </div>
+  );
 }

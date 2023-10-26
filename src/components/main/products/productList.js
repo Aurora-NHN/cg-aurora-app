@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import _ from "lodash";
+import { gsap } from "gsap";
+import ShortenText from "./ShortenText";
 import {
   getProducts,
   selectProductList,
@@ -12,7 +15,11 @@ import {
   setProductDetail,
   selectLoading,
 } from "~/features/productSlice";
-import { addToCart, selectAddToCartResponse } from "~/features/CartSlice";
+import {
+  addToCart,
+  selectAddToCartResponse,
+  getCart,
+} from "~/features/CartSlice";
 import { selectSubCategoryId } from "~/features/CategorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
@@ -35,7 +42,17 @@ export default function ProductList() {
   const [productsBySubCategory, setProductsBySubCategory] = useState(false);
   const [onloading, setOnloading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const [check,setCheck] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const renderCapitalizedText = (text) => {
+    return (
+      <h6 style={{ fontFamily: "Arial" }}>
+        {_.capitalize(ShortenText(text, 15))}
+      </h6>
+    );
+  };
+
   useEffect(() => {
     setTimeout(() => {
       setOnloading(false);
@@ -57,9 +74,9 @@ export default function ProductList() {
       dispatch(getProductsBySubCategoryId(requestData));
       navigate(
         "/shop?sub-category?id=" +
-        currentSubCategoryId +
-        "&page-number=" +
-        pageNumber
+          currentSubCategoryId +
+          "&page-number=" +
+          pageNumber
       );
     } else if (pageNumber) {
       if (sortOrder === "asc") {
@@ -111,11 +128,11 @@ export default function ProductList() {
       dispatch(getProductsByKeyword(requestData));
       navigate(
         "/shop?sort=" +
-        order +
-        "&keyword=" +
-        keyword +
-        "&page-number=" +
-        pageNumber
+          order +
+          "&keyword=" +
+          keyword +
+          "&page-number=" +
+          pageNumber
       );
     } else if (productsBySubCategory && subCategoryId) {
       const requestProductsBySubcategoryId = {
@@ -126,11 +143,11 @@ export default function ProductList() {
       dispatch(getProductsBySubCategoryId(requestProductsBySubcategoryId));
       navigate(
         "/shop?sort=" +
-        order +
-        "&sub-category?id=" +
-        subCategoryId +
-        "&page-number=" +
-        pageNumber
+          order +
+          "&sub-category?id=" +
+          subCategoryId +
+          "&page-number=" +
+          pageNumber
       );
     } else if (order === "asc") {
       dispatch(getProductsSortByPriceAscending(1));
@@ -151,32 +168,37 @@ export default function ProductList() {
     setProductsBySubCategory(true);
   };
 
-  const handleClickProductLink = (product) => {
-    dispatch(setProductDetail(product));
-    setProductDetail(null);
+  const handleAddToCartClick = (productId) => {
+    if (loggedIn) {
+      const requestData = { productId, quantity, token };
+      dispatch(addToCart(requestData));
+      setCheck(true);
+    } else if (!loggedIn) {
+      toast.error("You have not signed in, login please!", {
+        position: toast.POSITION.TOP_RIGHT,
+        type: toast.TYPE.ERROR,
+      });
+    }
   };
 
-  const handleAddToCartClick = (productId) => {
-    const requestData = { productId, quantity, token };
-    dispatch(addToCart(requestData));
-    setCheck(true)
-  }
-
   useEffect(() => {
-    if(check){
+    if (check) {
+      dispatch(getCart(token));
       if (selectAddToCart.message === "Product added to cart successfully") {
         addToCartSuccess();
+        setCheck(false);
       } else if (selectAddToCart.message === "Out of stock") {
         addToCartFail();
+        setCheck(false);
       }
     }
-
-  }, [selectAddToCart])
+  }, [selectAddToCart]);
 
   const addToCartSuccess = () => {
     toast.success("Đã thêm sản phẩm thành công!", {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.SUCCESS,
+      duration: 50,
     });
     setCheck(false);
   };
@@ -185,9 +207,22 @@ export default function ProductList() {
     toast.error("Thêm quá sản phẩm trong kho hàng !", {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
+      duration: 50,
     });
     setCheck(false);
   };
+  const handleClickProductLink = (product) => {
+    dispatch(setProductDetail(product));
+    setProductDetail(null);
+  };
+
+  useEffect(() => {
+    if (token) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [token]);
 
   return (
     <>
@@ -202,19 +237,25 @@ export default function ProductList() {
                   <a
                     value="menu_order"
                     className="btn btn-outline-maincolor btn-medium d-none d-md-block"
-                    style={{ color: "white" }}
+                    style={{ color: "white", fontFamily: "Arial" }}
                   >
-                    Default sorting
+                    Sắp xếp theo giá
                   </a>
                   <ul>
                     <li>
-                      <a onClick={() => handleSortByPrice("desc")}>
-                        Sort by price descending
+                      <a
+                        style={{ fontFamily: "Arial" }}
+                        onClick={() => handleSortByPrice("desc")}
+                      >
+                        Sắp xếp theo giá giảm dần
                       </a>
                     </li>
                     <li>
-                      <a onClick={() => handleSortByPrice("asc")}>
-                        Sort by price ascending
+                      <a
+                        style={{ fontFamily: "Arial" }}
+                        onClick={() => handleSortByPrice("asc")}
+                      >
+                        Sắp xếp theo giá tăng dần
                       </a>
                     </li>
                   </ul>
@@ -234,10 +275,15 @@ export default function ProductList() {
                     <div className="product-inner">
                       <Link
                         to={`/product-detail/${product.id}`}
-                        onClick={() => handleClickProductLink(product)}
+                        onClick={handleClickProductLink(product)}
                       >
                         {" "}
-                        <img src={product.imageUrl} alt={product.name} />
+                        <img
+                          className="product-image"
+                          src={product.imageUrl}
+                          alt={product.name}
+                          style={{ width: "300px", height: "250px" }}
+                        />
                       </Link>
                       <div className="product-wrap">
                         <h6 className="woocommerce-loop-product__title">
@@ -246,7 +292,7 @@ export default function ProductList() {
                               to={`/product-detail/${product.id}`}
                               onClick={() => handleClickProductLink(product)}
                             >
-                              {product.name}
+                              {renderCapitalizedText(product.name)}
                             </Link>
                           </td>
                         </h6>
@@ -266,8 +312,9 @@ export default function ProductList() {
                             rel="nofollow"
                             className="button product_type_simple add_to_cart_button"
                             onClick={() => handleAddToCartClick(product.id)}
+                            style={{ fontSize: "25px" }}
                           >
-                            Add to cart
+                            <i className="fa fa-shopping-cart"></i>
                           </a>
                         </div>
                       </div>

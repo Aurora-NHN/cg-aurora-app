@@ -133,6 +133,7 @@ export const selectLoading = (state) => state.numerology.loading;
 export const selectReportError = (state) => state.numerology.reportError;
 export const selectReportSuccess = (state) => state.numerology.reportSuccess;
 export const selectFullReportError = (state) => state.numerology.fullReportError;
+export const selectFullReportSuccess = (state) => state.numerology.fullReportSuccess;
 export const selectNumerologyReportAdded = (state) => state.numerology.value;
 export const selectNumerologyReports = (state) => state.numerology.values;
 export const selectNumerologyDetail = (state) => state.numerology.numerologyDetail;
