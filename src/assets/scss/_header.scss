@@ -109,7 +109,13 @@
   //}
 
 }
-
+.page_header_wrapper {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 80px;
+}
 .page_header_wrapper{
   &:before{
     content: "";

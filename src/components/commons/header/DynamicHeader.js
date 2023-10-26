@@ -4,7 +4,7 @@ import React, { memo, useEffect, useState } from "react";
 import cx from "clsx";
 import { Link } from "react-router-dom";
 
-const DynamicHeader = ({ topHeaderHeight = 226 }) => {
+const DynamicHeader = ({ topHeaderHeight = 192 }) => {
   const [headOfPage, setHeadOfPage] = useState(true);
   const [mobileActive, setMobileActive] = useState(false);
 
@@ -31,7 +31,7 @@ const DynamicHeader = ({ topHeaderHeight = 226 }) => {
   };
 
   return (
-    <div className={cx("page_header_wrapper ds ms")}>
+    <div className="page_header_wrapper ds ms">
       <header
         className={cx(
           "page_header ds ms s-overlay justify-nav-start",
