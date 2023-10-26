@@ -7,7 +7,6 @@ import paymentReducer from "~/features/paymentSlice";
 import cartReducer from "~/features/CartSlice"
 import blogSlice from "~/features/blogSlice";
 import numerologyReducer from "~/features/numerologySlice";
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = configureStore(
     {

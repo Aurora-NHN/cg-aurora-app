@@ -1,11 +1,17 @@
-    import React from 'react';
+    import React, {useEffect} from 'react';
     import { Panel } from "primereact/panel";
     import FormatParagraph from "~/components/main/numerolory/FormatParagraph";
+    import {useNavigate} from "react-router-dom";
 
     function ReportPanel({ template, result = {}, data = null}) {
+        const navigate = useNavigate();
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
-
+        useEffect(() => {
+            if (!data) {
+                navigate("/")
+            }
+        }, [])
         return (
             <>
                 <Panel headerTemplate={template} toggleable>

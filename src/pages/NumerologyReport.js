@@ -1,9 +1,10 @@
 import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import NumerologyResult from "~/components/main/numerolory/NumerologyResult";
+import {useSelector} from "react-redux";
 
 const NumerologyReport = () => {
-
+    const apiData = useSelector()
     return (
         <>
 
