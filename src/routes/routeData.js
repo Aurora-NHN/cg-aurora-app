@@ -20,6 +20,7 @@ import Cancer from "~/components/main/zodiac/Cancer";
 import Aries from "~/components/main/zodiac/Aries";
 import Gemini from "~/components/main/zodiac/Gemini";
 import Scorpio from "~/components/main/zodiac/Scorpio";
+import Zodiac from "~/pages/Zodiac";
 import Pricing from "~/pages/Pricing";
 import Tarot from "~/components/main/homepage/Tarot";
 import Cart from "~/pages/Cart";
@@ -39,18 +40,7 @@ export const ROUT_DATA = [
   { path: "/checkout-form", element: Checkout, layout: GuestLayout },
   { path: "/product-detail/:id", element: Product, layout: GuestLayout },
   { path: "/zodiac", element: ZodiacSection, layout: GuestLayout },
-  { path: "/zodiac-libra", element: Libra, layout: GuestLayout },
-  { path: "/zodiac-aquarius", element: Aquarius, layout: GuestLayout },
-  { path: "/zodiac-leo", element: Leo, layout: GuestLayout },
-  { path: "/zodiac-pisces", element: Pisces, layout: GuestLayout },
-  { path: "/zodiac-sagittarius", element: Sagittarius, layout: GuestLayout },
-  { path: "/zodiac-taurus", element: Taurus, layout: GuestLayout },
-  { path: "/zodiac-virgo", element: Virgo, layout: GuestLayout },
-  { path: "/zodiac-capricorn", element: Capricorn, layout: GuestLayout },
-  { path: "/zodiac-cancer", element: Cancer, layout: GuestLayout },
-  { path: "/zodiac-aries", element: Aries, layout: GuestLayout },
-  { path: "/zodiac-gemini", element: Gemini, layout: GuestLayout },
-  { path: "/zodiac-scorpio", element: Scorpio, layout: GuestLayout },
+  { path: "/zodiac/:name", element: Zodiac, layout: GuestLayout },
   { path: "/pricing", element: Pricing, layout: GuestLayout },
   { path: "/tarot", element: Tarot, layout: GuestLayout },
   {path: "/numerology", element: Numerology, layout: GuestLayout},

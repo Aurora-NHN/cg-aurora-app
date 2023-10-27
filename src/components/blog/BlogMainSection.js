@@ -20,7 +20,7 @@ function BlogMainSection(props) {
     return (
         <main className="col-lg-7 col-xl-8 order-lg-2">
             {
-                blogList.map(blog => <BlogItem blog={blog}/>)
+                blogList.map(blog => <BlogItem key={blog.id} blog={blog}/>)
             }
 
             <nav className="navigation pagination " role="navigation">

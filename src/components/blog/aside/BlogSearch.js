@@ -2,9 +2,6 @@ import React from 'react';
 
 function BlogSearch(props) {
 
-
-
-
     return (
         <div className="ds bs box-shadow bordered">
             <div className="widget widget_search">
@@ -17,7 +14,6 @@ function BlogSearch(props) {
                            id="search-form-widget"
                            className="search-field"
                            placeholder="Search"
-                           value=""
                     />
                     <button type="submit" className="search-submit">
                         <span className="screen-reader-text">Search</span>
