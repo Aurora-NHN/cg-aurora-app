@@ -1,17 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectBlogs} from "~/features/blogSlice";
+import style from "./blog.module.scss"
 
-function BlogItem({blog = {}}) {
+function BlogFullContent({blogId}) {
+    const parse = require('html-react-parser');
+    const blogs = useSelector(selectBlogs);
+    const [blog, setBlog] = useState({});
+
+    useEffect(() => {
+        if (blogId) {
+            const filteredBlog = blogs.filter(blog => +blog.id === +blogId)[0]
+            if (filteredBlog)
+                setBlog(filteredBlog);
+        }
+    }, [blogs,blogId]);
+
     return (
-        <>
+        <main className="col-lg-7 col-xl-8 order-lg-2">
             <article
                 className="text-center vertical-item content-padding ds bs bordered post post_format-post-format-video box-shadow">
                 <div className="item-media post-thumbnail">
-                    <img className="img-fluid" src={blog.mainImageUrl} style={{maxHeight: 300, objectFit: "cover"}}
+                    <img className="img-fluid object-fit-contain"
+                         style={{maxHeight: 500}}
+                         src={blog.mainImageUrl}
                          alt="img"/>
-                    <div className="media-links">
-                        <Link className="abs-link" to={"/blogs/" + blog.id}></Link>
-                    </div>
                 </div>
                 <div className="item-content">
                     <header className="entry-header">
@@ -19,15 +33,16 @@ function BlogItem({blog = {}}) {
                         <span className="screen-reader-text">Categories</span>
                         <a href="#blogHeader">{blog.author}</a>
                     </span>
-                        <h4 className="entry-title mb-3 links-maincolor2">
-                            <Link className="fs-30" to={"/blogs/" + blog.id} rel="bookmark">
-                                {blog.title}
-                            </Link>
+                        <h4 className="entry-title mb-3 fs-2">
+                            <strong className="lh-sm">{blog.title}</strong>
                         </h4>
                     </header>
+                    <div className={style.blogFullContent}>
+                        {blog.content ? parse(blog.content) : ""}
+                    </div>
                     <div className="entry-content mt-35">
                         <p>
-                            {blog.description}
+                            {/*{blog.description}*/}
                         </p>
                     </div>
                     <div className="entry-footer">
@@ -60,8 +75,8 @@ function BlogItem({blog = {}}) {
                     </div>
                 </div>
             </article>
-        </>
+        </main>
     );
 }
 
-export default BlogItem;
+export default BlogFullContent;
