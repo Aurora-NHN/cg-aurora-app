@@ -1,11 +1,11 @@
 import axios from "axios";
-const NUMEROLOGY_API = "http://localhost:8080/api/store-front/numerology";
+import {AURORA_API} from "~/app/constants";
 export const createNumerologyReport = async (customerInputData) => {
     let result = null;
     let token = localStorage.getItem("token");
     try {
         result = await axios.post(
-            `${NUMEROLOGY_API}`,
+            `${AURORA_API}/store-front/numerology`,
             customerInputData,
             {
                 headers: {
@@ -25,7 +25,7 @@ export const getAllNumerologyReportForUser = async () => {
     let token = localStorage.getItem("token");
     try {
         result = await axios.get(
-            `${NUMEROLOGY_API}/history`,
+            `${AURORA_API}/store-front/numerology/history`,
             {
                 headers: {
                     Authorization: "Bearer " + token,

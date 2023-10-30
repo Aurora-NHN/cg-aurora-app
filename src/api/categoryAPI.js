@@ -1,10 +1,9 @@
 import axios from "axios";
-
-const CATEGORY_API = "http://localhost:8080/api/categories";
+import {AURORA_API} from "~/app/constants";
 
 export const findCategories = async () => {
   try {
-    const response = await axios.get(`${CATEGORY_API}`);
+    const response = await axios.get(`${AURORA_API}/categories`);
     if (response.data) {
       return response.data;
     } else {
