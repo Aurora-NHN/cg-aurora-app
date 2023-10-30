@@ -8,16 +8,13 @@ function BlogTopBanner(props) {
                 <div className="row">
 
                     <div className="col-md-12">
-                        <h1>Blog 3 Bà Đồng</h1>
+                        <h1 id="blogHeader">Blog 3 Bà Đồng</h1>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item">
                                 <Link to="/">Home</Link>
                             </li>
-                            <li className="breadcrumb-item">
-                                <a href="#">Pages</a>
-                            </li>
                             <li className="breadcrumb-item active">
-                                Blog with Left Sidebar
+                                <Link to="/blogs">Blog</Link>
                             </li>
                         </ol>
                     </div>

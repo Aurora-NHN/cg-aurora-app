@@ -1,9 +1,23 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getBlogsApi} from "~/api/blogApi";
+import {getBlogsApi, searchBlogsApi} from "~/api/blogApi";
+import {toast} from "react-toastify";
 
 
 export const getBlogs = createAsyncThunk("/get-blog", async (data,{rejectWithValue}) => {
     const response = await getBlogsApi()
+    if (response){
+        if (response.status === 200){
+            return response.data
+        }else {
+            return rejectWithValue(response.data)
+        }
+    }else {
+        return rejectWithValue("Connection error!")
+    }
+});
+
+export const searchBlogs = createAsyncThunk("/search-blog", async (keyword,{rejectWithValue}) => {
+    const response = await searchBlogsApi(keyword)
     if (response){
         if (response.status === 200){
             return response.data
@@ -38,6 +52,23 @@ export const blogSlice = createSlice(
                 })
                 .addCase(getBlogs.fulfilled, (state, action) => {
                     state.success = true;
+                    state.loading = false;
+                    state.error = false;
+                    state.values = action.payload;
+                })
+                .addCase(searchBlogs.pending, (state) => {
+                    state.success = false;
+                    state.loading = true;
+                    state.error = false;
+                })
+                .addCase(searchBlogs.rejected, (state, action) => {
+                    state.success = false;
+                    state.loading = false;
+                    state.error = action.payload;
+                    toast(action.payload,{type:"error", autoClose:1000})
+                })
+                .addCase(searchBlogs.fulfilled, (state, action) => {
+                    state.success = false;
                     state.loading = false;
                     state.error = false;
                     state.values = action.payload;

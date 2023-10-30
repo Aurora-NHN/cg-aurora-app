@@ -149,7 +149,7 @@ const TopLineHeader = () => {
                       className="dropdown-menu ls"
                       aria-labelledby="dropdown-account"
                     >
-                      <Link to="/account-detail">
+                      <Link to="/account">
                         <i className="fa fa-user"></i> My Account
                       </Link>
                       <Link to="/pricing">

@@ -248,6 +248,13 @@
   }
 
   &.big-media {
+    min-height: 200px;
+    justify-content: center;
+    .icon-styled{
+      position: absolute;
+      left: 10%;
+    }
+
     * + .media-body {
       margin-left: 35px;
     }
@@ -265,6 +272,8 @@
 
 .color-darkgrey.ico.ico-icon_aries {
   font-size: 30px;
+  margin-top: 10px;
+  padding-bottom: 10px;
 }
 .big-media {
   .color-darkgrey.ico.ico-icon_aries {
