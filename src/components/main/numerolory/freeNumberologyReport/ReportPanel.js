@@ -7,9 +7,9 @@
         const navigate = useNavigate();
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
+
         useEffect(() => {
             if (!data) {
-                navigate("/")
             }
         }, [])
         return (
