@@ -116,6 +116,7 @@ function NumerologyInputForm() {
     };
     const handleNormalSubmit = () => {
         formik.submitForm()
+        navigate('/numerology-result')
     }
     const confirm = () => {
         dispatch(getCountForUser());

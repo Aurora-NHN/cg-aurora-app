@@ -6,7 +6,7 @@ function NavigateForUser(){
         <nav className="woocommerce-MyAccount-navigation">
             <ul>
                 <li className="is-active">
-                    <Link to="/account-detail">My Account</Link>
+                    <Link to="/account">My Account</Link>
                 </li>
                 <li>
                     <Link to="/cart">Cart</Link>
