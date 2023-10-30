@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {createOrderVNPay, selectOrder, selectOrderSuccess, setOrderSuccess,} from "~/features/paymentSlice";
 import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {selectToken} from "~/features/userSlice";
+import {getInfo, selectToken} from "~/features/userSlice";
 
 const Pricing = () => {
     const [order, setOrder] = useState(null);
@@ -40,6 +40,7 @@ const Pricing = () => {
 
 
     useEffect(() => {
+        dispatch(getInfo());
         if (orderSuccess === true) {
             window.location.href = vnPayUrl;
         }

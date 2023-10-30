@@ -23,21 +23,10 @@ import NavigateForUser from "~/components/commons/NavigateForUser";
 export default function AccountDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userInfo = useSelector(selectUserInfo);
-  const getInfoSuccess = useSelector(selectGetInfoSuccess);
-  const [userDetail, setUserDetail] = useState({});
   const success = useSelector(selectEditInfoSuccess);
   const pending = useSelector(selectLoading);
   const error = useSelector(selectError);
-
-  useEffect(() => {
-    if (!getInfoSuccess) {
-      dispatch(getInfo());
-    }
-    if (userInfo) {
-      setUserDetail(userInfo);
-    }
-  }, [userInfo]);
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]*$/;
   const validationSchema = Yup.object().shape({
@@ -60,14 +49,14 @@ export default function AccountDetail() {
   });
 
   const formik = useFormik({
-    initialValues: userDetail,
+    initialValues: user,
     validationSchema: validationSchema,
     onSubmit,
   });
 
   useEffect(() => {
-    formik.setValues(userDetail);
-  }, [userDetail]);
+    formik.setValues(user);
+  }, []);
 
   function onSubmit(values) {
     dispatch(editInfo(values));
@@ -98,7 +87,7 @@ export default function AccountDetail() {
         <div className="row">
           <main className="col-lg-12">
             <article>
-              {!userDetail.vip ? (
+              {(user.count === 0) ? (
                 <header className="entry-header">
                   <h1 className="entry-title">Account details</h1>
                 </header>
@@ -113,7 +102,7 @@ export default function AccountDetail() {
                  <NavigateForUser/>
 
                   <div className="woocommerce-MyAccount-content">
-                    {userDetail ? (
+                    {user ? (
                       <form
                         className="woocommerce-EditAccountForm edit-account"
                         onSubmit={formik.handleSubmit}

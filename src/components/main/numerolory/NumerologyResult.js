@@ -89,7 +89,7 @@ function NumerologyResult() {
 
                                             <div className="mb-3"></div>
                                             {
-                                                count <= 0 && count != undefined &&(
+                                                count <= 0 || count != undefined &&(
                                                     <div className="bg-transparent rounded-3 p-3" style={{background: "#F9E1E0"}}>
 
                                                         <p style={{color: "red", textAlign: "center"}}>
