@@ -306,7 +306,7 @@ table {
   td,
   th {
     border: 1px solid $borderColor;
-    padding: 18px 8px;
+    padding: 0px 8px;
     line-height: 1.42857143;
     vertical-align: middle;
     text-align: center;
@@ -314,6 +314,7 @@ table {
 
   th {
     color: $darkgreyColor;
+    padding: 18px 8px;
     font-weight: normal;
     vertical-align: middle;
   }
@@ -867,5 +868,11 @@ dl#attachment_612 {
     .card-main{
       cursor: context-menu;
     }
+  }
+}
+
+.hover-opacity{
+  &:hover{
+    background-color: rgba(51, 51, 51, 0.62);
   }
 }

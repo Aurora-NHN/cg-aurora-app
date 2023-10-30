@@ -1,10 +1,14 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {createNumerologyReport, getAllNumerologyReportForUser} from "~/api/numerologyAPI";
+import {
+    createNumerologyReport,
+    getAllNumerologyReportForUser,
+    getPageNumerologyReportForUser
+} from "~/api/numerologyAPI";
 import {toast} from "react-toastify";
-import {productSlice} from "~/features/productSlice";
+import {tr} from "date-fns/locale";
 
 const initialState = {
-    values: [],
+    pages: {},
     value: null,
     loading: false,
     reportSuccess: false,
@@ -25,13 +29,22 @@ export const addNumerologyReport = createAsyncThunk(
         }
     });
 export const findAllNumerologyReportForUser = createAsyncThunk(
-    "/getNumerologyReports", async (rejectWithValue) => {
+    "/getNumerologyReports",
+    async (rejectWithValue) => {
         const response = await getAllNumerologyReportForUser();
         if (response.status === 200 || response.status === 201) {
             return response.data;
         } else {
             return rejectWithValue(response.data.message)
         }
+    }
+);
+
+export const findPageNumerologyReports = createAsyncThunk(
+    "/getPageNumerologyReports",
+    async (pageNumber) => {
+        const response = await getPageNumerologyReportForUser(pageNumber);
+        return response.data;
     }
 );
 export const numerologySlice = createSlice({
@@ -64,6 +77,9 @@ export const numerologySlice = createSlice({
         },
         setReportDetailSuccess: (state, action) => {
             state.reportDetailSuccess = action.payload;
+        },
+        setTotalPages: (state, action) => {
+            state.reportDetailSuccess = action.payload;
         }
 
     },
@@ -88,25 +104,24 @@ export const numerologySlice = createSlice({
                 localStorage.setItem('data', JSON.stringify(action.payload.data));
                 state.reportError = null;
             })
-
-            .addCase(findAllNumerologyReportForUser.pending, (state) => {
+            .addCase(findPageNumerologyReports.pending, (state) => {
                 state.getHistorySuccess = false;
                 state.loading = true;
-                state.getHistoryError = null;
+                state.getHistoryError = false;
             })
-            .addCase(findAllNumerologyReportForUser.rejected, (state, action) => {
+            .addCase(findPageNumerologyReports.rejected, (state, action) => {
                 state.getHistorySuccess = false;
                 state.loading = false;
-                state.getHistoryError = action.payload;
+                state.getHistoryError = action.error;
                 toast("Report error!" + action.payload, {type: "error", autoClose: 2000})
             })
-            .addCase(findAllNumerologyReportForUser.fulfilled, (state, action) => {
-                const data = action.payload.data
+            .addCase(findPageNumerologyReports.fulfilled, (state, action) => {
+                const data = action.payload
                 state.getHistorySuccess = true;
                 state.loading = false;
-                state.values = data;
+                state.pages = data;
                 state.getHistoryError = null;
-                if (!data || data.length === 0){
+                if (!data || data.content.length === 0){
                     toast.error("Bạn chưa có báo cáo Vip !", {
                         position: toast.POSITION.TOP_RIGHT,
                         type: toast.TYPE.ERROR,
@@ -138,5 +153,5 @@ export const selectNumerologyReportAdded = (state) => state.numerology.value;
 export const selectNumerologyReports = (state) => state.numerology.values;
 export const selectNumerologyDetail = (state) => state.numerology.numerologyDetail;
 export const selectGetHistorySuccess = state => state.numerology.getHistorySuccess;
-
+export  const selectPageNumerologyReports = state => state.numerology.pages;
 export default numerologySlice.reducer;
