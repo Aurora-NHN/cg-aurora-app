@@ -46,7 +46,6 @@ function NumerologyInputForm() {
         yearOfBirth: Yup.number()
             .typeError("Năm sinh phải là số")
             .min(1, "Năm sinh không hợp lệ")
-            .max(new Date().getFullYear(), "Năm sinh không hợp lệ")
             .required("Năm sinh không được để trống"),
         monthOfBirth: Yup.string().required("Tháng sinh không được để trống")
             .notOneOf(["Chọn tháng sinh"], "Hãy chọn tháng sinh"),
@@ -116,7 +115,6 @@ function NumerologyInputForm() {
     };
     const handleNormalSubmit = () => {
         formik.submitForm()
-        navigate('/numerology-result')
     }
     const confirm = () => {
         dispatch(getCountForUser());
