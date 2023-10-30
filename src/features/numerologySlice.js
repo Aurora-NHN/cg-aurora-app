@@ -44,6 +44,9 @@ export const findPageNumerologyReports = createAsyncThunk(
     "/getPageNumerologyReports",
     async (pageNumber) => {
         const response = await getPageNumerologyReportForUser(pageNumber);
+        console.log('response')
+        console.log(response)
+        console.log('pageNumber', pageNumber)
         return response.data;
     }
 );

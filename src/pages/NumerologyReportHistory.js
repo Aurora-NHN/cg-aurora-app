@@ -8,7 +8,7 @@ import {findPageNumerologyReports} from "~/features/numerologySlice";
 function  NumerologyReportHistory(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [pageNumber, setPageNumber] = useState(1);
+    const [pageNumber, setPageNumber] = useState(0);
     useEffect(()=>{
         dispatch(findPageNumerologyReports(pageNumber));
     },[])
