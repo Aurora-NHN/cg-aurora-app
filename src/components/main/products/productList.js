@@ -1,31 +1,26 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
-import { gsap } from "gsap";
 import ShortenText from "./ShortenText";
 import {
   getProducts,
-  selectProductList,
   getProductsByKeyword,
-  getProductsSortByPriceDescending,
-  getProductsSortByPriceAscending,
   getProductsBySubCategoryId,
-  setProductDetail,
+  getProductsSortByPriceAscending,
+  getProductsSortByPriceDescending,
   selectLoading,
+  selectProductList,
+  setProductDetail,
 } from "~/features/productSlice";
-import {
-  addToCart,
-  selectAddToCartResponse,
-  getCart,
-} from "~/features/CartSlice";
-import { selectSubCategoryId } from "~/features/CategorySlice";
+import {addToCart, getCart, selectAddToCartResponse,} from "~/features/CartSlice";
+import {selectSubCategoryId} from "~/features/CategorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";
-import { selectToken } from "~/features/userSlice";
-import { toast } from "react-toastify";
+import {selectToken} from "~/features/userSlice";
+import {toast} from "react-toastify";
+
 export default function ProductList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

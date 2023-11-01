@@ -1,8 +1,6 @@
 import axios from "axios";
-const ORDER_API = "http://localhost:8080/api/order";
-const API_PROVINCE = "https://vapi.vnappmob.com/api/province/";
-const API_DISTRICT = "https://vapi.vnappmob.com/api/province/district/";
-const API_WARD = "https://vapi.vnappmob.com/api/province/ward/";
+import {API_PROVINCE, ORDER_API} from "~/app/constants";
+
 
 export const createOrderDetailAPI = async (address, token) => {
   let result = null;

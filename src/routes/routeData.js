@@ -22,6 +22,7 @@ export const ROUT_DATA = [
   { path: "/", element: Home, layout: GuestLayout },
   { path: "/shop", element: Shop, layout: GuestLayout },
   {path: "/blogs", element: BlogPage, layout: GuestLayout},
+  {path: "/blogs/:id", element: BlogPage, layout: GuestLayout},
   { path: "/forgot-password", element: ForgotPassword, layout: GuestLayout },
   { path: "/change-password", element: ChangePassword, layout: GuestLayout },
   { path: "/account-detail", element: AccountDetail, layout: GuestLayout },

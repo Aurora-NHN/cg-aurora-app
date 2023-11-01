@@ -1,6 +1,6 @@
 import axios from "axios";
+import {CATEGORY_API} from "~/app/constants";
 
-const CATEGORY_API = "http://localhost:8080/api/categories";
 
 export const findCategories = async () => {
   try {
