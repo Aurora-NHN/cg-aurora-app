@@ -12,12 +12,12 @@ function NumerologyResult() {
     const [currentResult, setCurrentResult] = useState({});
     const [meanOfAllNumberList, setMeanOfAllNumberList] = useState([]);
     const [numberArr, setNumberArr] = useState([]);
-    const [lifePhase, setLifePhase] = useState({});
     const [count, setCount] = useState(0);
     const [monthOfBirth, setMonthOfBirth] = useState('');
     const [dayOfBirth, setDayOfBirth] = useState('');
     const [yearOfBirth, setYearOfBirth] = useState('');
     const [fullName, setFullName] = useState('');
+
     useEffect(() => {
         let data = {};
 
@@ -59,7 +59,6 @@ function NumerologyResult() {
         dataArray.splice(0, 9);
         setNumberArr(dataArray);
 
-
     }, [apiData]);
 
     useEffect(() => {
@@ -89,7 +88,7 @@ function NumerologyResult() {
 
                                             <div className="mb-3"></div>
                                             {
-                                                count <= 0 || count != undefined &&(
+                                               (!count || count <= 0) ? (
                                                     <div className="bg-transparent rounded-3 p-3" style={{background: "#F9E1E0"}}>
 
                                                         <p style={{color: "red", textAlign: "center"}}>
@@ -106,15 +105,12 @@ function NumerologyResult() {
                                                             </Link>
                                                         </div>
                                                     </div>
-                                                )
+                                                ):<></>
                                             }
 
                                             <div className="p-3">
                                                 <CardResult result={currentResult}/>
 
-                                                <div>
-
-                                                </div>
                                                 {
                                                     meanOfAllNumberList.map((number, index) => (
                                                         <div key={index} className="mb-3">

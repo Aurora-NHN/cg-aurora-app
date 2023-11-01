@@ -40,3 +40,22 @@ export const getAllNumerologyReportForUser = async () => {
     return result;
 };
 
+export const getPageNumerologyReportForUser = async (pageNumber) => {
+    let token = localStorage.getItem("token");
+    try {
+        return await axios.get(
+
+            `${NUMEROLOGY_API}/history?page=${pageNumber}`,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                }
+            }
+
+        );
+    }catch (e){
+        console.log(e);
+        return  e.response;
+    }
+};
+

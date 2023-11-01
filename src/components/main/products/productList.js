@@ -199,7 +199,7 @@ export default function ProductList() {
   };
 
   const addToCartFail = () => {
-    toast.error("Thêm quá sản phẩm trong kho hàng !", {
+    toast.error("Số lượng hàng trong kho không đủ!", {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
       duration: 50,
