@@ -3,7 +3,7 @@ import CategorySidebar from "./CategorySideBar";
 import Quantity from "./Quantity";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProductDetail } from "~/features/productSlice";
-import { setSubCategoryId } from "~/features/CategorySlice";
+import { setSubCategoryId } from "~/features/categorySlice";
 import WoocommerceTabs from "./WoocommerceTabs";
 import ProductInfo from "./ProductInfo";
 import ProductImage from "./ProductImage";

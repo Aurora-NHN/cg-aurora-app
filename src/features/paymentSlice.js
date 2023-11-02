@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {createOrder, getStatus} from "~/api/vnPayAPI";
+import {createOrder} from "~/api/vnPayAPI";
 
 const initialState = {
     value: null,
@@ -18,35 +18,15 @@ export const createOrderVNPay = createAsyncThunk(
     }
 );
 
-export const getBillStatus = createAsyncThunk(
-    "/get-bill-status",
-    async () => {
-        const response = await getStatus();
-        return response.data;
-    }
-);
-
 export const paymentSlice = createSlice({
     name: "payment",
     initialState,
     reducers: {
-        setLoading: (state, action) => {
-            state.loading = action.payload;
-        },
         setErrors: (state, action) => {
             state.errors = action.payload;
         },
         setOrderSuccess: (state, action) => {
             state.getOrderSuccess = action.payload;
-        },
-        setValue: (state, action) => {
-            state.value = action.payload;
-        },
-        setValues: (state, action) => {
-            state.values = action.payload;
-        },
-        setBillStatus: (state, action) => {
-            state.values = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -66,32 +46,14 @@ export const paymentSlice = createSlice({
                 state.loading = false;
                 state.value = action.payload;
                 state.errors = false;
-            })
-            .addCase(getBillStatus.pending, (state) => {
-                state.loading = true;
-                state.errors = false;
-            })
-            .addCase(getBillStatus.rejected, (state, action) => {
-                state.loading = false;
-                state.errors = action.payload;
-            })
-            .addCase(getBillStatus.fulfilled, (state, action) => {
-                state.loading = false;
-                state.errors = false;
-                state.billStatus = action.payload;
             });
     },
 });
 
 export const {
-    setLoading,
     setOrderSuccess,
-    setValue,
-    setBillStatus,
-    setStatus,
 } = paymentSlice.actions;
 
-export const selectPaymentIsLoading = (state) => state.payment.loading;
 export const selectPaymentIsError = (state) => state.payment.errors;
 export const selectOrderSuccess = (state) => state.payment.orderSuccess;
 export const selectOrder = (state) => state.payment.value;

@@ -1,5 +1,5 @@
 import axios from "axios";
-const ORDER_API = "http://localhost:8080/api/order";
+import {API_PROVINCE, ORDER_API} from "~/app/constants";
 
 
 export const createOrderDetailAPI = async (address, token) => {
