@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCategories, selectCategories } from "~/features/CategorySlice";
+import { getCategories, selectCategories } from "~/features/categorySlice";
 import { useNavigate } from "react-router-dom";
 
 export default function CategorySidebar({ onSubCategorySelect, onClick }) {

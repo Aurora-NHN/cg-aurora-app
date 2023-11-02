@@ -19,7 +19,7 @@ import {
     selectAddToCartResponse,
     getCart,
 } from "~/features/cartSlice";
-import { selectSubCategoryId } from "~/features/CategorySlice";
+import { selectSubCategoryId } from "~/features/categorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";

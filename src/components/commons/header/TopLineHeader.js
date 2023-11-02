@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {getCart, selectCart} from "~/features/CartSlice";
+import {getCart, selectCart} from "~/features/cartSlice";
 import { setLoginSuccess } from "~/features/loginSlice";
 import {
   logoutUser,

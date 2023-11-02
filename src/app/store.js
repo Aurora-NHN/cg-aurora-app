@@ -2,9 +2,9 @@ import { applyMiddleware, compose, configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/userSlice";
 import productReducer from "../features/productSlice";
 import loginReducer from "~/features/loginSlice";
-import categoryReducer from "~/features/CategorySlice";
+import categoryReducer from "~/features/categorySlice";
 import paymentReducer from "~/features/paymentSlice";
-import cartReducer from "~/features/cartSlice";
+import cartSlice from "~/features/cartSlice";
 import blogSlice from "~/features/blogSlice";
 import numerologyReducer from "~/features/numerologySlice";
 import orderSlice from "~/features/orderSlice";
@@ -20,7 +20,7 @@ export const store = configureStore(
       category: categoryReducer,
       payment: paymentReducer,
       numerology: numerologyReducer,
-      cart: cartReducer,
+      cart: cartSlice,
       blogs: blogSlice,
       order: orderSlice,
       province: provinceSlice,

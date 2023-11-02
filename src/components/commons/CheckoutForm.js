@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import OrderCustomerDetail from "./OrderCustomerDetail";
-import { selectCart } from "~/features/cartSlice";
+import { selectCart,resetCart } from "~/features/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   selectAddress,
   selectGetAddressSuccess,
   createOrder,
-  setAddressSuccess,
+  setAddressSuccess
 } from "~/features/orderSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -19,7 +19,6 @@ import {
   setOrderSuccess,
 } from "~/features/paymentSlice";
 import { getProvince, selectProvince } from "~/features/provinceSlice";
-import { resetCart } from "~/features/cartSlice";
 import { selectToken } from "~/features/userSlice";
 export default function CheckoutForm() {
   const navigate = useNavigate();
