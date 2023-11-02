@@ -5,8 +5,8 @@ import {
   setNewQuantity,
   setCurrentCartLine,
   setCartLine,
-  selectCartLine
-} from "~/features/CartSlice";
+  selectCartLine,
+} from "~/features/cartSlice";
 import _ from "lodash";
 import { setProductDetail } from "~/features/productSlice";
 import { Link } from "react-router-dom";
@@ -33,7 +33,7 @@ const CartLineQuantity = ({ cartLine }) => {
     if (quantity < maxQuantity) {
       setQuantity(quantity + 1);
       dispatch(setNewQuantity(quantity));
-      dispatch(setCartLine(currentCartLine))
+      dispatch(setCartLine(currentCartLine));
     }
   };
 
@@ -91,7 +91,7 @@ const CartLineQuantity = ({ cartLine }) => {
           data-product_id={cartLine.id}
           data-product_sku=""
           onClick={() =>
-            handleClickRemoveCartLine(cartLine.productResponseDTO.id)
+            handleClickRemoveCartLine(cartLine.id)
           }
           style={{ cursor: "pointer" }}
         >

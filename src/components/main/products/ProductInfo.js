@@ -9,15 +9,15 @@ const ProductInfo = ({ product }) => {
     });
     return formatter.format(price);
   }
-      const renderCapitalizedText = (text) => {
-        return <h4 style={{ fontFamily: "Arial" }}>{_.capitalize(text)}</h4>;
-      };
-      
+  const renderCapitalizedText = (text) => {
+    return <h4 style={{ fontFamily: "Arial" }}>{_.capitalize(text)}</h4>;
+  };
+
   return (
     <>
       <div>
         {renderCapitalizedText(product.name)}
-        <div style={{ padding: "80px",marginLeft: "-80px" }}>
+        <div style={{ padding: "80px", marginLeft: "-80px" }}>
           <p>
             <h6 style={{ fontFamily: "Arial" }}>
               Nhà sản xuất:
@@ -36,21 +36,54 @@ const ProductInfo = ({ product }) => {
             </h6>
             <span></span>
           </p>
-          <p className="price">
-            <h6>
+          <p>
+            <h6 style={{ fontFamily: "Arial" }}>
               Đã bán:{" "}
               <span style={{ color: "white", marginLeft: "10px" }}>
                 {product.quantitySold}
               </span>
             </h6>
-            <span>
-              <span style={{ color: "white" }}>
-                {formatCurrency(product.price)}
-              </span>
-            </span>
           </p>
+          {product.quantity === 0 ? (
+            <p>
+              <h6 style={{ fontFamily: "Arial" }}>
+                Tình trạng:
+                <span style={{ color: "white", marginLeft: "10px" }}>
+                  hết hàng
+                </span>
+              </h6>
+              <span>
+                <span style={{ color: "white" }}>
+                  {formatCurrency(product.price)}
+                </span>
+              </span>
+            </p>
+          ) : (
+            <>
+              <p>
+                <h6 style={{ fontFamily: "Arial" }}>
+                  Tình trạng:
+                  <span style={{ color: "white", marginLeft: "10px" }}>
+                    còn hàng
+                  </span>
+                </h6>
+              </p>
+              <p className="price">
+                <h6 style={{ fontFamily: "Arial" }}>
+                  Số lượng có sẵn:
+                  <span style={{ color: "white", marginLeft: "10px" }}>
+                    {product.quantity}
+                  </span>
+                </h6>
+                <span>
+                  <span style={{ color: "white" }}>
+                    {formatCurrency(product.price)}
+                  </span>
+                </span>
+              </p>
+            </>
+          )}
         </div>
-        
       </div>
     </>
   );

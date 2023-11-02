@@ -5,22 +5,26 @@ import {
   findProductsSortByPriceDescending,
   findProductsSortByPriceAscending,
   findProductsBySubCategoryId,
+  getOtherProductsAPI,
 } from "~/api/productAPI";
 
 const initialState = {
   values: [],
+  otherProducts:[],
   value: null,
   loading: false,
   error: null,
   success: false,
-  productDetail: null,
-  viewedFirstProduct:localStorage.getItem("firstProduct"),
-  viewedSecondProduct:localStorage.getItem("secondProduct"),
+  productDetail: {},
 };
 
 export const getProducts = createAsyncThunk("/products", async (pageNumber) => {
   const response = await findProducts(pageNumber);
   return response.data.content;
+});
+export const getOtherProducts = createAsyncThunk("products/other", async () => {
+  const response = await getOtherProductsAPI();
+  return response.data;
 });
 
 export const getProductsBySubCategoryId = createAsyncThunk(
@@ -54,6 +58,7 @@ export const getProductsSortByPriceDescending = createAsyncThunk(
     return response.data.content;
   }
 );
+
 export const getProductsSortByPriceAscending = createAsyncThunk(
   "/products/sort/priceAscending",
   async (pageNumber) => {
@@ -78,13 +83,6 @@ export const productSlice = createSlice({
     setProductDetail: (state, action) => {
       state.productDetail = action.payload;
     },
-    setViewedFirstProduct: (state, action) => {
-      state.productDetail = action.payload;
-    },
-    setViewedSecondProduct: (state, action) => {
-      state.productDetail = action.payload;
-    },
-
   },
   extraReducers: (builder) => {
     builder
@@ -102,6 +100,22 @@ export const productSlice = createSlice({
         state.success = true;
         state.loading = false;
         state.values = action.payload;
+        state.error = false;
+      })
+      .addCase(getOtherProducts.pending, (state) => {
+        state.success = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getOtherProducts.rejected, (state, action) => {
+        state.success = false;
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getOtherProducts.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.otherProducts = action.payload;
         state.error = false;
       })
       .addCase(getProductsBySubCategoryId.pending, (state) => {
@@ -171,14 +185,12 @@ export const productSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setSuccess,setProductDetail,setViewedFirstProduct,setViewedSecondProduct } = productSlice.actions;
-
+export const { setLoading, setError, setSuccess,setProductDetail} = productSlice.actions;
 export const selectLoading = (state) => state.product.loading;
 export const selectError = (state) => state.product.error;
 export const selectSuccess = (state) => state.product.success;
 export const selectProductDetail = (state) => state.product.productDetail;
 export const selectProductList = (state) => state.product.values;
-export const selectViewedFirstProduct = (state) => state.product.viewedFirstProduct;
-export const selectViewedSecondProduct = (state) => state.product.viewedSecondProduct;
+export const selectOtherProduct = (state) => state.product.otherProducts;
 
 export default productSlice.reducer;
