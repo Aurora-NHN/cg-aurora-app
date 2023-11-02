@@ -10,7 +10,7 @@ function ProductImage({ product }) {
       thumbnail: image.imageUrl,
     };
   });
-   
+
   return (
     <div className="images" data-columns="4">
       <div className="product-gallery">

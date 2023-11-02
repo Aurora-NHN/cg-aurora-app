@@ -9,12 +9,13 @@ import ProductInfo from "./ProductInfo";
 import ProductImage from "./ProductImage";
 import { useNavigate } from "react-router-dom";
 import {
-  addToCart,
   getCart,
+  addToCart,
   selectAddToCartResponse,
-} from "~/features/CartSlice";
+} from "~/features/cartSlice";
 import { selectToken } from "~/features/userSlice";
 import { toast } from "react-toastify";
+import OtherProducts from "./OtherProducts";
 
 function ProductDetail() {
   const product = useSelector(selectProductDetail);
@@ -27,6 +28,11 @@ function ProductDetail() {
   const [check, setCheck] = useState(false);
   const selectAddToCart = useSelector(selectAddToCartResponse);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(product);
+
+  useEffect(() => {
+    setCurrentProduct(product);
+  }, [product]);
 
   const handleIncrease = () => {
     if (quantity < maxQuantity) {
@@ -96,9 +102,9 @@ function ProductDetail() {
       <CategorySidebar onSubCategorySelect={handleSubCategorySelect} />
       <main className="col-lg-8 order-lg-2">
         <div className="product">
-          <ProductImage product={product} />
+          <ProductImage product={currentProduct} />
           <div className="summary entry-summary">
-            <ProductInfo product={product} />
+            <ProductInfo product={currentProduct} />
             <div>
               <div className="quantity" style={{ marginLeft: "-15px" }}>
                 <div>
@@ -112,7 +118,7 @@ function ProductDetail() {
                   <button
                     type="submit"
                     className="single_add_to_cart_button button alt"
-                    onClick={() => handleAddToCartClick(product.id)}
+                    onClick={() => handleAddToCartClick(currentProduct.id)}
                     style={{ fontFamily: "Arial" }}
                   >
                     Thêm vào giỏ Hàng
@@ -122,8 +128,9 @@ function ProductDetail() {
             </div>
           </div>
           <input type="hidden" name="product" />
-          <WoocommerceTabs product={product} />
+          <WoocommerceTabs product={currentProduct} />
         </div>
+        <OtherProducts />
       </main>
     </>
   );

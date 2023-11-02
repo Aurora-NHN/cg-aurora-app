@@ -4,9 +4,9 @@ import {
   selectQuantity,
   addNewQuantity,
   selectCartLine,
-} from "~/features/CartSlice";
+} from "~/features/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { selectLoading } from "~/features/CartSlice";
+import { selectLoading } from "~/features/cartSlice";
 import { selectToken } from "~/features/userSlice";
 import CartLineQuantity from "./CartLineQuantity";
 import SubTotalPrice from "./SubTotalPrice";
@@ -16,7 +16,7 @@ export default function CartLineDetail() {
   const currentCartLine = useSelector(selectCartLine);
   const quantity = useSelector(selectQuantity);
   const cart = useSelector(selectCart);
-  const [currentCart,setCurrentCart] = useState(cart);
+  const [currentCart, setCurrentCart] = useState(cart);
   const [onloading, setOnloading] = useState(true);
   const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ export default function CartLineDetail() {
 
   useEffect(() => {
     setCurrentCart(cart);
-  },[cart]);
+  }, [cart]);
 
   useEffect(() => {
     if (currentCartLine) {
@@ -45,6 +45,8 @@ export default function CartLineDetail() {
   const renderCapitalizedText = (text) => {
     return <h6 style={{ fontFamily: "Arial" }}>{text}</h6>;
   };
+
+
   return (
     <section className="ds s-py-50 s-py-xl-100 c-gutter-60">
       {onloading ? (
@@ -58,8 +60,7 @@ export default function CartLineDetail() {
                   className="woocommerce-info"
                   style={{ fontFamily: "Arial" }}
                 >
-                  <a href="#" tabIndex="1" className="showcoupon">
-                  </a>
+                  <a tabIndex="1" className="showcoupon"></a>
                   Những sản phẩm chất lượng cao cấp đã được thêm vào giỏ hàng
                   của bạn.
                 </div>
@@ -95,14 +96,7 @@ export default function CartLineDetail() {
                   ))}
                 </table>
               )}
-              <div className="cart-collaterals">
-                <div className="cross-sells">
-                  <h2 style={{ fontFamily: "Arial" }}>Sản phẩm liên quan</h2>
-                  <div className="divider-30"></div>
-                  <ul className="products"></ul>
-                </div>
-                <SubTotalPrice cart={currentCart} />
-              </div>
+              <SubTotalPrice cart={currentCart} />
             </main>
           </div>
         </div>

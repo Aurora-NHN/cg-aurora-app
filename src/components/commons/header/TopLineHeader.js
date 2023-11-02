@@ -4,13 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoginSuccess } from "~/features/loginSlice";
-import {
-  selectCart,
-  getCart
-} from "~/features/CartSlice";
+import { selectCart,getCart } from "~/features/cartSlice";
 import {
   logoutUser,
-  selectLoading,
   selectError,
   selectLogoutSuccess,
   selectToken,
@@ -105,9 +101,11 @@ const TopLineHeader = () => {
                 <li>
                   <span className="social-icons">
                     <a
-                      href="https://www.facebook.com/"
+                      href="https://www.facebook.com/Alibaba.comGlobal"
                       className="fa fa-facebook "
                       title="facebook"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     ></a>
                     <a
                       href="https://twitter.com/"

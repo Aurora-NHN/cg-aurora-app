@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import OrderCustomerDetail from "./OrderCustomerDetail";
-import { selectCart } from "~/features/CartSlice";
+import { selectCart } from "~/features/cartSlice";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   selectAddress,
   selectGetAddressSuccess,
   createOrder,
-  setAddressSuccess
-} from "~/features/OrderSlice";
+  setAddressSuccess,
+} from "~/features/orderSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
@@ -17,17 +18,36 @@ import {
   selectOrderSuccess,
   setOrderSuccess,
 } from "~/features/paymentSlice";
-
+import { getProvince, selectProvince } from "~/features/provinceSlice";
+import { resetCart } from "~/features/cartSlice";
+import { selectToken } from "~/features/userSlice";
 export default function CheckoutForm() {
+  const navigate = useNavigate();
   const cart = useSelector(selectCart);
   const [currentCart, setCurrentCart] = useState(cart);
   const address = useSelector(selectAddress);
   const [shipmentCost, setShipmentCost] = useState(0);
   const success = useSelector(selectGetAddressSuccess);
   const dispatch = useDispatch();
-  const [paymentMethod, setPaymentMethod] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("vnpay");
   const vnPayUrl = useSelector(selectOrder);
   const orderVnpaySuccess = useSelector(selectOrderSuccess);
+  const token = useSelector(selectToken);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const provinces = useSelector(selectProvince);
+  const [currentProvinces, setCurrentProvinces] = useState(provinces);
+
+  useEffect(() => {
+    dispatch(getProvince());
+  }, []);
+
+  useEffect(() => {
+    setCurrentProvinces(provinces);
+  }, [provinces]);
+
+  useEffect(() => {
+    setCurrentCart(cart);
+  }, [cart]);
 
   function formatCurrency(price) {
     const formatter = new Intl.NumberFormat("vi-VN", {
@@ -55,24 +75,36 @@ export default function CheckoutForm() {
   const changePaymentMethod = (e) => {
     setPaymentMethod(e.target.value);
   };
+
   const isEmpty = (object) => {
     return Object.keys(object).length === 0;
   };
+
   const onSubmit = () => {
     if (isEmpty(address)) {
       orderFail();
     } else {
       if (paymentMethod === "vnpay") {
         dispatch(createOrderVNPay({ vipPack: 4 }));
-      } else if (paymentMethod === null) {
-        dispatch(createOrderVNPay({ vipPack: 4 }));
+        console.log("paymentMethod");
+        console.log(paymentMethod);
       } else if (paymentMethod === "cod") {
         let token = localStorage.getItem("token");
         dispatch(createOrder(token));
+        setPaymentSuccess(true);
       }
-         dispatch(setAddressSuccess(false));
+      dispatch(setAddressSuccess(false));
     }
   };
+
+  useEffect(() => {
+    if (paymentSuccess) {
+      dispatch(resetCart(token));
+      setPaymentSuccess(false);
+      navigate("/order-details");
+    }
+  }, [paymentSuccess]);
+
   const orderFail = () => {
     toast.error("Bạn chưa nhập địa chỉ!", {
       position: toast.POSITION.TOP_RIGHT,
@@ -87,10 +119,6 @@ export default function CheckoutForm() {
     dispatch(setOrderSuccess(false));
   }, [orderVnpaySuccess]);
 
-    const onClickSetSuccess = () => {
-   
-    };
-
   return (
     <>
       <section className="ds s-py-90 s-py-xl-150 c-gutter-60">
@@ -104,8 +132,7 @@ export default function CheckoutForm() {
                 </a>
               </div>
               <div className="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout"></div>
-              <OrderCustomerDetail />
-
+              <OrderCustomerDetail provinces={currentProvinces} />
               <div
                 id="order_review"
                 className="woocommerce-checkout-review-order"
@@ -114,7 +141,7 @@ export default function CheckoutForm() {
                 <table className="shop_table woocommerce-checkout-review-order-table">
                   <thead>
                     <tr>
-                      <th className="product-name">
+                      <th className="product-name" style={{ width: 300 }}>
                         {renderCapitalizedText("Sản phẩm")}
                       </th>
                       <th className="product-total">
@@ -128,7 +155,7 @@ export default function CheckoutForm() {
                   <tbody>
                     {currentCart.cartLineDTOList.map((cartLine) => (
                       <tr key={cartLine.id} className="cart_item">
-                        <td className="product-name">
+                        <td className="product-name" style={{ width: 300 }}>
                           {cartLine.productResponseDTO.name}&nbsp;
                         </td>
                         <td className="product-total">{cartLine.quantity}</td>
