@@ -4,7 +4,7 @@ export const USER_MANAGEMENT_API = "http://localhost:8080/api/users";
 
 export const VN_PAY_API = "http://localhost:8080/api/vnpay";
 
-export const NUMEROLOGY_API = "http://localhost:8080/api/store-front/numerology";
+export const NUMEROLOGY_API = "http://localhost:8080/api/numerology";
 
 export const CATEGORY_API = "http://localhost:8080/api/categories";
 
