@@ -78,7 +78,7 @@ function ProductDetail() {
   };
 
   const addToCartFail = () => {
-    toast.error("Thêm quá sản phẩm trong kho hàng !", {
+    toast.error("Sản phẩm đã hết hàng!", {
       position: toast.POSITION.TOP_RIGHT,
       type: toast.TYPE.ERROR,
     });

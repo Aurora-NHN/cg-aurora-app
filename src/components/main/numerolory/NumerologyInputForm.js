@@ -30,7 +30,7 @@ function NumerologyInputForm() {
     ];
     const initialValues = {
         fullName: '',
-        nickName: '',
+        nickname: '',
         yearOfBirth: 1996,
         monthOfBirth: '',
         dayOfBirth: '',
