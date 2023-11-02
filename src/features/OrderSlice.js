@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   createOrderDetailAPI,
-  provincesAPI,
-  wardAPI,
-  districtAPI,
   createOrderAPI,
 } from "~/api/orderApi";
 
@@ -15,37 +12,20 @@ export const createOrderDetail = createAsyncThunk(
   }
 );
 
-export const createOrder= createAsyncThunk(
+export const createOrder = createAsyncThunk(
   "order/create-order",
   async (token) => {
     const response = await createOrderAPI(token);
-    return response.data;
+    console.log(response.data.data);
+    return response.data.data;
   }
 );
-
-export const getProvince = createAsyncThunk(
-  "order/getProvince",
-  async () => {
-    const response = await provincesAPI();
-    return response.data;
-  }
-);
-export const getDistrist = createAsyncThunk("order/getDistrist", async () => {
-  const response = await districtAPI();
-  return response.data;
-});
-
-export const getWard = createAsyncThunk("order/getProvince", async () => {
-  const response = await wardAPI();
-  return response.data;
-});
-
 
 
 const orderSlice = createSlice({
   name: "order",
   initialState: {
-    values: [],
+    order: {},
     value: {},
     loading: false,
     createOrderError: null,
@@ -53,7 +33,7 @@ const orderSlice = createSlice({
     orderAddress: {},
     getAddressSuccess: false,
     success: false,
-    error:false,
+    error: false,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -103,57 +83,9 @@ const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.value = action.payload;
+        state.order = action.payload;
         state.error = false;
       });
-    // .addCase(getProvince.pending, (state) => {
-    //   state.success = false;
-    //   state.loading = true;
-    //   state.createOrderError = false;
-    // })
-    // .addCase(getProvince.rejected, (state, action) => {
-    //   state.success = false;
-    //   state.loading = false;
-    //   state.createOrderError = action.error;
-    // })
-    // .addCase(getProvince.fulfilled, (state, action) => {
-    //   state.success = true;
-    //   state.loading = false;
-    //   state.values = action.payload;
-    //   state.createOrderError = false;
-    // })
-    // .addCase(getDistrist.pending, (state) => {
-    //   state.success = false;
-    //   state.loading = true;
-    //   state.createOrderError = false;
-    // })
-    // .addCase(getDistrist.rejected, (state, action) => {
-    //   state.success = false;
-    //   state.loading = false;
-    //   state.createOrderError = action.error;
-    // })
-    // .addCase(getDistrist.fulfilled, (state, action) => {
-    //   state.success = true;
-    //   state.loading = false;
-    //   state.values = action.payload;
-    //   state.createOrderError = false;
-    // })
-    // .addCase(getWard.pending, (state) => {
-    //   state.success = false;
-    //   state.loading = true;
-    //   state.createOrderError = false;
-    // })
-    // .addCase(getWard.rejected, (state, action) => {
-    //   state.success = false;
-    //   state.loading = false;
-    //   state.createOrderError = action.error;
-    // })
-    // .addCase(getWard.fulfilled, (state, action) => {
-    //   state.success = true;
-    //   state.loading = false;
-    //   state.values = action.payload;
-    //   state.createOrderError = false;
-    // });
   },
 });
 
@@ -168,12 +100,8 @@ export const {
 export const selectLoading = (state) => state.order.loading;
 export const selectError = (state) => state.order.error;
 export const selectSuccess = (state) => state.order.success;
-export const selectOrder = (state) => state.order.values;
+export const selectOrder = (state) => state.order.order;
 export const selectAddress = (state) => state.order.orderAddress;
 export const selectGetAddressSuccess = (state) => state.order.getAddressSuccess;
-export const selectProvince = (state) => state.order.values;
-export const selectWard = (state) => state.order.values;
-export const selectDistrist = (state) => state.order.values;
-
 
 export default orderSlice.reducer;

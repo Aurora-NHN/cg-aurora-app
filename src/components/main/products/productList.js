@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { gsap } from "gsap";
 import ShortenText from "./ShortenText";
 import {
   getProducts,
@@ -19,7 +18,7 @@ import {
   addToCart,
   selectAddToCartResponse,
   getCart,
-} from "~/features/CartSlice";
+} from "~/features/cartSlice";
 import { selectSubCategoryId } from "~/features/CategorySlice";
 import Pagination from "./Pagination";
 import Search from "./Search";
@@ -48,7 +47,7 @@ export default function ProductList() {
   const renderCapitalizedText = (text) => {
     return (
       <h6 style={{ fontFamily: "Arial" }}>
-        {_.capitalize(ShortenText(text, 15))}
+        {_.capitalize(ShortenText(text, 25))}
       </h6>
     );
   };
@@ -183,8 +182,8 @@ export default function ProductList() {
 
   useEffect(() => {
     if (check) {
-      dispatch(getCart(token));
       if (selectAddToCart.message === "Product added to cart successfully") {
+        dispatch(getCart(token));
         addToCartSuccess();
         setCheck(false);
       } else if (selectAddToCart.message === "Out of stock") {
@@ -192,7 +191,7 @@ export default function ProductList() {
         setCheck(false);
       }
     }
-  }, [selectAddToCart]);
+  }, [selectAddToCart, check]);
 
   const addToCartSuccess = () => {
     toast.success("Đã thêm sản phẩm thành công!", {
@@ -213,7 +212,7 @@ export default function ProductList() {
   };
   const handleClickProductLink = (product) => {
     dispatch(setProductDetail(product));
-    setProductDetail(null);
+    
   };
 
   useEffect(() => {
@@ -275,9 +274,8 @@ export default function ProductList() {
                     <div className="product-inner">
                       <Link
                         to={`/product-detail/${product.id}`}
-                        onClick={handleClickProductLink(product)}
+                        onClick={() => handleClickProductLink(product)}
                       >
-                        {" "}
                         <img
                           className="product-image"
                           src={product.imageUrl}
@@ -296,26 +294,37 @@ export default function ProductList() {
                             </Link>
                           </td>
                         </h6>
-                        <div className="star-rating">
+                        {/* <div className="star-rating">
                           <span style={{ width: `${product.rating}%` }}>
                             Rated{" "}
                             <strong className="rating">
                               {product.rating / 20} out of 5
                             </strong>
                           </span>
-                        </div>
+                        </div> */}
                         <div className="price-wrap">
-                          <span className="price">
+                          <span className="price" style={{ color: "white" }}>
                             <span>{formatCurrency(product.price)}</span>
                           </span>
-                          <a
+                          <p
+                            style={{
+                              fontSize: "15px",
+                              fontFamily: "Arial",
+                              marginLeft: "100px",
+                            }}
+                          >
+                            Đã bán:
+                            {product.quantitySold}
+                          </p>
+
+                          <button
                             rel="nofollow"
                             className="button product_type_simple add_to_cart_button"
                             onClick={() => handleAddToCartClick(product.id)}
-                            style={{ fontSize: "25px" }}
+                            style={{ fontFamily: "Arial" }}
                           >
-                            <i className="fa fa-shopping-cart"></i>
-                          </a>
+                            Thêm vào giỏ
+                          </button>
                         </div>
                       </div>
                     </div>
