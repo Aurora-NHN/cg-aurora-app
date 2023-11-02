@@ -9,3 +9,12 @@ export const getBlogsApi = async () => {
         return e.response
     }
 }
+
+export const searchBlogsApi = async (keyword) => {
+    try {
+        return axios.get(AURORA_API + "/blogs/search?keyword=" + keyword)
+    }catch (e){
+        console.log(e)
+        return e.response
+    }
+}

@@ -10,9 +10,11 @@ function GuestLayout({ children }) {
       <RegisterModal />
 
       <div id="canvas">
-        <div id="box_wrapper">
+        <div id="box_wrapper header_absolute">
           <Header />
-          {children}
+            <div className="m-0 p-0 main-wrapper">
+                {children}
+            </div>
           <Footer />
         </div>
       </div>

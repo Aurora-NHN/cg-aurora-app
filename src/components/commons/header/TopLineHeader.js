@@ -1,19 +1,20 @@
-import React, { useState, useEffect, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, {memo, useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {getCart, selectCart} from "~/features/CartSlice";
 import { setLoginSuccess } from "~/features/loginSlice";
-import { selectCart,getCart } from "~/features/cartSlice";
 import {
   logoutUser,
   selectError,
   selectLogoutSuccess,
   selectToken,
-  setToken,
   setLogoutSuccess,
+  setToken,
 } from "~/features/userSlice";
 import CartIcon from "~/components/main/products/CartIcon";
+
 const TopLineHeader = () => {
   const token = useSelector(selectToken);
   const logoutSuccess = useSelector(selectLogoutSuccess);
@@ -101,11 +102,9 @@ const TopLineHeader = () => {
                 <li>
                   <span className="social-icons">
                     <a
-                      href="https://www.facebook.com/Alibaba.comGlobal"
+                      href="https://www.facebook.com/"
                       className="fa fa-facebook "
                       title="facebook"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     ></a>
                     <a
                       href="https://twitter.com/"
@@ -151,7 +150,7 @@ const TopLineHeader = () => {
                       className="dropdown-menu ls"
                       aria-labelledby="dropdown-account"
                     >
-                      <Link to="/account-detail">
+                      <Link to="/account">
                         <i className="fa fa-user"></i> My Account
                       </Link>
                       <Link to="/pricing">
@@ -162,6 +161,9 @@ const TopLineHeader = () => {
                       </Link>
                       <Link to="/change-password">
                         <i className="fa fa-edit"></i> Change password
+                      </Link>
+                      <Link to="/numerology-report-history" >
+                        <i className="fa fa-list-alt"></i> Numerology Report History
                       </Link>
                       <Link to="/" onClick={logout}>
                         <i className="fa fa-lock"></i> Logout
