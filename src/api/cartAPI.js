@@ -1,5 +1,5 @@
 import axios from "axios";
-const CART_API = "http://localhost:8080/api/cart";
+import {CART_API} from "~/app/constants";
 
 export const addCartLineToCart = async (productId, quantity, token) => {
   let result = null;

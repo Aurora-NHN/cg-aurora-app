@@ -1,6 +1,6 @@
 import axios from "axios";
+import {PRODUCT_API} from "~/app/constants";
 
-const PRODUCT_API = "http://localhost:8080/api/products";
 
 export const findProducts = async (pageNumber) => {
   let result = null;

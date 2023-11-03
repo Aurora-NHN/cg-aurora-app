@@ -1,5 +1,5 @@
 import axios from "axios";
-const USER_MANAGEMENT_API = "http://localhost:8080/api/users";
+import {USER_MANAGEMENT_API} from "~/app/constants";
 
 export const forgotPassword = async (email) => {
   let result = null;
