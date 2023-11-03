@@ -172,7 +172,7 @@ function NumerologyInputForm() {
                     });
                 } else {
                     confirmDialog({
-                        message: 'Bạn chưa chưa phải là tài khoản VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
+                        message: 'Bạn đang có 0 lượt VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
                         header: 'Xác nhận',
                         icon: 'pi pi-exclamation-triangle',
                         accept: () => acceptBuyVipFunction()

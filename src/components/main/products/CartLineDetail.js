@@ -83,7 +83,7 @@ export default function CartLineDetail() {
                       <th className="product-quantity">
                         {renderCapitalizedText("Số lượng")}
                       </th>
-                      <th className="product-subtotal">
+                      <th className="product-subtotal" >
                         {renderCapitalizedText("Tổng")}
                       </th>
                     </tr>

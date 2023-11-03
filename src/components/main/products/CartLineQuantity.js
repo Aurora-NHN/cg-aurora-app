@@ -75,7 +75,7 @@ const CartLineQuantity = ({ cartLine }) => {
   };
   const renderCapitalizedText = (text) => {
     return (
-      <h6 style={{ fontFamily: "Arial", color: "white" }}>
+      <h6 style={{ fontFamily: "Arial", color: "white", whiteSpace:"pre-wrap" }}>
         {_.capitalize(text)}
       </h6>
     );
@@ -117,7 +117,7 @@ const CartLineQuantity = ({ cartLine }) => {
         data-title="Product"
         style={{ fontFamily: "Arial" }}
       >
-        <p> {renderCapitalizedText(cartLine.productResponseDTO.name)}</p>
+        {renderCapitalizedText(cartLine.productResponseDTO.name)}
       </td>
       <td className="product-price" data-title="Price">
         <span className="amount">
@@ -131,7 +131,7 @@ const CartLineQuantity = ({ cartLine }) => {
             className="fa fa-chevron-down"
             aria-hidden="true"
             onClick={handleDecrease}
-            style={{ transform: "translateX(150%)", cursor: "pointer" }}
+            style={{ position:"absolute",top: "40%", cursor: "pointer", left: 5}}
           />
           <input
             type="number"
@@ -149,7 +149,7 @@ const CartLineQuantity = ({ cartLine }) => {
             className="fa fa-chevron-up"
             aria-hidden="true"
             onClick={handleIncrease}
-            style={{ transform: "translateX(-150%)", cursor: "pointer" }}
+            style={{ position: "absolute", cursor: "pointer", top:"40%", right: 5}}
           />
         </div>
       </td>

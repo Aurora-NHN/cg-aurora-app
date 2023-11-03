@@ -25,6 +25,7 @@ import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";
 import { selectToken } from "~/features/userSlice";
 import { toast } from "react-toastify";
+import PaginationProductList from "~/components/main/products/PaginationProductList";
 export default function ProductList() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -107,18 +108,25 @@ export default function ProductList() {
         navigate("/shop?keyword=" + keyword);
     };
 
+    const scrollTop = () => {
+        window.scrollTo({behavior: "smooth", left: 0, top: 250})
+    }
+
     function handleSubmitPage(newPageNumber) {
         setPageNumber(newPageNumber);
+        scrollTop();
     }
 
     function nextPage() {
         setPageNumber(pageNumber + 1);
+        scrollTop();
     }
 
     function backPage() {
         if (pageNumber > 1) {
             setPageNumber(pageNumber - 1);
         }
+        scrollTop();
     }
 
     function handleSortByPrice(order) {
@@ -333,7 +341,7 @@ export default function ProductList() {
                             )}
                         </ul>
                     )}
-                    <Pagination
+                    <PaginationProductList
                         pageNumber={pageNumber}
                         onNextPage={nextPage}
                         onPrevPage={backPage}

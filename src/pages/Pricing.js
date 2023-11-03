@@ -17,7 +17,6 @@ const Pricing = () => {
     useEffect(() => {
         if (token) {
             setLoggedIn(true);
-
         } else {
             setLoggedIn(false);
         }
