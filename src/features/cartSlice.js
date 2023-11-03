@@ -4,7 +4,7 @@ import {
   showCart,
   deleteCartLine,
   addNewQuantiytToCart,
-  saveAndGetCartOrder
+  resetCartAPI,
 } from "~/api/cartAPI";
 
 export const addToCart = createAsyncThunk(
@@ -26,9 +26,8 @@ export const getCart = createAsyncThunk("cart/show", async (token) => {
   const response = await showCart(token);
   return response.data.data;
 });
-
-export const getCartOrder = createAsyncThunk("cart/order", async (token) => {
-  const response = await saveAndGetCartOrder(token);
+export const resetCart = createAsyncThunk("cart/reset", async () => {
+  const response = await resetCartAPI();
   return response.data.data;
 });
 
@@ -95,17 +94,17 @@ const cartSlice = createSlice({
         state.value = action.payload;
         state.error = false;
       })
-      .addCase(getCartOrder.pending, (state) => {
+      .addCase(resetCart.pending, (state) => {
         state.success = false;
         state.loading = true;
         state.error = false;
       })
-      .addCase(getCartOrder.rejected, (state, action) => {
+      .addCase(resetCart.rejected, (state, action) => {
         state.success = false;
         state.loading = false;
         state.error = action.error;
       })
-      .addCase(getCartOrder.fulfilled, (state, action) => {
+      .addCase(resetCart.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
         state.value = action.payload;

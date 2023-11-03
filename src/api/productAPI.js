@@ -67,6 +67,7 @@ export const findProductsSortByPriceDescending = async (pageNumber) => {
 
   return result;
 };
+
 export const findProductsSortByPriceAscending = async (pageNumber) => {
   let result = null;
   try {
@@ -80,5 +81,12 @@ export const findProductsSortByPriceAscending = async (pageNumber) => {
     }
   } catch (e) {}
 
+  return result;
+};
+export const getOtherProductsAPI = async () => {
+  let result = null;
+  try {
+    result = await axios.get(`${PRODUCT_API}/other-product`);
+  } catch (e) {}
   return result;
 };

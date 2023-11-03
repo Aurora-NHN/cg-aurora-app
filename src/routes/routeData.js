@@ -16,6 +16,7 @@ import Numerology from "~/pages/Numerology";
 import NumerologyResult from "~/components/main/numerolory/NumerologyResult";
 import NumerologyReportHistory from "~/pages/NumerologyReportHistory";
 import NumerologyReportDetail from "~/components/main/numerolory/history/NumerologyReportDetail";
+import OrderDetailPage from "~/pages/OrderDetailPage";
 import MyAccount from "~/pages/MyAccount";
 
 export const ROUT_DATA = [
@@ -23,6 +24,7 @@ export const ROUT_DATA = [
   { path: "/shop", element: Shop, layout: GuestLayout },
   {path: "/blogs", element: BlogPage, layout: GuestLayout},
   {path: "/blogs/:id", element: BlogPage, layout: GuestLayout},
+  { path: "/blogs", element: BlogPage, layout: GuestLayout },
   { path: "/forgot-password", element: ForgotPassword, layout: GuestLayout },
   { path: "/change-password", element: ChangePassword, layout: GuestLayout },
   { path: "/account-detail", element: AccountDetail, layout: GuestLayout },
@@ -34,9 +36,10 @@ export const ROUT_DATA = [
   { path: "/zodiac/:name", element: Zodiac, layout: GuestLayout },
   { path: "/pricing", element: Pricing, layout: GuestLayout },
   { path: "/tarot", element: Tarot, layout: GuestLayout },
-  {path: "/numerology", element: Numerology, layout: GuestLayout},
-  {path: "/numerology-result", element: NumerologyResult, layout: GuestLayout},
-  {path: "/numerology-report-history", element: NumerologyReportHistory, layout: GuestLayout},
-  { path: "/numerology-detail", element:NumerologyReportDetail , layout: GuestLayout },
+  { path: "/numerology", element: Numerology, layout: GuestLayout },
+  {path: "/numerology-result",element: NumerologyResult,layout: GuestLayout,},
+  {path: "/numerology-report-history",element: NumerologyReportHistory,layout: GuestLayout,},
+  { path: "/numerology-detail", element: NumerologyReportDetail,layout: GuestLayout,},
+  { path: "/order-details", element: OrderDetailPage, layout: GuestLayout },
 ];
 
