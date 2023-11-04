@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {createOrder} from "~/api/vnPayAPI";
+import {toast} from "react-toastify";
 
 const initialState = {
     value: null,
@@ -12,8 +13,11 @@ const initialState = {
 
 export const createOrderVNPay = createAsyncThunk(
     "/create-order",
-    async (data) => {
+    async (data,thunkAPI) => {
         const response = await createOrder(data);
+        if (response.status !== 200){
+            return thunkAPI.rejectWithValue(response.data)
+        }
         return response.data;
     }
 );
@@ -40,6 +44,7 @@ export const paymentSlice = createSlice({
                 state.orderSuccess = false;
                 state.loading = false;
                 state.errors = action.payload;
+                toast.error(action.payload)
             })
             .addCase(createOrderVNPay.fulfilled, (state, action) => {
                 state.orderSuccess = true;

@@ -16,7 +16,7 @@ const initialState = {
     count: 0,
 };
 
-export const getInfo = createAsyncThunk("/get-info", async () => {
+export const getInfo = createAsyncThunk("/get-info", async (arg, thunkAPI) => {
     const response = await getUserInfo();
     return response.data.data;
 });

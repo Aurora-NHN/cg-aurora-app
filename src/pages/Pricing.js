@@ -41,7 +41,8 @@ const Pricing = () => {
     useEffect(() => {
         dispatch(getInfo());
         if (orderSuccess === true) {
-            window.location.href = vnPayUrl;
+            toast.success(vnPayUrl)
+            // window.location.href = vnPayUrl;
         }
         dispatch(setOrderSuccess(false));
     }, [orderSuccess]);
