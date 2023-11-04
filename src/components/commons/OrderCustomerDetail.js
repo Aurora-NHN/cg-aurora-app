@@ -1,20 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { setOrderAddress, setAddressSuccess } from "~/features/OrderSlice";
-import { createOrderDetail } from "~/features/OrderSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createOrderDetail,
+  setAddressSuccess,
+  setOrderAddress,
+} from "~/features/orderSlice";
+import {
+  selectProvince,
+  selectDistrist,
+  selectWard,
+  getDistrict,
+  getWard,
+} from "~/features/provinceSlice";
 
-export default function OrderCustomerDetail() {
-  const dispatch = useDispatch();
+export default function OrderCustomerDetail({ provinces }) {
   const VIETNAMESE_REGEX = /^[a-zA-ZÀ-ỹ\s]*$/;
+  const dispatch = useDispatch();
+  const [currentProvinces, setCurrentProvince] = useState(provinces);
+  const districts = useSelector(selectDistrist);
+  const [currentDistrict, setCurrentDistricts] = useState([]);
+  const wards = useSelector(selectWard);
+  const [currentWard, setCurrentWard] = useState([]);
+  const [provinceId, setProvinceId] = useState(null);
+  const [districtId, setDistrictsId] = useState(null);
+  const [check, setCheck] = useState(false);
+  const [checkDistrict, setCheckDistrict] = useState(false);
+
+  useEffect(() => {
+    setCurrentProvince(provinces);
+  }, [provinces]);
+
+  useEffect(() => {
+    setCurrentDistricts(districts);
+  }, [districts]);
+
+  useEffect(() => {
+    setCurrentWard(wards);
+  }, [wards]);
+
+  useEffect(() => {
+    if (check) {
+      dispatch(getDistrict(provinceId));
+      setCheck(false);
+    }
+  }, [provinceId, check]);
+
+  useEffect(() => {
+    if (checkDistrict) {
+      dispatch(getWard(districtId));
+      setCheckDistrict(false);
+    }
+  }, [districtId, checkDistrict]);
+
   const formik = useFormik({
     initialValues: {
       fullName: "",
       phoneNumber: "",
       city: "Chọn tỉnh thành…",
-      expectedDelivery: "",
-      order_comments: "",
+      deliveryAddress: "",
+      additionalInformation: "",
+      district: "Chọn Quận/Huyện",
+      ward: "Chọn Xã/Thị Trấn",
     },
     validationSchema: Yup.object().shape({
       fullName: Yup.string()
@@ -29,8 +77,14 @@ export default function OrderCustomerDetail() {
       city: Yup.string()
         .required("Thành phố không được để trống.")
         .notOneOf(["Chọn tỉnh thành…"], "Hãy chọn tỉnh thành"),
-      expectedDelivery: Yup.string().required("Địa chỉ không được để trống"),
-      order_comments: Yup.string(),
+      district: Yup.string()
+        .required("Quận/Huyện không được để trống.")
+        .notOneOf(["Chọn Quận/Huyện…"], "Hãy chọn Quận/Huyện"),
+      ward: Yup.string()
+        .required("Xã/Thị Trấn không được để trống.")
+        .notOneOf(["Chọn Xã/Thị Trấn…"], "Hãy chọn Xã/Thị Trấn"),
+      deliveryAddress: Yup.string().required("Địa chỉ không được để trống"),
+      additionalInformation: Yup.string(),
     }),
     onSubmit: (address) => {
       let token = localStorage.getItem("token");
@@ -41,9 +95,33 @@ export default function OrderCustomerDetail() {
     },
   });
 
-  const onClickSetSuccess = () => {
+  const onClickSetSuccess = (e) => {
     dispatch(setAddressSuccess(false));
   };
+
+  function changeProvince(e) {
+    // formik.setFieldValue
+    let result = null;
+    provinces.map((province) => {
+      if (province.province_name === e.target.value) {
+        result = province.province_id;
+      }
+    });
+    setProvinceId(result);
+    setCurrentWard([]);
+    setCheck(true);
+  }
+
+  function changeDistrict(e) {
+    let result = null;
+    districts.map((district) => {
+      if (district.district_name === e.target.value) {
+        result = district.district_id;
+      }
+    });
+    setDistrictsId(result);
+    setCheckDistrict(true);
+  }
 
   return (
     <div
@@ -57,7 +135,6 @@ export default function OrderCustomerDetail() {
         <div className="col-10">
           <div className="woocommerce-billing-fields">
             <h3>Địa chỉ giao hàng</h3>
-
             <div className="woocommerce-billing-fields__field-wrapper">
               <p
                 className="form-row form-row-wide"
@@ -129,76 +206,116 @@ export default function OrderCustomerDetail() {
                   required
                   aria-required="true"
                   value={formik.values.city}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    changeProvince(e);
+                  }}
                   onBlur={formik.handleBlur}
                   onClick={onClickSetSuccess}
                 >
-                  <option value="Chọn tỉnh thành…">Chọn tỉnh thành…</option>
-                  <option value="An Giang">An Giang</option>
-                  <option value="Bắc Giang">Bắc Giang</option>
-                  <option value="Bắc Kạn">Bắc Kạn</option>
-                  <option value="Bạc Liêu">Bạc Liêu</option>
-                  <option value="Bắc Ninh">Bắc Ninh</option>
-                  <option value="Bến Tre">Bến Tre</option>
-                  <option value="Bình Định">Bình Định</option>
-                  <option value="Bình Dương">Bình Dương</option>
-                  <option value="Bình Phước">Bình Phước</option>
-                  <option value="Bình Thuận">Bình Thuận</option>
-                  <option value="Cà Mau">Cà Mau</option>
-                  <option value="Cao Bằng">Cao Bằng</option>
-                  <option value="Đắk Lắk">Đắk Lắk</option>
-                  <option value="Đắk Nông">Đắk Nông</option>
-                  <option value="Điện Biên">Điện Biên</option>
-                  <option value="Đồng Nai">Đồng Nai</option>
-                  <option value="Đồng Tháp">Đồng Tháp</option>
-                  <option value="Gia Lai">Gia Lai</option>
-                  <option value="Hà Giang">Hà Giang</option>
-                  <option value="Hà Nam">Hà Nam</option>
-                  <option value="Hà Tĩnh">Hà Tĩnh</option>
-                  <option value="Hải Dương">Hải Dương</option>
-                  <option value="Hậu Giang">Hậu Giang</option>
-                  <option value="Hòa Bình">Hòa Bình</option>
-                  <option value="Hưng Yên">Hưng Yên</option>
-                  <option value="Khánh Hòa">Khánh Hòa</option>
-                  <option value="Kiên Giang">Kiên Giang</option>
-                  <option value="Kon Tum">Kon Tum</option>
-                  <option value="Lai Châu">Lai Châu</option>
-                  <option value="Lâm Đồng">Lâm Đồng</option>
-                  <option value="Lạng Sơn">Lạng Sơn</option>
-                  <option value="Lào Cai">Lào Cai</option>
-                  <option value="Long An">Long An</option>
-                  <option value="Nam Định">Nam Định</option>
-                  <option value="Nghệ An">Nghệ An</option>
-                  <option value="Ninh Bình">Ninh Bình</option>
-                  <option value="Ninh Thuận">Ninh Thuận</option>
-                  <option value="Phú Thọ">Phú Thọ</option>
-                  <option value="Quảng Bình">Quảng Bình</option>
-                  <option value="Quảng Nam">Quảng Nam</option>
-                  <option value="Quảng Ngãi">Quảng Ngãi</option>
-                  <option value="Quảng Ninh">Quảng Ninh</option>
-                  <option value="Quảng Trị">Quảng Trị</option>
-                  <option value="Sóc Trăng">Sóc Trăng</option>
-                  <option value="Sơn La">Sơn La</option>
-                  <option value="Tây Ninh">Tây Ninh</option>
-                  <option value="Thái Bình">Thái Bình</option>
-                  <option value="Thái Nguyên">Thái Nguyên</option>
-                  <option value="Thanh Hóa">Thanh Hóa</option>
-                  <option value="Thừa Thiên-Huế">Thừa Thiên-Huế</option>
-                  <option value="Tiền Giang">Tiền Giang</option>
-                  <option value="Trà Vinh">Trà Vinh</option>
-                  <option value="Tuyên Quang">Tuyên Quang</option>
-                  <option value="Vĩnh Long">Vĩnh Long</option>
-                  <option value="Vĩnh Phúc">Vĩnh Phúc</option>
-                  <option value="Yên Bái">Yên Bái</option>
-                  <option value="Phú Yên">Phú Yên</option>
-                  <option value="Cần Thơ">Cần Thơ</option>
-                  <option value="Đà Nẵng">Đà Nẵng</option>
-                  <option value="Hải Phòng">Hải Phòng</option>
-                  <option value="Hà Nội">Hà Nội</option>
-                  <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                  {currentProvinces === undefined ||
+                  currentProvinces.length < 0 ? (
+                    <option value="Chọn tỉnh thành…">Chọn tỉnh thành…</option>
+                  ) : (
+                    <>
+                      <option value="Chọn tỉnh thành…">Chọn tỉnh thành…</option>
+                      {currentProvinces.map((province) => (
+                        <option
+                          key={province.province_id}
+                          value={province.province_name}
+                        >
+                          {province.province_name}
+                        </option>
+                      ))}
+                    </>
+                  )}
                 </select>
                 {formik.errors.city && (
                   <div className="invalid-feedback">{formik.errors.city}</div>
+                )}
+              </p>
+              <p
+                className="form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated"
+                id="billing_country_field"
+                data-priority="40"
+              >
+                <select
+                  name="district"
+                  id="district"
+                  className={`country_to_state country_select select2-hidden-accessible ${
+                    formik.errors.district && formik.touched.district
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  required
+                  aria-required="true"
+                  value={formik.values.district}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    changeDistrict(e);
+                  }}
+                  onBlur={formik.handleBlur}
+                >
+                  {currentDistrict.length > 0 ? (
+                    <>
+                      <option value="Chọn Quận/Huyện…">Chọn Quận/Huyện…</option>
+                      {currentDistrict.map((district) => (
+                        <option
+                          key={district.district_id}
+                          value={district.district_name}
+                        >
+                          {district.district_name}
+                        </option>
+                      ))}
+                    </>
+                  ) : (
+                    <option value="Chọn Quận/Huyện…">Chọn Quận/Huyện…</option>
+                  )}
+                </select>
+                {formik.errors.district && (
+                  <div className="invalid-feedback">
+                    {formik.errors.district}
+                  </div>
+                )}
+              </p>
+              <p
+                className="form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated"
+                id="billing_country_field"
+                data-priority="40"
+              >
+                <select
+                  name="ward"
+                  id="ward"
+                  className={`country_to_state country_select select2-hidden-accessible ${
+                    formik.errors.ward && formik.touched.ward
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  required
+                  aria-required="true"
+                  value={formik.values.ward}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                >
+                  {currentProvinces.length > 0 &&
+                  currentDistrict.length > 0 &&
+                  currentWard.length > 0 ? (
+                    <>
+                      <option value="Chọn Xã/Thị Trấn…">
+                        Chọn Xã/Thị Trấn…
+                      </option>
+                      {currentWard.map((ward) => (
+                        <option key={ward.ward_id} value={ward.ward_name}>
+                          {ward.ward_name}
+                        </option>
+                      ))}
+                    </>
+                  ) : (
+                    <option value="Chọn Xã/Thị Trấn…">Chọn Xã/Thị Trấn…</option>
+                  )}
+                </select>
+                {formik.errors.ward && (
+                  <div className="invalid-feedback">{formik.errors.ward}</div>
                 )}
               </p>
               <p
@@ -208,24 +325,24 @@ export default function OrderCustomerDetail() {
               >
                 <input
                   type="text"
-                  name="expectedDelivery"
-                  id="expectedDelivery"
+                  name="deliveryAddress"
+                  id="deliveryAddress"
                   placeholder="Địa chỉ nhận hàng"
                   className={`input-text ${
-                    formik.errors.expectedDelivery &&
-                    formik.touched.expectedDelivery
+                    formik.errors.deliveryAddress &&
+                    formik.touched.deliveryAddress
                       ? "is-invalid"
                       : ""
                   }`}
                   required
                   aria-required="true"
-                  value={formik.values.expectedDelivery}
+                  value={formik.values.deliveryAddress}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.expectedDelivery && (
+                {formik.errors.deliveryAddress && (
                   <div className="invalid-feedback">
-                    {formik.errors.expectedDelivery}
+                    {formik.errors.deliveryAddress}
                   </div>
                 )}
               </p>
@@ -254,20 +371,19 @@ export default function OrderCustomerDetail() {
                 id="order_comments_field"
                 data-priority=""
               >
-                <label htmlFor="order_comments">Order notes</label>
+                <label htmlFor="additionalInformation">Order notes</label>
                 <textarea
-                  name="order_comments"
-                  className="input-text"
-                  id="order_comments"
+                  type="text"
+                  name="additionalInformation"
+                  id="additionalInformation"
                   placeholder="Ghi chú về đơn đặt hàng của bạn."
                   rows="2"
                   cols="5"
+                  className="input-text"
+                  aria-required="true"
+                  value={formik.values.additionalInformation}
+                  onChange={formik.handleChange}
                 ></textarea>
-                {formik.errors.order_comments && (
-                  <div className="invalid-feedback">
-                    {formik.errors.order_comments}
-                  </div>
-                )}
               </p>
             </div>
             <input

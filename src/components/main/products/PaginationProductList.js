@@ -1,13 +1,12 @@
 import React from "react";
 
-function Pagination({
-                        totalPage = 3,
-                        pageNumber,
-                        isNextButtonDisabled,
-                        onNextPage,
-                        onPrevPage,
-                        onPageClick,
-                    }) {
+function PaginationProductList({
+                                   pageNumber,
+                                   isNextButtonDisabled,
+                                   onNextPage,
+                                   onPrevPage,
+                                   onPageClick,
+                               }) {
     return (
         <nav className="woocommerce-pagination">
             <ul className="page-numbers">
@@ -18,13 +17,13 @@ function Pagination({
                         disabled={pageNumber === 1}
                     ></a>
                 </li>
-                {Array.from({length: totalPage}, (_, index) => (
+                {Array.from({ length: 3 }, (_, index) => (
                     <li key={index}>
                         <a
                             className={`page-numbers${
                                 pageNumber === index + 1 ? " current" : ""
                             }`}
-                            onClick={() => onPageClick(index)}
+                            onClick={() => onPageClick(index + 1)}
                         >
                             {index + 1}
                         </a>
@@ -44,4 +43,4 @@ function Pagination({
     );
 }
 
-export default Pagination;
+export default PaginationProductList;

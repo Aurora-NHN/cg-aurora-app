@@ -23,7 +23,7 @@ export const addNewQuantiytToCart = async (productId, quantity, token) => {
   let result = null;
   try {
     result = await axios.post(
-      `${AURORA_API}/cart/add-quantity-to-cart?productId=${productId}&quantity=${quantity}`,
+      `${AURORA_API}/cart/add-quantity?productId=${productId}&quantity=${quantity}`,
       {},
       {
         headers: {
@@ -73,10 +73,11 @@ export const deleteCartLine = async (productId, token) => {
   return result;
 };
 
-export const saveAndGetCartOrder = async (token) => {
+export const resetCartAPI = async () => {
   let result = null;
+  let token = localStorage.getItem("token");
   try {
-    result = await axios.get(`${AURORA_API}/cart/save-cart`,
+    result = await axios.get(`${AURORA_API}/cart/reset`,
      {
       headers: {
         Authorization: `Bearer ${token}`,

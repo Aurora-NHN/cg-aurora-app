@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  selectCart,
-  getCart,
-} from "~/features/CartSlice";
+import { selectCart, getCart } from "~/features/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 

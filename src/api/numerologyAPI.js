@@ -5,7 +5,7 @@ export const createNumerologyReport = async (customerInputData) => {
     let token = localStorage.getItem("token");
     try {
         result = await axios.post(
-            `${AURORA_API}/store-front/numerology`,
+            `${AURORA_API}/numerology`,
             customerInputData,
             {
                 headers: {
@@ -25,7 +25,7 @@ export const getAllNumerologyReportForUser = async () => {
     let token = localStorage.getItem("token");
     try {
         result = await axios.get(
-            `${AURORA_API}/store-front/numerology/history`,
+            `${AURORA_API}/numerology/history`,
             {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -37,5 +37,24 @@ export const getAllNumerologyReportForUser = async () => {
         result = e.response;
     }
     return result;
+};
+
+export const getPageNumerologyReportForUser = async (pageNumber) => {
+    let token = localStorage.getItem("token");
+    try {
+        return await axios.get(
+
+            `${AURORA_API}/numerology/history?page=${pageNumber}`,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                }
+            }
+
+        );
+    }catch (e){
+        console.log(e);
+        return  e.response;
+    }
 };
 
