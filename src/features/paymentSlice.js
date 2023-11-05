@@ -51,6 +51,7 @@ export const paymentSlice = createSlice({
                 state.loading = false;
                 state.value = action.payload;
                 state.errors = false;
+                window.location.href = action.payload;
             });
     },
 });
