@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import OrderCustomerDetail from "./OrderCustomerDetail";
-<<<<<<< HEAD
-import { resetCart, selectCart } from "~/features/cartSlice";
-=======
+
 import { selectCart,resetCart } from "~/features/cartSlice";
->>>>>>> 28efaf1941620627847459b1f88a315691225316
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
