@@ -1,11 +1,15 @@
 import axios from "axios";
-import {API_PROVINCE, ORDER_API} from "~/app/constants";
+import {AURORA_API} from "~/app/constants";
+
+const API_PROVINCE = "https://vapi.vnappmob.com/api/province/";
+const API_DISTRICT = "https://vapi.vnappmob.com/api/province/district/";
+const API_WARD = "https://vapi.vnappmob.com/api/province/ward/";
 
 
 export const createOrderDetailAPI = async (address, token) => {
   let result = null;
   try {
-    result = await axios.post(`${ORDER_API}/create-order-detail`, address, {
+    result = await axios.post(`${AURORA_API}/order/create-order-detail`, address, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -18,7 +22,7 @@ export const createOrderDetailAPI = async (address, token) => {
 export const createOrderAPI = async (token) => {
   let result = null;
   try {
-    result = await axios.get(`${ORDER_API}/save`,{
+    result = await axios.get(`${AURORA_API}/order/save`,{
       headers: {
         Authorization: `Bearer ${token}`,
       },

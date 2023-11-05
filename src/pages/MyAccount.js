@@ -48,115 +48,116 @@ export default function MyAccount() {
                                     <NavigateForUser/>
 
                                     <div className="woocommerce-MyAccount-content">
-                                        {onLoading ? (
-                                            <h3>Loading...</h3>
-                                        ) : (
-                                            <form
-                                                className="woocommerce-EditAccountForm edit-account"
-                                            >
-                                                <p className="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                                    <label
-                                                        htmlFor="fullName"
-                                                        className="d-block ms-3 mb-1"
-                                                    >
-                                                        Full name
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        name="fullName"
-                                                        id="fullName"
-                                                        placeholder="Full name"
-                                                        value={userInfo.fullName}
-                                                        readOnly={true}
-                                                    />
-                                                </p>
-                                                <p className="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-                                                    <label
-                                                        htmlFor="count"
-                                                        className="d-block ms-3 mb-1"
-                                                    >
-                                                        Count :
-                                                        <span id="count" style={{padding:"1rem"}}>
+                                        {onLoading
+                                            ? (<h3>Loading...</h3>)
+                                            : (
+                                                <form className="woocommerce-EditAccountForm edit-account">
+                                                    <div
+                                                        className="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                        <label
+                                                            htmlFor="fullName"
+                                                            className="d-block ms-3 mb-1"
+                                                        >
+                                                            Full name
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            name="fullName"
+                                                            id="fullName"
+                                                            placeholder="Full name"
+                                                            value={userInfo.fullName || ''}
+                                                            readOnly={true}
+                                                        />
+                                                    </div>
+                                                    <div
+                                                        className="d-flex justify-content-between mt-4 border border-dark rounded-5 p-2">
+                                                    <span
+                                                        className="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
+                                                    <label className="d-block ms-3 mb-1">
+                                                        Vip Count :
+                                                        <span id="count" style={{padding: "1rem"}}>
                                                         {userInfo.count}
                                                     </span>
                                                     </label>
 
-                                                </p>
-                                                <p className="woocommerce-form-row woocommerce-form-row--last form-row form-row-last">
-                                                    <label htmlFor="totalCount" className="d-block ms-3 mb-1">
-                                                        Total Count:
-                                                        <span style={{padding:"1rem"}}>
+                                                    </span>
+                                                        <span
+                                                            className="woocommerce-form-row woocommerce-form-row--last form-row form-row-last">
+                                                    <label className="d-block ms-3 mb-1">
+                                                        Total Purchased:
+                                                        <span style={{padding: "1rem"}}>
                                                             {userInfo.totalCount}
                                                         </span>
                                                     </label>
 
-                                                </p>
-                                                <p className="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-                                                    <label
-                                                        htmlFor="phoneNumber"
-                                                        className="d-block ms-3 mb-1"
-                                                    >
-                                                        Phone number
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        name="phoneNumber"
-                                                        id="phoneNumber"
-                                                        placeholder="Phone number"
-                                                        value={userInfo.phoneNumber}
-                                                        readOnly={true}
-                                                    />
-                                                </p>
-                                                <p className="woocommerce-form-row woocommerce-form-row--last form-row form-row-last">
-                                                    <label htmlFor="gender" className="d-block ms-3 mb-1">
-                                                        Gender
-                                                    </label>
-
-                                                    <div className="form-group">
+                                                    </span>
+                                                    </div>
+                                                    <div
+                                                        className="woocommerce-form-row woocommerce-form-row--first form-row form-row-first mt-2">
+                                                        <label
+                                                            htmlFor="phoneNumber"
+                                                            className="d-block ms-3 mb-1"
+                                                        >
+                                                            Phone number
+                                                        </label>
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            name="gender"
-                                                            id="gender"
-                                                            placeholder="Gender"
-                                                            value={userInfo.gender}
+                                                            name="phoneNumber"
+                                                            id="phoneNumber"
+                                                            placeholder="Phone number"
+                                                            value={userInfo.phoneNumber || ''}
                                                             readOnly={true}
                                                         />
                                                     </div>
-                                                </p>
-                                                <div className="clear"></div>
+                                                    <div
+                                                        className="woocommerce-form-row woocommerce-form-row--last form-row form-row-last mt-2">
+                                                        <label htmlFor="gender" className="d-block ms-3 mb-1">
+                                                            Gender
+                                                        </label>
 
-                                                <p className="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                                    <label htmlFor="email" className="d-block ms-3 mb-1">
-                                                        Email
-                                                    </label>
-                                                    <input
-                                                        type="email"
-                                                        className="form-control"
-                                                        id="email"
-                                                        name="email"
-                                                        placeholder="Email"
-                                                        value={userInfo.email}
-                                                        readOnly={true}
-                                                    />
-                                                </p>
+                                                        <div className="form-group">
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                name="gender"
+                                                                id="gender"
+                                                                placeholder="Gender"
+                                                                value={userInfo.gender || ''}
+                                                                readOnly={true}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="clear"></div>
 
-                                                <p className="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide"></p>
-
-                                                <div className="clear"></div>
-                                                <p>
-                                                    <input
-                                                        type="submit"
-                                                        className="woocommerce-Button button"
-                                                        name="edit_account_details"
-                                                        value="Edit Account"
-                                                        onClick={handleEditInfo}
-                                                    />
-                                                </p>
-                                            </form>
-                                        )}
+                                                    <div
+                                                        className="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide mt-2">
+                                                        <label htmlFor="email" className="d-block ms-3 mb-1">
+                                                            Email
+                                                        </label>
+                                                        <input
+                                                            type="email"
+                                                            className="form-control"
+                                                            id="email"
+                                                            name="email"
+                                                            placeholder="Email"
+                                                            value={userInfo.email || ''}
+                                                            readOnly={true}
+                                                        />
+                                                    </div>
+                                                    <div className="mt-2 d-flex justify-content-between">
+                                                        <div></div>
+                                                        <input
+                                                            type="submit"
+                                                            className="woocommerce-Button button"
+                                                            name="edit_account_details"
+                                                            value="Edit Account"
+                                                            onClick={handleEditInfo}
+                                                        />
+                                                    </div>
+                                                </form>
+                                            )}
                                     </div>
                                 </div>
                             </div>

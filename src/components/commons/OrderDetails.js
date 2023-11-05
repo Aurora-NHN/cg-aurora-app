@@ -20,14 +20,11 @@ export default function OrderDetails() {
 
   useEffect(() => {
     setTimeout(() => {
-      console.log(order);
       setOnloading(false);
     }, 1000);
   }, [loading]);
   
   useEffect(() => {
-          console.log(order);
-
     setCurrentOrder(order);
   }, [order]);
 

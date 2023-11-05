@@ -16,7 +16,6 @@ export const createOrder = createAsyncThunk(
   "order/create-order",
   async (token) => {
     const response = await createOrderAPI(token);
-    console.log(response.data.data);
     return response.data.data;
   }
 );

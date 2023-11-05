@@ -1,10 +1,10 @@
 import axios from "axios";
-import {USER_MANAGEMENT_API} from "~/app/constants";
+import {AURORA_API} from "~/app/constants";
 
 export const forgotPassword = async (email) => {
   let result = null;
   try {
-    result = await axios.post(`${USER_MANAGEMENT_API}/forgot-password`, email);
+    result = await axios.post(`${AURORA_API}/users/forgot-password`, email);
   } catch (e) {
     console.log(e);
     result = e.response;
@@ -16,7 +16,7 @@ export const changePassword = async (data) => {
   let result = null;
   let token = localStorage.getItem("token");
   try {
-    result = await axios.post(`${USER_MANAGEMENT_API}/change-password`, data, {
+    result = await axios.post(`${AURORA_API}/users/change-password`, data, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -32,7 +32,7 @@ export const getUserInfo = async () => {
   let result = null;
   let token = localStorage.getItem("token");
   try {
-    result = await axios.get(`${USER_MANAGEMENT_API}`, {
+    result = await axios.get(`${AURORA_API}/users`, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -48,7 +48,7 @@ export const editUserInfo = async (data) => {
   let result = null;
   let token = localStorage.getItem("token");
   try {
-    result = await axios.put(`${USER_MANAGEMENT_API}`, data, {
+    result = await axios.put(`${AURORA_API}/users`, data, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -63,7 +63,7 @@ export const getCountOfUser= async () => {
   let result = null;
   let token = localStorage.getItem("token");
   try {
-    result = await axios.get(`${USER_MANAGEMENT_API}/count`, {
+    result = await axios.get(`${AURORA_API}/users/count`, {
       headers: {
         Authorization: "Bearer " + token,
       },

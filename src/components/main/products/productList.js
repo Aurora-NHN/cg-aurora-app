@@ -1,31 +1,26 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
 import ShortenText from "./ShortenText";
 import {
     getProducts,
-    selectProductList,
     getProductsByKeyword,
-    getProductsSortByPriceDescending,
-    getProductsSortByPriceAscending,
     getProductsBySubCategoryId,
-    setProductDetail,
+    getProductsSortByPriceAscending,
+    getProductsSortByPriceDescending,
     selectLoading,
+    selectProductList,
+    setProductDetail,
 } from "~/features/productSlice";
-import {
-    addToCart,
-    selectAddToCartResponse,
-    getCart,
-} from "~/features/cartSlice";
-import { selectSubCategoryId } from "~/features/categorySlice";
-import Pagination from "./Pagination";
+import {addToCart, getCart, selectAddToCartResponse,} from "~/features/cartSlice";
+import {selectSubCategoryId} from "~/features/categorySlice";
 import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";
-import { selectToken } from "~/features/userSlice";
-import { toast } from "react-toastify";
+import {selectToken} from "~/features/userSlice";
+import {toast} from "react-toastify";
 import PaginationProductList from "~/components/main/products/PaginationProductList";
+
 export default function ProductList() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -294,14 +289,14 @@ export default function ProductList() {
                                             </Link>
                                             <div className="product-wrap">
                                                 <h6 className="woocommerce-loop-product__title">
-                                                    <td>
+                                                    <span>
                                                         <Link
                                                             to={`/product-detail/${product.id}`}
                                                             onClick={() => handleClickProductLink(product)}
                                                         >
                                                             {renderCapitalizedText(product.name)}
                                                         </Link>
-                                                    </td>
+                                                    </span>
                                                 </h6>
                                                 {/* <div className="star-rating">
                           <span style={{ width: `${product.rating}%` }}>

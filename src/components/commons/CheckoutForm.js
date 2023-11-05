@@ -85,8 +85,6 @@ export default function CheckoutForm() {
     } else {
       if (paymentMethod === "vnpay") {
         dispatch(createOrderVNPay({ vipPack: 4 }));
-        console.log("paymentMethod");
-        console.log(paymentMethod);
       } else if (paymentMethod === "cod") {
         let token = localStorage.getItem("token");
         dispatch(createOrder(token));

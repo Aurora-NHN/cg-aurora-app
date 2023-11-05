@@ -51,9 +51,12 @@
   transform: scale(1.2);
 }
 
-.product-inner:hover {
-  transform: scale(1.1);
+.product-inner{
   transition: transform 0.3s ease-in-out;
+}
+
+.product-inner:hover {
+  transform: scale(1.05);
   box-shadow: 0 0 20px rgba(169, 10, 68, 0.5);
 }
 

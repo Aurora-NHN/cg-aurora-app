@@ -1,11 +1,11 @@
 import axios from "axios";
-import {CART_API} from "~/app/constants";
+import {AURORA_API} from "~/app/constants";
 
 export const addCartLineToCart = async (productId, quantity, token) => {
   let result = null;
   try {
     result = await axios.post(
-      `${CART_API}/add?productId=${productId}&quantity=${quantity}`,
+      `${AURORA_API}/cart/add?productId=${productId}&quantity=${quantity}`,
       {},
       {
         headers: {
@@ -23,7 +23,7 @@ export const addNewQuantiytToCart = async (productId, quantity, token) => {
   let result = null;
   try {
     result = await axios.post(
-      `${CART_API}/add-quantity?productId=${productId}&quantity=${quantity}`,
+      `${AURORA_API}/cart/add-quantity?productId=${productId}&quantity=${quantity}`,
       {},
       {
         headers: {
@@ -42,7 +42,7 @@ export const showCart = async (token) => {
   let result = null;
   try {
     result = await axios.get(
-      `${CART_API}/show-cart`,
+      `${AURORA_API}/cart/show-cart`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export const deleteCartLine = async (productId, token) => {
   let result = null;
   try {
     result = await axios.delete(
-      `${CART_API}/delete-cart-line?productId=${productId}`,
+      `${AURORA_API}/cart/delete-cart-line?productId=${productId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -77,7 +77,8 @@ export const resetCartAPI = async () => {
   let result = null;
   let token = localStorage.getItem("token");
   try {
-    result = await axios.get(`${CART_API}/reset`, {
+    result = await axios.get(`${AURORA_API}/cart/reset`,
+     {
       headers: {
         Authorization: `Bearer ${token}`,
       },

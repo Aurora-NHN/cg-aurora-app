@@ -1,15 +1,14 @@
 import axios from "axios";
-import {PRODUCT_API} from "~/app/constants";
-
+import {AURORA_API} from "~/app/constants";
 
 export const findProducts = async (pageNumber) => {
   let result = null;
   try {
     if (pageNumber === 1) {
-      result = await axios.get(`${PRODUCT_API}`);
+      result = await axios.get(`${AURORA_API}/products`);
     }
     if (pageNumber > 1) {
-      result = await axios.get(`${PRODUCT_API}?page=${pageNumber - 1}`);
+      result = await axios.get(`${AURORA_API}/products?page=${pageNumber - 1}`);
     }
   } catch (e) {}
   return result;
@@ -22,7 +21,7 @@ export const findProductsBySubCategoryId = async (
 ) => {
   let result = null;
   try {
-    let url = `${PRODUCT_API}/sub-category?id=${subCategoryId}`;
+    let url = `${AURORA_API}/products/sub-category?id=${subCategoryId}`;
     if (sortOrder) {
       url += `&sortOrder=${sortOrder}`;
     }
@@ -40,7 +39,7 @@ export const findProductsBySubCategoryId = async (
 export const findProductsByKeyWord = async (keyword, pageNumber, sortOrder) => {
   let result = null;
   try {
-    let url = `${PRODUCT_API}/search?keyword=${keyword}`;
+    let url = `${AURORA_API}/products/search?keyword=${keyword}`;
     if (sortOrder) {
       url += `&sortOrder=${sortOrder}`;
     }
@@ -56,11 +55,11 @@ export const findProductsSortByPriceDescending = async (pageNumber) => {
   let result = null;
   try {
     if (pageNumber === 1) {
-      result = await axios.get(`${PRODUCT_API}/sort/descending`);
+      result = await axios.get(`${AURORA_API}/products/sort/descending`);
     }
     if (pageNumber > 1) {
       result = await axios.get(
-        `${PRODUCT_API}/sort/descending?page=${pageNumber - 1}`
+        `${AURORA_API}/products/sort/descending?page=${pageNumber - 1}`
       );
     }
   } catch (e) {}
@@ -72,11 +71,11 @@ export const findProductsSortByPriceAscending = async (pageNumber) => {
   let result = null;
   try {
     if (pageNumber === 1) {
-      result = await axios.get(`${PRODUCT_API}/sort/ascending`);
+      result = await axios.get(`${AURORA_API}/products/sort/ascending`);
     }
     if (pageNumber > 1) {
       result = await axios.get(
-        `${PRODUCT_API}/sort/ascending?page=${pageNumber - 1}`
+        `${AURORA_API}/products/sort/ascending?page=${pageNumber - 1}`
       );
     }
   } catch (e) {}
@@ -86,7 +85,7 @@ export const findProductsSortByPriceAscending = async (pageNumber) => {
 export const getOtherProductsAPI = async () => {
   let result = null;
   try {
-    result = await axios.get(`${PRODUCT_API}/other-product`);
+    result = await axios.get(`${AURORA_API}/products/other-product`);
   } catch (e) {}
   return result;
 };
