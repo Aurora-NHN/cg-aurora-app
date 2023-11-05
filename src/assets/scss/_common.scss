@@ -885,3 +885,19 @@ dl#attachment_612 {
 .smooth-transition{
   transition: all linear 0.3s;
 }
+
+.image-gallery-slide{
+  .image-gallery-image{
+    max-height: 50vh !important;
+    min-height: 275px;
+    object-fit: contain;
+  }
+}
+.image-gallery-thumbnail{
+  .image-gallery-thumbnail-inner{
+    .image-gallery-thumbnail-image{
+      height: 92px !important;
+      object-fit: cover;
+    }
+  }
+}

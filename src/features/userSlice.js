@@ -5,6 +5,7 @@ import {logout} from "~/api/loginAPI";
 const initialState = {
     value: {},
     loading: false,
+    loadingOfGetInfo: false,
     error: null,
     forgotPasswordSuccess: false,
     changePasswordSuccess: false,
@@ -136,17 +137,17 @@ export const userSlice = createSlice({
             })
             .addCase(getInfo.pending, (state, action) => {
                 state.getInfoSuccess = false;
-                state.loading = true;
+                state.loadingOfGetInfo = true;
                 state.error = false;
             })
             .addCase(getInfo.rejected, (state, action) => {
                 state.getInfoSuccess = false;
-                state.loading = false;
+                state.loadingOfGetInfo = false;
                 state.error = action.payload;
             })
             .addCase(getInfo.fulfilled, (state, action) => {
                 state.getInfoSuccess = true;
-                state.loading = false;
+                state.loadingOfGetInfo = false;
                 state.value = action.payload;
                 localStorage.removeItem("user");
                 localStorage.setItem("user", JSON.stringify(action.payload));
@@ -218,7 +219,7 @@ export const {
     setEditInfoSuccess,
 } = userSlice.actions;
 
-export const selectLoading = (state) => state.user.loading;
+export const selectLoading = (state) => state.user.loadingOfGetInfo;
 export const selectError = (state) => state.user.error;
 export const selectForgotPasswordSuccess = (state) =>
     state.user.forgotPasswordSuccess;

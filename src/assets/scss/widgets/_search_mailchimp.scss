@@ -3,6 +3,13 @@ widget_search,
 widget_mailchimp
 widget_product_search
 */
+.widget_search{
+  .search-field{
+    &::placeholder{
+      color: rgba(159, 159, 159, 0.64);
+    }
+  }
+}
 
 .widget_search,
 .widget_product_search,
