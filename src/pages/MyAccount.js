@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getInfo, selectUserInfo,} from "~/features/userSlice";
+import {getInfo, selectLoading, selectUserInfo,} from "~/features/userSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 import {useNavigate} from "react-router-dom";
@@ -10,10 +10,18 @@ export default function MyAccount() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userInfo = useSelector(selectUserInfo);
+    const loading = useSelector(selectLoading);
+    const [onLoading, setOnLoading] = useState(true);
 
     useEffect(() => {
         dispatch(getInfo());
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setOnLoading(false);
+        }, 700);
+    }, [loading]);
 
     const handleEditInfo = () => {
         navigate("/account-detail");
@@ -40,7 +48,9 @@ export default function MyAccount() {
                                     <NavigateForUser/>
 
                                     <div className="woocommerce-MyAccount-content">
-                                        {userInfo ? (
+                                        {onLoading ? (
+                                            <h3>Loading...</h3>
+                                        ) : (
                                             <form
                                                 className="woocommerce-EditAccountForm edit-account"
                                             >
@@ -146,8 +156,6 @@ export default function MyAccount() {
                                                     />
                                                 </p>
                                             </form>
-                                        ) : (
-                                            <p>no data</p>
                                         )}
                                     </div>
                                 </div>

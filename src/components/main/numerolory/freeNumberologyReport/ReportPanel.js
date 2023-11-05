@@ -8,7 +8,7 @@ function ReportPanel({template, result = {}, data}) {
 
     return (
         <>
-            <Panel headerTemplate={template} toggleable>
+            <Panel headerTemplate={template} toggleable collapsed={true}>
                 <p>
                     <span style={{fontWeight: "bold", textDecoration: "underline"}}>Ý nghĩa:</span>
                     {FormatParagraph(result.mean).map((paragraph, index) => (

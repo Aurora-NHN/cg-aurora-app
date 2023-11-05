@@ -25,6 +25,7 @@ import Search from "./Search";
 import CategorySidebar from "./CategorySideBar";
 import { selectToken } from "~/features/userSlice";
 import { toast } from "react-toastify";
+import PaginationProductList from "~/components/main/products/PaginationProductList";
 export default function ProductList() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ export default function ProductList() {
     const renderCapitalizedText = (text) => {
         return (
             <h6 style={{ fontFamily: "Arial" }}>
-                {_.capitalize(ShortenText(text, 25))}
+                {_.capitalize(ShortenText(text, 15))}
             </h6>
         );
     };
@@ -107,18 +108,25 @@ export default function ProductList() {
         navigate("/shop?keyword=" + keyword);
     };
 
+    const scrollTop = () => {
+        window.scrollTo({behavior: "smooth", left: 0, top: 170})
+    }
+
     function handleSubmitPage(newPageNumber) {
         setPageNumber(newPageNumber);
+        scrollTop();
     }
 
     function nextPage() {
         setPageNumber(pageNumber + 1);
+        scrollTop();
     }
 
     function backPage() {
         if (pageNumber > 1) {
             setPageNumber(pageNumber - 1);
         }
+        scrollTop();
     }
 
     function handleSortByPrice(order) {
@@ -163,6 +171,7 @@ export default function ProductList() {
             pageNumber: 1,
         };
         dispatch(getProductsBySubCategoryId(requestProductsBySubcategoryId));
+        scrollTop();
         setSubCategoryId(selectedSubCategoryId);
         setProductsBySubCategory(true);
     };
@@ -212,7 +221,7 @@ export default function ProductList() {
     };
     const handleClickProductLink = (product) => {
         dispatch(setProductDetail(product));
-
+        scrollTop();
     };
 
     useEffect(() => {
@@ -333,7 +342,7 @@ export default function ProductList() {
                             )}
                         </ul>
                     )}
-                    <Pagination
+                    <PaginationProductList
                         pageNumber={pageNumber}
                         onNextPage={nextPage}
                         onPrevPage={backPage}

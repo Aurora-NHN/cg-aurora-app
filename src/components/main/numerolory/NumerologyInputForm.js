@@ -41,7 +41,7 @@ function NumerologyInputForm() {
         fullName: Yup.string()
             .matches(VIETNAMESE_REGEX, "Họ tên không được có dấu, chứa số hoặc ký tự đặc biệt")
             .required("Họ tên không được để trống"),
-        nickName: Yup.string()
+        nickname: Yup.string()
             .matches(VIETNAMESE_REGEX, "Nickname không được có dấu, chứa số hoặc ký tự đặc biệt"),
         yearOfBirth: Yup.number()
             .typeError("Năm sinh phải là số")
@@ -172,7 +172,7 @@ function NumerologyInputForm() {
                     });
                 } else {
                     confirmDialog({
-                        message: 'Bạn chưa có lượt xem VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
+                        message: 'Bạn đang có 0 lượt VIP.\n Vui lòng nạp VIP để xem báo cáo đầy đủ các chỉ số.\n Di chuyển đến trang nạp VIP?',
                         header: 'Xác nhận',
                         icon: 'pi pi-exclamation-triangle',
                         accept: () => acceptBuyVipFunction()
@@ -241,25 +241,25 @@ function NumerologyInputForm() {
                                                     )}
                                                 </div>
                                                 <div className="mb-3">
-                                                    <label htmlFor="nickName" className="form-label">Nhập vào tên thường
+                                                    <label htmlFor="nickname" className="form-label">Nhập vào tên thường
                                                         gọi/ biệt danh nếu có (VD: Mèo, Chuột, ...):</label>
                                                     <input type="text"
                                                            className={`form-control form-text bg-light-subtle text-black ${
-                                                               formik.errors.nickName && formik.touched.nickName
+                                                               formik.errors.nickname && formik.touched.nickname
                                                                    ? "is-invalid"
                                                                    : ""
                                                            }`}
-                                                           id="nickName"
-                                                           name="nickName"
+                                                           id="nickname"
+                                                           name="nickname"
                                                            aria-required="true"
                                                            placeholder="Nhập vào biệt danh"
-                                                           value={formik.values.nickName}
+                                                           value={formik.values.nickname}
                                                            onChange={formik.handleChange}
                                                            onBlur={formik.handleBlur}
                                                     />
-                                                    {formik.errors.nickName && (
+                                                    {formik.errors.nickname && (
                                                         <div className="invalid-feedback">
-                                                            {formik.errors.nickName}
+                                                            {formik.errors.nickname}
                                                         </div>
                                                     )}
                                                 </div>

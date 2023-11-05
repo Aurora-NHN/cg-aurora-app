@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectLoading, selectOrder } from "~/features/orderSlice";
+import {useNavigate} from "react-router-dom";
 
 export default function OrderDetails() {
   const order = useSelector(selectOrder);
   const [currentOrder, setCurrentOrder] = useState(order);
   const loading = useSelector(selectLoading);
   const [onloading, setOnloading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.location.pathname === "/order-details") {
+      window.addEventListener("popstate", (event) => {
+        navigate("/shop");
+      });
+    }
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {

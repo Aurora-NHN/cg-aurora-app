@@ -100,7 +100,7 @@ function ProductDetail() {
   return (
     <>
       <CategorySidebar onSubCategorySelect={handleSubCategorySelect} />
-      <main className="col-lg-8 order-lg-2">
+      <main className="col-lg-8 order-lg-2 pt-5">
         <div className="product">
           <ProductImage product={currentProduct} />
           <div className="summary entry-summary">

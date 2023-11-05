@@ -307,7 +307,7 @@ table {
   td,
   th {
     border: 1px solid $borderColor;
-    padding: 0px 8px;
+    padding: 15px 8px;
     line-height: 1.42857143;
     vertical-align: middle;
     text-align: center;
@@ -884,4 +884,20 @@ dl#attachment_612 {
 
 .smooth-transition{
   transition: all linear 0.3s;
+}
+
+.image-gallery-slide{
+  .image-gallery-image{
+    max-height: 50vh !important;
+    min-height: 275px;
+    object-fit: contain;
+  }
+}
+.image-gallery-thumbnail{
+  .image-gallery-thumbnail-inner{
+    .image-gallery-thumbnail-image{
+      height: 92px !important;
+      object-fit: cover;
+    }
+  }
 }
