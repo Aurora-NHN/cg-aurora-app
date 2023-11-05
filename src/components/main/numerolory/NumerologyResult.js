@@ -96,7 +96,7 @@ function NumerologyResult() {
                                                             giải.
                                                             Để xem những luận giải và giải pháp mà các chuyên gia đã nghiên cứu
                                                             cho toàn bộ các chỉ số của bạn,
-                                                            vui lòng nâng cấp thành tài khoản VIP!
+                                                            vui lòng mua thêm lượt VIP hoặc sử dụng lượt tra cứu VIP bạn đang có!
 
                                                         </p>
                                                         <div style={{textAlign: "center"}}>
