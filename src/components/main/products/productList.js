@@ -48,7 +48,7 @@ export default function ProductList() {
     const renderCapitalizedText = (text) => {
         return (
             <h6 style={{ fontFamily: "Arial" }}>
-                {_.capitalize(ShortenText(text, 25))}
+                {_.capitalize(ShortenText(text, 15))}
             </h6>
         );
     };
@@ -109,7 +109,7 @@ export default function ProductList() {
     };
 
     const scrollTop = () => {
-        window.scrollTo({behavior: "smooth", left: 0, top: 250})
+        window.scrollTo({behavior: "smooth", left: 0, top: 170})
     }
 
     function handleSubmitPage(newPageNumber) {
@@ -171,6 +171,7 @@ export default function ProductList() {
             pageNumber: 1,
         };
         dispatch(getProductsBySubCategoryId(requestProductsBySubcategoryId));
+        scrollTop();
         setSubCategoryId(selectedSubCategoryId);
         setProductsBySubCategory(true);
     };
@@ -220,7 +221,7 @@ export default function ProductList() {
     };
     const handleClickProductLink = (product) => {
         dispatch(setProductDetail(product));
-
+        scrollTop();
     };
 
     useEffect(() => {

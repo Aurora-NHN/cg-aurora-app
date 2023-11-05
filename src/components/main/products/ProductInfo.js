@@ -15,7 +15,7 @@ const ProductInfo = ({ product }) => {
 
   return (
     <>
-      <div>
+      <div >
         {renderCapitalizedText(product.name)}
         <div style={{ padding: "80px", marginLeft: "-80px" }}>
           <p>
