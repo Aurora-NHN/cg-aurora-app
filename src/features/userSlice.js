@@ -148,9 +148,11 @@ export const userSlice = createSlice({
             .addCase(getInfo.fulfilled, (state, action) => {
                 state.getInfoSuccess = true;
                 state.loadingOfGetInfo = false;
-                state.value = action.payload;
-                localStorage.removeItem("user");
-                localStorage.setItem("user", JSON.stringify(action.payload));
+                if (action.payload) {
+                    state.value = action.payload;
+                    localStorage.removeItem("user");
+                    localStorage.setItem("user", JSON.stringify(action.payload));
+                }
                 state.error = false;
             })
             .addCase(editInfo.pending, (state, action) => {
