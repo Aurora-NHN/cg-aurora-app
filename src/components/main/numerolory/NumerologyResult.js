@@ -4,19 +4,26 @@ import {selectNumerologyReportAdded, setReportSuccess} from "~/features/numerolo
 import CardResult from "~/components/main/numerolory/freeNumberologyReport/CardResult";
 import {Link} from "react-router-dom";
 import Result from "~/components/main/numerolory/freeNumberologyReport/Result";
+import {selectUserLogin} from "~/features/loginSlice";
+import {selectUserInfo} from "~/features/userSlice";
 
 
 function NumerologyResult() {
     const dispatch = useDispatch();
     const apiData = useSelector(selectNumerologyReportAdded);
+    const user = useSelector(selectUserInfo);
     const [currentResult, setCurrentResult] = useState({});
     const [meanOfAllNumberList, setMeanOfAllNumberList] = useState([]);
     const [numberArr, setNumberArr] = useState([]);
-    const [count, setCount] = useState(0);
+    const [totalCount, setTotalCount] = useState(0);
     const [monthOfBirth, setMonthOfBirth] = useState('');
     const [dayOfBirth, setDayOfBirth] = useState('');
     const [yearOfBirth, setYearOfBirth] = useState('');
     const [fullName, setFullName] = useState('');
+
+    useEffect(() => {
+        setTotalCount(user.totalCount)
+    },[user]);
 
     useEffect(() => {
         let data = {};
@@ -30,13 +37,6 @@ function NumerologyResult() {
 
         setCurrentResult(data);
         const meanOfNumberList = data.meanOfNumberResponseDTOList;
-
-        const count = data.userResponseDtoForNumerologyReport?.count;
-        if (count){
-            setCount(count);
-        }
-
-
         const dayOfBirth = data.dayOfBirth;
         setDayOfBirth(dayOfBirth);
         const monthOfBirth = data.monthOfBirth;
@@ -78,7 +78,8 @@ function NumerologyResult() {
                                             <div>
                                                 <h2 style={{textAlign: "center"}}>BÁO CÁO THẦN SỐ HỌC</h2>
                                             </div>
-                                            <div className="mb-3 text-center mt-4 font-weight-bold text-warning" style={{fontSize: '25px'}}>
+                                            <div className="mb-3 text-center mt-4 font-weight-bold text-warning"
+                                                 style={{fontSize: '25px'}}>
                                                 <span className="">
                                                     {fullName.toUpperCase()}
                                                 </span>
@@ -88,16 +89,19 @@ function NumerologyResult() {
 
                                             <div className="mb-3"></div>
                                             {
-                                               (!count || count <= 0) ? (
-                                                    <div className="bg-transparent rounded-3 p-3" style={{background: "#F9E1E0"}}>
+                                                (!totalCount || totalCount <= 0) ? (
+                                                    <div className="bg-transparent rounded-3 p-3"
+                                                         style={{background: "#F9E1E0"}}>
 
                                                         <p style={{color: "red", textAlign: "center"}}>
-                                                            Bạn đang sử dụng lượt tra miễn phí chỉ xem được giới hạn các luận
+                                                            Bạn đang sử dụng lượt tra miễn phí chỉ xem được giới hạn các
+                                                            luận
                                                             giải.
-                                                            Để xem những luận giải và giải pháp mà các chuyên gia đã nghiên cứu
+                                                            Để xem những luận giải và giải pháp mà các chuyên gia đã
+                                                            nghiên cứu
                                                             cho toàn bộ các chỉ số của bạn,
-                                                            vui lòng mua thêm lượt VIP hoặc sử dụng lượt tra cứu VIP bạn đang có!
-
+                                                            vui lòng mua thêm lượt VIP hoặc sử dụng lượt tra cứu VIP bạn
+                                                            đang có!
                                                         </p>
                                                         <div style={{textAlign: "center"}}>
                                                             <Link to="/pricing" className="btn bg-main">
@@ -105,7 +109,7 @@ function NumerologyResult() {
                                                             </Link>
                                                         </div>
                                                     </div>
-                                                ):<></>
+                                                ) : <></>
                                             }
 
                                             <div className="p-3">
