@@ -69,7 +69,6 @@ export default function AccountDetail() {
         type: toast.TYPE.SUCCESS,
       });
       dispatch(setEditInfoSuccess(false));
-      dispatch(getInfo());
       navigate("/account-detail");
     } else if (error) {
       toast.error(error, {

@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect} from "react";
 import HomeSection from "~/components/main/homepage/HomeSection";
-import {selectToken} from "~/features/userSlice";
 
 // import NumerologyAdding from "~/components/main/numerology/NumerologyAdding";
 import Pricing from "~/pages/Pricing";
@@ -9,14 +7,8 @@ import About from "~/components/main/homepage/About";
 import Tarot from "~/components/main/homepage/Tarot";
 import Colleagues from "~/components/main/homepage/Colleagues";
 import Swal from "sweetalert2";
-import {selectBillStatus, selectOrderSuccess} from "~/features/paymentSlice";
 
 function Home() {
-    const paymentSuccess = useSelector(selectOrderSuccess)
-    const userLogin = useSelector(selectToken);
-    const status = useSelector(selectBillStatus);
-    const dispatch = useDispatch();
-    const [message, setMessage] = useState(null);
     const statusCookieValue = getCookie("paymentStatus");
 
     function getCookie(cookieName) {
