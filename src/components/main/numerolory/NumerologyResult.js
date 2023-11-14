@@ -4,8 +4,7 @@ import {selectNumerologyReportAdded, setReportSuccess} from "~/features/numerolo
 import CardResult from "~/components/main/numerolory/freeNumberologyReport/CardResult";
 import {Link} from "react-router-dom";
 import Result from "~/components/main/numerolory/freeNumberologyReport/Result";
-import {selectUserLogin} from "~/features/loginSlice";
-import {selectUserInfo} from "~/features/userSlice";
+import {getInfo, selectUserInfo} from "~/features/userSlice";
 
 
 function NumerologyResult() {
@@ -15,15 +14,19 @@ function NumerologyResult() {
     const [currentResult, setCurrentResult] = useState({});
     const [meanOfAllNumberList, setMeanOfAllNumberList] = useState([]);
     const [numberArr, setNumberArr] = useState([]);
-    const [totalCount, setTotalCount] = useState(0);
+    const [totalCount, setTotalCount] = useState(1);
     const [monthOfBirth, setMonthOfBirth] = useState('');
     const [dayOfBirth, setDayOfBirth] = useState('');
     const [yearOfBirth, setYearOfBirth] = useState('');
     const [fullName, setFullName] = useState('');
 
     useEffect(() => {
-        setTotalCount(user.totalCount)
-    },[user]);
+        if (user.totalCount === undefined) {
+            dispatch(getInfo());
+        } else {
+            setTotalCount(user.totalCount)
+        }
+    }, [user.totalCount]);
 
     useEffect(() => {
         let data = {};
