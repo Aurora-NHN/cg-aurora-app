@@ -116,7 +116,7 @@ const RegisterModal = () => {
     }
 
     return (
-        <div className="modal fade popupRegistr" id="popupRegistr" tabIndex="-1" role="dialog" aria-hidden="true">
+        <div className="modal fade popupRegistr scroll-bar" id="popupRegistr" tabIndex="-1" role="dialog" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content ds bs box-shadow bordered overflow-visible s-overlay s-mobile-overlay">
                     <button
