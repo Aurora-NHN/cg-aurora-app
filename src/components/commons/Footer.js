@@ -3,29 +3,6 @@ import logo from "~/assets/images/logo.png"
 import {useEffect, useRef} from "react";
 
 function Footer() {
-    const chatBox = useRef()//document.getElementById('fb-customer-chat');
-
-    useEffect(() => {
-        chatBox.current.setAttribute("page_id", "137474279446832");
-        chatBox.current.setAttribute("attribution", "biz_inbox");
-
-        <!-- Your SDK code -->
-        window.fbAsyncInit = function () {
-            FB.init({
-                xfbml: true,
-                version: 'v18.0'
-            });
-        };
-    }, []);
-
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
 
     return (
         <>
@@ -137,12 +114,6 @@ function Footer() {
                     </div>
                 </div>
             </section>
-            <!-- Messenger Plugin chat Code -->
-            <div id="fb-root"></div>
-
-            <!-- Your Plugin chat code -->
-            <div id="fb-customer-chat" ref={chatBox} className="fb-customerchat">
-            </div>
         </>
     );
 }
